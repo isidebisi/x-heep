@@ -173,6 +173,29 @@ To format your RTL code type:
 ```
 make verible
 ```
+
+## Docker alternative
+
+A docker image containing all the required software dependancies is available on [github-packages](https://github.com/orgs/esl-epfl/packages/container/package/x-heep-toolchain).
+
+It is only required to install [`docker`](https://docs.docker.com/get-docker/) and pull the image.
+
+```bash
+docker pull ghcr.io/esl-epfl/x-heep-toolchain:latest
+```
+
+Assuming that X-HEEP has been cloned to `X-HEEP-DIR=\absolute\path\to\x-HEEP\folder`, it is possible to directly run the docker mounting `X-HEEP-DIR` to the path `\workspace\x-heep` in the docker.
+
+```bash
+docker run -it -v ${X-HEEP-DIR}:/workspace/x-heep ghcr.io/esl-epfl/x-heep-toolchain
+```
+
+Take care to indicate the absolute path to the local clone of X-HEEP, otherwise `docker` will not be able to properly nount the local folder in the container.
+
+All the command listed in the README can be execute in the docker container, except for:
+- Simulation with Questasim and VCS, synthesis with Design Compiler (licenses are required to use these tools, so they are not installed in the container)
+- OpenRoad flow is not installed in the container, so it is not possible to run the related make commands
+
 ## Compilation Flow and Package Manager
 
 We use [FuseSoC](https://github.com/olofk/fusesoc) for all the tools we use.
@@ -231,11 +254,11 @@ make app
 To run any other application, please use the following command with appropiate parameters:
 
 ```
-app PROJECT=<folder_name_of_the_project_to_be_built> TARGET=sim(default),pynq-z2 LINKER=on_chip(default),flash_load,flash_exec COMPILER=gcc(default),clang COMPILER_PREFIX=riscv32-unknown-(default) ARCH=rv32imc(default),<any RISC-V ISA string supported by the CPU>
+app PROJECT=<folder_name_of_the_project_to_be_built> TARGET=sim(default),systemc,pynq-z2,nexys-a7-100t,zcu104 LINKER=on_chip(default),flash_load,flash_exec COMPILER=gcc(default),clang COMPILER_PREFIX=riscv32-unknown-(default) ARCH=rv32imc(default),<any RISC-V ISA string supported by the CPU>
 
 Params:
 - PROJECT (ex: <folder_name_of_the_project_to_be_built>, hello_world(default))
-- TARGET (ex: sim(default),pynq-z2)
+- TARGET (ex: sim(default),systemc,pynq-z2,nexys-a7-100t,zcu104)
 - LINKER (ex: on_chip(default),flash_load,flash_exec)
 - COMPILER (ex: gcc(default),clang)
 - COMPILER_PREFIX (ex: riscv32-unknown-(default))
@@ -251,7 +274,7 @@ make app TARGET=pynq-z2
 Or, if you use the OpenHW Group [GCC](https://www.embecosm.com/resources/tool-chain-downloads/#corev) compiler with CORE_PULP extensions, make sure to point the `RISCV` env variable to the OpenHW Group compiler, then just run:
 
 ```
-make app COMPILER_PREFIX=riscv32-corev- ARCH=rv32imc_zicsr_zifencei_xcvhwlp1p0_xcvmem1p0_xcvmac1p0_xcvbi1p0_xcvalu1p0_xcvsimd1p0_xcvbitmanip1p0
+make app COMPILER_PREFIX=riscv32-corev- ARCH=rv32imc_zicsr_zifencei_xcvhwlp_xcvmem_xcvmac_xcvbi_xcvalu_xcvsimd_xcvbitmanip
 ```
 
 This will create the executable file to be loaded into your target system (ASIC, FPGA, Simulation).
@@ -275,13 +298,13 @@ Moreover, FreeRTOS is being fetch from 'https://github.com/FreeRTOS/FreeRTOS-Ker
 
 ## Simulating
 
-This project supports simulation with Verilator, Synopsys VCS, and Siemens Questasim.
+This project supports simulation with Verilator, Synopsys VCS, Siemens Questasim and Cadence Xcelium.
 It relies on `fusesoc` to handle multiple EDA tools and parameters.
 For example, if you want to set the `FPU` and `COREV_PULP` parameters of the `cv32e40p` CPU,
 you need to add next to your compilation command `FUSESOC_PARAM="--COREV_PULP=1 --FPU=1"`
 Below the different EDA examples commands.
 
-### Compiling for Verilator
+### Compiling for Verilator (C++ testbench)
 
 To simulate your application with Verilator, first compile the HDL:
 
@@ -306,6 +329,39 @@ or to execute all these three steps type:
 ```
 make run-helloworld
 ```
+
+### Compiling for Verilator (SystemC testbench)
+
+To simulate your application with Verilator using `SystemC`,
+
+make sure you have `SystemC 2.3.3` installed, if not, find it [here](https://www.accellera.org/downloads/standards/systemc).
+
+Make sure to have the following env variables set:
+
+```
+export SYSTEMC_INCLUDE=/your_path_to_systemc/systemc/include/
+export SYSTEMC_LIBDIR=/your_path_to_systemc/systemc/lib-linux64/
+```
+
+Compile the HDL:
+
+```
+make verilator-sim-sc
+```
+
+then, go to your target system built folder
+
+```
+cd ./build/openhwgroup.org_systems_core-v-mini-mcu_0/sim_sc-verilator
+```
+
+and type to run your compiled software:
+
+```
+./Vtestharness +firmware=../../../sw/build/main.hex
+```
+
+If you want to know what is special about the SystemC testbench, have a look [here](./docs/source/How_to/SystemC.md)
 
 ### Compiling for VCS
 
@@ -400,6 +456,26 @@ make run RUN_OPT=1 RUN_UPF=1 PLUSARGS="c firmware=../../../sw/build/main.hex"
 
 Questasim version must be >= Questasim 2020.4
 
+### Compiling for Xcelium
+
+To simulate your application with Xcelium, first compile the HDL:
+
+```
+make xcelium-sim
+```
+
+then, go to your target system built folder
+
+```
+cd ./build/openhwgroup.org_systems_core-v-mini-mcu_0/sim-xcelium/
+```
+
+and type to run your compiled software:
+
+```
+make run PLUSARGS="c firmware=../../../sw/build/main.hex"
+```
+
 ### UART DPI
 
 To simulate the UART, we use the LowRISC OpenTitan [UART DPI](https://github.com/lowRISC/opentitan/tree/master/hw/dv/dpi/uartdpi).
@@ -492,7 +568,7 @@ This project offers two different X-HEEP implementetions on Xilinx FPGAs, called
 
 In this version, the X-HEEP architecture is implemented on the programmable logic (PL) side of the FPGA, and its input/output are connected to the available headers on the FPGA board.
 
-Two FPGA boards are supported: the Xilinx Pynq-z2 and Nexys-A7-100t.
+Three FPGA boards are supported: the Xilinx Pynq-z2, Nexys-A7-100t, Zynq Ultrascale+ ZCU104.
 
 Make sure you have the FPGA board files installed in your Vivado.
 
@@ -508,6 +584,12 @@ or
 
 ```
 make vivado-fpga FPGA_BOARD=nexys-a7-100t
+```
+
+or
+
+```
+make vivado-fpga FPGA_BOARD=zcu104
 ```
 
 or add the flag `use_bscane_xilinx` to use the native Xilinx scanchain:
