@@ -19,13 +19,18 @@
 /*
 Notes:
  - Ports 30 and 31 are connected in questasim testbench, but in the FPGA version they are connected to the EPFL programmer and should not be used
- - Connect a cable between the two pins for the applicatio to work
+ - Connect a cable between the two pins for the application to work
 */
 
 
 /* By default, printfs are activated for FPGA and disabled for simulation. */
 #define PRINTF_IN_FPGA  1
 #define PRINTF_IN_SIM   0
+
+//ADDED BY ISMAEL TO TEST ON PYNQ-Z2
+#define TARGET_PYNQ_Z2 1
+//ADDED BY ISMAEL TO TEST ON PYNQ-Z2
+
 
 #if TARGET_SIM && PRINTF_IN_SIM
         #define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
@@ -130,7 +135,7 @@ int main(int argc, char *argv[])
         .mode = GpioModeIn,
         .en_input_sampling = true,
         .en_intr = true,
-        .intr_type = GpioIntrEdgeRising
+        .intr_type = GpioIntrEdgeFalling
     };
     gpio_res = gpio_config(cfg_in);
     if (gpio_res != GpioOk) {
@@ -149,6 +154,7 @@ int main(int argc, char *argv[])
         gpio_write(GPIO_TB_OUT, true);
         // wait_for_interrupt();
         CSR_SET_BITS(CSR_REG_MSTATUS, 0x8);
+        PRINTF("Wait for button press GPIO and wait for interrupt...\n\r");
     }
 
     gpio_assign_irq_handler( GPIO_INTR, &handler_2 );
@@ -168,3 +174,4 @@ int main(int argc, char *argv[])
 
     return EXIT_SUCCESS;
 }
+
