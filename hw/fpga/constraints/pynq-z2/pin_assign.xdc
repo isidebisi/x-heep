@@ -22,7 +22,7 @@ set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports execute_from
 set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33} [get_ports boot_select_i]
 
 # FLASH
-# QSPI
+# QSPI 
 # Q0 / MOSI
 # Q1 / MISO
 # Q2 / nWP
@@ -49,9 +49,9 @@ set_property -dict {PACKAGE_PIN W19 IOSTANDARD LVCMOS33} [get_ports jtag_trst_ni
 set_property -dict {PACKAGE_PIN W13 IOSTANDARD LVCMOS33} [get_ports {i2c_scl_io}] ; # Pmodb[7]
 set_property -dict {PACKAGE_PIN T10 IOSTANDARD LVCMOS33} [get_ports {i2c_sda_io}] ; # Pmodb[3]
 
-# SPI SD
-set_property -dict {PACKAGE_PIN F16 IOSTANDARD LVCMOS33} [get_ports spi_csb_o] ; # arduino_direct_spi_ss_io
-set_property -dict {PACKAGE_PIN H15 IOSTANDARD LVCMOS33} [get_ports spi_sck_o] ; # arduino_direct_spi_sck_io
+# SPI SD (spi_sd_io)
+set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports spi_csb_o] ; # arduino_direct_spi_ss_io (for DOOM)
+set_property -dict {PACKAGE_PIN V15 IOSTANDARD LVCMOS33} [get_ports spi_sck_o] ; # arduino_direct_spi_sck_io (for DOOM)
 set_property -dict {PACKAGE_PIN T12 IOSTANDARD LVCMOS33} [get_ports {spi_sd_io[0]}] ; # arduino_direct_spi_io0_io
 set_property -dict {PACKAGE_PIN W15 IOSTANDARD LVCMOS33} [get_ports {spi_sd_io[1]}] ; # arduino_direct_spi_io1_io
 set_property -dict {PACKAGE_PIN P18 IOSTANDARD LVCMOS33} [get_ports {spi_sd_io[2]}] ; # arduino_gpio_tri_io[12]

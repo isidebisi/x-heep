@@ -16,20 +16,13 @@
 #include "x-heep.h"
 #include <limits.h> //todo: remove
 
-/*
-Notes:
- - Ports 30 and 31 are connected in questasim testbench, but in the FPGA version they are connected to the EPFL programmer and should not be used
- - Connect a cable between the two pins for the application to work
-*/
 
 
 /* By default, printfs are activated for FPGA and disabled for simulation. */
 #define PRINTF_IN_FPGA  1
 #define PRINTF_IN_SIM   0
 
-//ADDED BY ISMAEL TO TEST ON PYNQ-Z2
 #define TARGET_PYNQ_Z2 1
-//ADDED BY ISMAEL TO TEST ON PYNQ-Z2
 
 
 #if TARGET_SIM && PRINTF_IN_SIM
@@ -46,19 +39,8 @@ Notes:
 #endif
 
 
-#ifdef TARGET_PYNQ_Z2
-    #define GPIO_TB_OUT 8
-    #define GPIO_TB_IN  9
-    #define GPIO_INTR  GPIO_INTR_9
-    #pragma message ( "Connect a cable between GPIOs IN and OUT" )
-
-#else
-
-    #define GPIO_TB_OUT 30
-    #define GPIO_TB_IN  31
-    #define GPIO_INTR  GPIO_INTR_31
-
-#endif
+#define GPIO_TB_IN  9
+#define GPIO_INTR  GPIO_INTR_9
 
 plic_result_t plic_res;
 
@@ -88,14 +70,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // In case GPIOs 30 and 31 are used:
-#if GPIO_TB_OUT == 31 || GPIO_TB_IN == 31
-    pad_control_set_mux(&pad_control, (ptrdiff_t)(PAD_CONTROL_PAD_MUX_I2C_SCL_REG_OFFSET), 1);
-#endif
-
-#if GPIO_TB_OUT == 30|| GPIO_TB_IN == 30
-    pad_control_set_mux(&pad_control, (ptrdiff_t)(PAD_CONTROL_PAD_MUX_I2C_SDA_REG_OFFSET), 1);
-#endif
 
     plic_res = plic_irq_set_priority(GPIO_INTR, 1);
     if (plic_res != kPlicOk) {
@@ -119,16 +93,6 @@ int main(int argc, char *argv[])
     //gpio_reset_all();
     gpio_result_t gpio_res;
 
-    gpio_cfg_t cfg_out = {
-        .pin = GPIO_TB_OUT,
-        .mode = GpioModeOutPushPull
-    };
-    gpio_res = gpio_config(cfg_out);
-    if (gpio_res != GpioOk) {
-        PRINTF("Failed\n;");
-        return -1;
-    }
-    gpio_res = gpio_write(GPIO_TB_OUT, false);
 
     gpio_cfg_t cfg_in = {
         .pin = GPIO_TB_IN,
@@ -146,26 +110,24 @@ int main(int argc, char *argv[])
     gpio_assign_irq_handler( GPIO_INTR, &handler_1 );
     gpio_intr_flag = 0;
 
-    PRINTF("Write 1 to GPIO 30 and wait for interrupt...\n\r");
+    PRINTF("Press Button for interrupt...\n\r");
     while(gpio_intr_flag == 0) {
         // disable_interrupts
         // this does not prevent waking up the core as this is controlled by the MIP register
         CSR_CLEAR_BITS(CSR_REG_MSTATUS, 0x8);
-        gpio_write(GPIO_TB_OUT, true);
-        // wait_for_interrupt();
+        // wait_for_interrupt();GPIO
         CSR_SET_BITS(CSR_REG_MSTATUS, 0x8);
-        PRINTF("Wait for button press GPIO and wait for interrupt...\n\r");
+        PRINTF("Wait for button in PIN AR1 press for interrupt...\n\r");
     }
 
     gpio_assign_irq_handler( GPIO_INTR, &handler_2 );
     gpio_intr_flag = 0;
 
-    PRINTF("Write 1 to GPIO 30 and wait for interrupt...\n\r");
+    PRINTF("Press Button for interrupt...\n\r");
     while(gpio_intr_flag == 0) {
         // disable_interrupts
         // this does not prevent waking up the core as this is controlled by the MIP register
         CSR_CLEAR_BITS(CSR_REG_MSTATUS, 0x8);
-        gpio_write(GPIO_TB_OUT, true);
         //wait_for_interrupt();
         CSR_SET_BITS(CSR_REG_MSTATUS, 0x8);
     }
