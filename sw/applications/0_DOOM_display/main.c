@@ -120,9 +120,10 @@ int main(int argc, char *argv[]) {
 
     test_fill_screen(0x89AB);
 
-    while(1)
+    while(0)
     {
         test_fill_screen(color);
+        PRINTF("Fill with color: %d\n", color);
         color += 0x0003;
     }
 
