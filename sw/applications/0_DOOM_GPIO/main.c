@@ -39,7 +39,7 @@
 #endif
 
 
-#define GPIO_TB_IN  9
+#define GPIO_TB_IN  9 //AR 1
 #define GPIO_INTR  GPIO_INTR_9
 
 plic_result_t plic_res;
