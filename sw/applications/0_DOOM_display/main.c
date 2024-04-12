@@ -71,6 +71,9 @@ void spi_write_data_2B(uint16_t data);
 
 void set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 uint32_t test_write_pixel(uint16_t x, uint16_t y, uint16_t color);
+void test_write_multi_unicolor(uint16_t color, uint32_t num);
+void test_fill_screen(uint16_t color);
+
 void milli_delay(int n_milli_seconds);
 
 /**
@@ -115,6 +118,14 @@ int main(int argc, char *argv[]) {
     uint16_t y = 0;
     uint16_t color = 0xA000;
 
+    test_fill_screen(0x89AB);
+
+    while(1)
+    {
+        test_fill_screen(color);
+        color += 0x0003;
+    }
+
     while(1){
         PRINTF("RESTART with color: %d\n", color);
         color += 0x0000;
@@ -129,7 +140,7 @@ int main(int argc, char *argv[]) {
             {
                 PRINTF("y: %d\n", y);
                 test_write_pixel(x, y, color);
-                milli_delay(500);
+                milli_delay(1);
                 y++;
             }
             y=30;
@@ -320,6 +331,22 @@ uint32_t test_write_pixel(uint16_t x, uint16_t y, uint16_t color) {
     gpio_write(GPIO_SPI_CS, CS_DESELECT);
 
 }
+
+void test_write_multi_unicolor(uint16_t color, uint32_t num)
+{
+    while (num > 0)
+    {
+        spi_write_data_2B(color);
+        num--;
+    }    
+}
+
+void test_fill_screen(uint16_t color)
+{
+    set_adress_window(0, 0, (uint16_t) ST7789_TFTWIDTH, (uint16_t) ST7789_TFTHEIGHT);
+    test_write_multi_unicolor(color, (uint32_t) ST7789_TFTWIDTH * ST7789_TFTHEIGHT);
+}
+
 
 void set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
     // Set column address
