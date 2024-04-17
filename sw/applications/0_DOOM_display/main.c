@@ -36,10 +36,10 @@
 
 #define GPIO_SPI_RST 13 //AR2
 
-#define GPIO_SPI_CS 14  // as GPIO AR3 natively SPI: AR6 (USE AR6 !!!)
-#define CS_SELECT 0
-#define CS_DESELECT 1
 
+// AR0 = DC
+// AR2 = RST
+// AR3 = CS
 // AR4 = SCLK
 // AR8 = MOSI
 //SPI1 = MISO (not used)
@@ -99,15 +99,7 @@ int main(int argc, char *argv[]) {
         .pin = GPIO_SPI_RST,
         .mode = GpioModeOutPushPull
     };
-    gpio_config(cfg_out2);
-
-    gpio_cfg_t cfg_out3 = {
-        .pin = GPIO_SPI_CS,
-        .mode = GpioModeOutPushPull
-    };
-    gpio_config(cfg_out3);
-    
-    gpio_write(GPIO_SPI_CS, CS_DESELECT);
+    gpio_config(cfg_out2);    
 
 
     PRINTF("SPI INIT\n");
@@ -189,7 +181,6 @@ uint8_t display_init(void)
     gpio_write(GPIO_SPI_RST, 1);
     milli_delay(100);
 
-    gpio_write(GPIO_SPI_CS, CS_SELECT);
     gpio_write(GPIO_SPI_DC, DC_COMMAND);
 
     spi_write_command(ST7789_SWRESET);	//1: Software reset, no args, w/delay: delay(150)
@@ -245,7 +236,6 @@ uint8_t display_init(void)
     PRINTF("ST7789_DISPON 0x29\n");
 	milli_delay(500);
     
-    gpio_write(GPIO_SPI_CS, CS_DESELECT);
     PRINTF("Display Initialization Done \n");
     return 0;
 }
@@ -276,7 +266,6 @@ static void configure_spi(void) {
 
 void spi_write_command(uint8_t command)
 {
-    gpio_write(GPIO_SPI_CS, CS_SELECT);
     gpio_write(GPIO_SPI_DC, DC_COMMAND);
     spi_write_word(&spi_LCD, command);
     spi_wait_for_ready(&spi_LCD);
@@ -294,7 +283,6 @@ void spi_write_command(uint8_t command)
 
 void spi_write_data(uint8_t data)
 {
-    gpio_write(GPIO_SPI_CS, CS_SELECT);
     gpio_write(GPIO_SPI_DC, DC_DATA);
     spi_write_word(&spi_LCD, data);
     spi_wait_for_ready(&spi_LCD);
@@ -311,7 +299,6 @@ void spi_write_data(uint8_t data)
 
 void spi_write_data_2B(uint16_t data)
 {
-    gpio_write(GPIO_SPI_CS, CS_SELECT);
     gpio_write(GPIO_SPI_DC, DC_DATA);
     data = ((data >> 8 & 0x00FF) | (data << 8 & 0xFF00));
     spi_write_word(&spi_LCD, data);
@@ -329,12 +316,10 @@ void spi_write_data_2B(uint16_t data)
 
 uint32_t test_write_pixel(uint16_t x, uint16_t y, uint16_t color) {
     
-    gpio_write(GPIO_SPI_CS, CS_SELECT);
     set_adress_window(x, y, x+1, y+1);
 
     spi_write_data(color>>8);
     spi_write_data(color);
-    gpio_write(GPIO_SPI_CS, CS_DESELECT);
 
 }
 
