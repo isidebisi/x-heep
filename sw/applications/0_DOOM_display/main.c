@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "filtered_array.h"
 /* To get TX and RX FIFO depth */
 #include "spi_host_regs.h"
 
@@ -41,7 +42,7 @@
 
 // AR4 = SCLK
 // AR8 = MOSI
-//SPI1 = MISO
+//SPI1 = MISO (not used)
 
 
 
@@ -73,6 +74,7 @@ void set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 uint32_t test_write_pixel(uint16_t x, uint16_t y, uint16_t color);
 void test_write_multi_unicolor(uint16_t color, uint32_t num);
 void test_fill_screen(uint16_t color);
+void fill_picture(uint16_t* colors);
 
 void milli_delay(int n_milli_seconds);
 
@@ -120,11 +122,14 @@ int main(int argc, char *argv[]) {
 
     test_fill_screen(0x89AB);
 
-    while(0)
+    while(1)
     {
-        test_fill_screen(color);
-        PRINTF("Fill with color: %d\n", color);
-        color += 0x0003;
+        fill_picture(&filtered_array);
+        //test_fill_screen(color);
+        //PRINTF("Fill with color: %d\n", color);
+        //color += 0x0003;
+        PRINTF("LOOP FINISHED\n");
+        milli_delay(500);
     }
 
     while(1){
@@ -346,6 +351,22 @@ void test_fill_screen(uint16_t color)
 {
     set_adress_window(0, 0, (uint16_t) ST7789_TFTWIDTH, (uint16_t) ST7789_TFTHEIGHT);
     test_write_multi_unicolor(color, (uint32_t) ST7789_TFTWIDTH * ST7789_TFTHEIGHT);
+}
+
+void fill_picture(uint16_t* colors)
+{
+    set_adress_window(0, 0, (uint16_t) ST7789_TFTWIDTH, (uint16_t) ST7789_TFTHEIGHT);
+
+    int i = 0;
+    for ( i = 0; i < (ST7789_TFTWIDTH)/2; i++) {
+        for (int repeat_row = 0; repeat_row < 2; repeat_row++) {
+            for (int j = 0; j < ST7789_TFTHEIGHT/2; j++) {
+                spi_write_data_2B(colors[i*ST7789_TFTWIDTH/2+j]);
+                spi_write_data_2B(colors[i*ST7789_TFTWIDTH/2+j]);
+            }
+        }
+    }
+    PRINTF(" i = %d\n", i);
 }
 
 
