@@ -56,6 +56,7 @@
 
 
 //Test functions
+void gpio_init(void);
 uint8_t spi_init(void);
 uint8_t display_init(void);
 static void configure_spi(void);
@@ -80,23 +81,12 @@ void milli_delay(int n_milli_seconds);
 
 int main(int argc, char *argv[]) {
 
-    PRINTF("START PROGRAM V2\n");
+    PRINTF("START PROGRAM\n");
 
-    gpio_cfg_t cfg_out = {
-        .pin = GPIO_SPI_DC,
-        .mode = GpioModeOutPushPull
-    };
-    gpio_config(cfg_out);
-    
-    gpio_cfg_t cfg_out2 = {
-        .pin = GPIO_SPI_RST,
-        .mode = GpioModeOutPushPull
-    };
-    gpio_config(cfg_out2);    
-
+    gpio_init();
 
     PRINTF("SPI INIT\n");
-    spi_LCD.base_addr = mmio_region_from_addr((uintptr_t)SPI_HOST_START_ADDRESS);
+    
 
     spi_init();
     display_init();
@@ -144,8 +134,26 @@ int main(int argc, char *argv[]) {
 
 }
 
+void gpio_init(void)
+{
+        gpio_cfg_t cfg_out = {
+        .pin = GPIO_SPI_DC,
+        .mode = GpioModeOutPushPull
+    };
+    gpio_config(cfg_out);
+    
+    gpio_cfg_t cfg_out2 = {
+        .pin = GPIO_SPI_RST,
+        .mode = GpioModeOutPushPull
+    };
+    gpio_config(cfg_out2);    
+
+}
+
 uint8_t spi_init(void) {
 
+    spi_LCD.base_addr = mmio_region_from_addr((uintptr_t)SPI_HOST_START_ADDRESS);
+    
         // Enable SPI host device
     spi_set_enable(&spi_LCD, true);
 
