@@ -24,17 +24,11 @@
 /* get the GPIO library*/
 #include "gpio.h" 
 
-#include "main.h"
+#include "ST7789_driver.h"
 
 #include "core_v_mini_mcu.h"
 
-#define CLK_MAX_HZ (133*1000*1000)
 
-#define GPIO_SPI_DC 8 //AR0
-#define DC_COMMAND 0
-#define DC_DATA 1
-
-#define GPIO_SPI_RST 13 //AR2
 
 
 // AR0 = DC
@@ -42,7 +36,6 @@
 // AR3 = CS
 // AR4 = SCLK
 // AR8 = MOSI
-//SPI1 = MISO (not used)
 
 
 

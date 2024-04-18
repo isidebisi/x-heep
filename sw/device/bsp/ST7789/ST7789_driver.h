@@ -20,6 +20,7 @@
 /* 
  * Function prototypes
  */
+/*
 uint8_t spi_init(void);
 uint8_t display_init(void);
 static void configure_spi(void);
@@ -38,6 +39,20 @@ void milli_delay(int n_milli_seconds);
 /*
  * Defines
  */
+
+// AR0 = DC
+// AR2 = RST
+// AR3 = CS
+// AR4 = SCLK
+// AR8 = MOSI
+
+#define CLK_MAX_HZ (133*1000*1000)
+
+#define GPIO_SPI_DC 8 //AR0
+#define DC_COMMAND 0
+#define DC_DATA 1
+
+#define GPIO_SPI_RST 13 //AR2
 
 // ST7789 commands
 
