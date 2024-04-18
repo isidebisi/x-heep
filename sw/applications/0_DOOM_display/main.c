@@ -97,12 +97,18 @@ int main(int argc, char *argv[]) {
 
     test_fill_screen(0x89AB);
 
-    while(1)
+    while(0)
     {
         fill_picture(&filtered_array);
-        //test_fill_screen(color);
-        //PRINTF("Fill with color: %d\n", color);
-        //color += 0x0003;
+        PRINTF("LOOP FINISHED\n");
+        milli_delay(500);
+    }
+
+    while(1)
+    {
+        test_fill_screen(color);
+        PRINTF("Fill with color: %d\n", color);
+        color += 0x0003;
         PRINTF("LOOP FINISHED\n");
         milli_delay(500);
     }
@@ -187,12 +193,10 @@ uint8_t display_init(void)
     spi_write_command(ST7789_SWRESET);	//1: Software reset, no args, w/delay: delay(150)
     PRINTF("ST7789_SWRESET 0x01\n");
     milli_delay(150);
-	//milli_delay(2000);
 
     spi_write_command(ST7789_SLPOUT);	// 2: Out of sleep mode, no args, w/delay: delay(500)
     PRINTF("ST7789_SLPOUT 0x11\n");
 	milli_delay(500);
-    //milli_delay(2000);
 
 	spi_write_command(ST7789_COLMOD);	// 3: Set color mode, 1 arg, delay: delay(10)
     PRINTF("ST7789_COLMOD 0x3A\n");
@@ -200,7 +204,6 @@ uint8_t display_init(void)
     spi_write_data(ST7789_COLOR_MODE_65K | ST7789_COLOR_MODE_16BIT);	// 65K color, 16-bit color
     PRINTF("ST7789_COLOR_MODE_65K | ST7789_COLOR_MODE_16BIT = 0x55\n");
 	milli_delay(150);
-    //milli_delay(2000);
 
     spi_write_command(ST7789_MADCTL);	// 4: Memory access ctrl (directions), 1 arg:
     PRINTF("ST7789_MADCTL 0x36\n");
@@ -222,16 +225,13 @@ uint8_t display_init(void)
     spi_write_data((ST7789_TFTHEIGHT + ST7789_240x240_YSTART) >> 8);
     spi_write_data((ST7789_TFTHEIGHT + ST7789_240x240_YSTART));
 
-    //milli_delay(2000);
     spi_write_command(ST7789_INVON);	// 5: Inversion ON (but why?) delay(10)
     PRINTF("ST7789_INVON 0x21\n");
 	milli_delay(10);
-    //milli_delay(2000);
 
 	spi_write_command(ST7789_NORON);	// 6: Normal display on, no args, w/delay: delay(10)
     PRINTF("ST7789_NORON 0x13\n");
 	milli_delay(10);
-    //milli_delay(2000);
 
 	spi_write_command(ST7789_DISPON);	// 7: Main screen turn on, no args, w/delay: delay(500)
     PRINTF("ST7789_DISPON 0x29\n");

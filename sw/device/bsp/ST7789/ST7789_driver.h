@@ -45,6 +45,7 @@ void milli_delay(int n_milli_seconds);
 // AR3 = CS
 // AR4 = SCLK
 // AR8 = MOSI
+#define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
 
 #define CLK_MAX_HZ (133*1000*1000)
 
