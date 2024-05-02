@@ -69,6 +69,7 @@ uint32_t test_write_pixel(uint16_t x, uint16_t y, uint16_t color);
 void test_write_multi_unicolor(uint16_t color, uint32_t num);
 void test_fill_screen(uint16_t color);
 void fill_picture(uint16_t* colors);
+void test_fill_picture_with_shift(uint16_t* colors, uint8_t verticalShift, uint8_t horizontalShift);
 
 void milli_delay(int n_milli_seconds);
 
@@ -95,7 +96,20 @@ int main(int argc, char *argv[]) {
     uint16_t y = 0;
     uint16_t color = 0xA000;
 
-    test_fill_screen(0x89AB);
+    ST7789_test_fill_screen(0x8000);
+
+    int it =0;
+    int a = 2;
+    while(1)
+    {
+        ST7789_test_fill_picture_with_shift(&filtered_array,it,it);
+        PRINTF("LOOP FINISHED\n");
+        it += a;
+        if (it>=16) a=-2;
+        if (it<=0) a=2;
+
+        //milli_delay(500);
+    }
 
     while(0)
     {
