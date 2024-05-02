@@ -96,13 +96,14 @@ int main(int argc, char *argv[]) {
     uint16_t y = 0;
     uint16_t color = 0xA000;
 
-    ST7789_test_fill_screen(0x8000);
+    test_fill_screen(0x8000);
 
     int it =0;
     int a = 2;
+    
     while(1)
     {
-        ST7789_test_fill_picture_with_shift(&filtered_array,it,it);
+        test_fill_picture_with_shift(&filtered_array,it,it);
         PRINTF("LOOP FINISHED\n");
         it += a;
         if (it>=16) a=-2;
@@ -369,6 +370,20 @@ void fill_picture(uint16_t* colors)
     PRINTF(" i = %d\n", i);
 }
 
+void test_fill_picture_with_shift(uint16_t* colors, uint8_t verticalShift, uint8_t horizontalShift)
+{
+    set_adress_window(0, 0, (uint16_t) ST7789_TFTWIDTH, (uint16_t) ST7789_TFTHEIGHT);
+
+    int i = 0;
+    for ( i = 0; i < (ST7789_TFTWIDTH)/2; i++) {
+        for (int repeat_row = 0; repeat_row < 2; repeat_row++) {
+            for (int j = 0; j < ST7789_TFTHEIGHT/2; j++) {
+                spi_write_data_2B(colors[i*ST7789_TFTWIDTH/2+j+horizontalShift+verticalShift*ST7789_TFTWIDTH/2]);
+                spi_write_data_2B(colors[i*ST7789_TFTWIDTH/2+j+horizontalShift+verticalShift*ST7789_TFTWIDTH/2]);
+            }
+        }
+    }
+}
 
 void set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
     // Set column address
