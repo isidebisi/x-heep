@@ -5,6 +5,7 @@
  * Include files
  */
 #include <stdint.h>
+#include "spi_host.h"
 
 
 //extern  spi_host_t ST7789_spi_LCD; 
@@ -19,6 +20,20 @@
  */
 
 //Public Test function definitions
+void        ST7789_gpio_init(void);
+uint8_t     ST7789_spi_init(spi_host_t* ST7789_spi_LCD);
+uint8_t     ST7789_display_init(void);
+
+
+
+void        ST7789_set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
+uint32_t    ST7789_test_write_pixel(uint16_t x, uint16_t y, uint16_t color);
+void        ST7789_test_write_multi_unicolor(uint16_t color, uint32_t num);
+void        ST7789_test_fill_screen(uint16_t color);
+void        ST7789_fill_picture(uint16_t* colors);
+void        ST7789_test_fill_picture_with_shift(uint16_t* colors, uint8_t verticalShift, uint8_t horizontalShift);
+
+void        ST7789_milli_delay(int n_milli_seconds);
 
 
 
