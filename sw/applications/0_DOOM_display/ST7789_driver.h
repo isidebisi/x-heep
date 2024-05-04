@@ -5,12 +5,9 @@
  * Include files
  */
 #include <stdint.h>
-#include "spi_host_regs.h"
-#include "spi_host.h"
-#include "gpio.h"
 
-#include "core_v_mini_mcu.h"
 
+//extern  spi_host_t ST7789_spi_LCD; 
 
 /*
  * Global variables
@@ -20,21 +17,10 @@
 /* 
  * Function prototypes
  */
-/*
-uint8_t spi_init(void);
-uint8_t display_init(void);
-static void configure_spi(void);
-void spi_write_command(uint8_t command);
-void spi_write_data(uint8_t data);
-void spi_write_data_2B(uint16_t data);
 
-void set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
-uint32_t test_write_pixel(uint16_t x, uint16_t y, uint16_t color);
-void test_write_multi_unicolor(uint16_t color, uint32_t num);
-void test_fill_screen(uint16_t color);
-void fill_picture(uint16_t* colors);
+//Public Test function definitions
 
-void milli_delay(int n_milli_seconds);
+
 
 /*
  * Defines
@@ -42,10 +28,11 @@ void milli_delay(int n_milli_seconds);
 
 // AR0 = DC
 // AR2 = RST
-// AR3 = CS
+// AR6 = CS
 // AR4 = SCLK
 // AR8 = MOSI
-#define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
+
+//#define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
 
 #define CLK_MAX_HZ (133*1000*1000)
 
