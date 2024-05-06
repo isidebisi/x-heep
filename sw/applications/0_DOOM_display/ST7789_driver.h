@@ -1,7 +1,62 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef ST7789_DRIVER_H
+#define ST7789_DRIVER_H
 
-// -----------------------------------------
+/*
+ * Include files
+ */
+#include <stdint.h>
+#include "spi_host.h"
+
+
+//extern  spi_host_t ST7789_spi_LCD; 
+
+/*
+ * Global variables
+ */
+
+
+/* 
+ * Function prototypes
+ */
+
+//Public Test function definitions
+void        ST7789_gpio_init(void);
+uint8_t     ST7789_spi_init(spi_host_t* ST7789_spi_LCD);
+uint8_t     ST7789_display_init(void);
+spi_host_t  ST7789_get_spi_host(void);
+
+
+void        ST7789_set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
+uint32_t    ST7789_test_write_pixel(uint16_t x, uint16_t y, uint16_t color);
+void        ST7789_test_write_multi_unicolor(uint16_t color, uint32_t num);
+void        ST7789_test_fill_screen(uint16_t color);
+void        ST7789_fill_picture(uint16_t* colors);
+void        ST7789_test_fill_picture_with_shift(uint16_t* colors, uint8_t verticalShift, uint8_t horizontalShift);
+
+void        ST7789_milli_delay(int n_milli_seconds);
+
+
+
+/*
+ * Defines
+ */
+
+// AR0 = DC
+// AR2 = RST
+// AR6 = CS
+// AR4 = SCLK
+// AR8 = MOSI
+
+//#define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
+
+#define CLK_MAX_HZ (133*1000*1000)
+
+#define GPIO_SPI_DC 8 //AR0
+#define DC_COMMAND 0
+#define DC_DATA 1
+
+#define GPIO_SPI_RST 13 //AR2
+
 // ST7789 commands
 
 #define ST7789_TFTWIDTH 	240
@@ -55,5 +110,4 @@
 
 #define ST_CMD_DELAY   0x80
 
-
-#endif
+#endif // ST7789_DRIVER_H
