@@ -65,10 +65,10 @@ void ST7789_gpio_init(void)
 }
 
 
-uint8_t ST7789_spi_init(spi_host_t* spi_LCD) {
+uint8_t ST7789_spi_init(spi_host_t* spi_HOST){
 
-    spi_LCD->base_addr = mmio_region_from_addr((uintptr_t)SPI_HOST_START_ADDRESS);
-    ST7789_spi_LCD = *spi_LCD;
+    spi_HOST->base_addr = mmio_region_from_addr((uintptr_t)SPI_HOST_START_ADDRESS);
+    ST7789_spi_LCD = *spi_HOST;
         // Enable SPI host device
     spi_set_enable(&ST7789_spi_LCD, true);
 
@@ -155,10 +155,15 @@ uint8_t ST7789_display_init(void)
 }
 
 
+spi_host_t  ST7789_get_spi_host(void)
+{
+    return ST7789_spi_LCD;
+}
+
 void ST7789_set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
     // Set column address
     //with driver for screen ST7789V
-
+    
     ST7789_spi_write_command(ST7789_CASET);
 
     //(x1<<8 | x1>>8)

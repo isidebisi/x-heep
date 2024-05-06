@@ -23,7 +23,7 @@
 void        ST7789_gpio_init(void);
 uint8_t     ST7789_spi_init(spi_host_t* ST7789_spi_LCD);
 uint8_t     ST7789_display_init(void);
-
+spi_host_t  ST7789_get_spi_host(void);
 
 
 void        ST7789_set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
