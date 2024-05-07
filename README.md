@@ -1,3 +1,9 @@
+# This is a fork of the x-heep Repo that foocuses on porting the classic game DOOM onto the x-heep platform
+
+![IMG_20240415_152028](https://github.com/isidebisi/x-heep/assets/72383796/5d060133-c18e-4d96-8272-9d97af9b88cd)
+Picture of the progress showing an SPI screen with custom written display driver for the x-heep platform.
+The screen with gamepad will in the next step through input over GPIOs and output on the screen be playable by the user. 
+
 <br />
 <p align="center"><img src="docs/source/images/x-heep-outline.png" width="500"></p>
 
