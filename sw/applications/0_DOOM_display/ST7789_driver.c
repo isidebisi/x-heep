@@ -55,13 +55,6 @@ void ST7789_gpio_init(void)
         .mode = GpioModeOutPushPull
     };
     gpio_config(cfg_out);
-    
-    gpio_cfg_t cfg_out2 = {
-        .pin = GPIO_SPI_RST,
-        .mode = GpioModeOutPushPull
-    };
-    gpio_config(cfg_out2);    
-
 }
 
 
@@ -92,14 +85,6 @@ uint8_t ST7789_spi_init(spi_host_t* spi_HOST){
 
 uint8_t ST7789_display_init(void)
 {
-    //display reset
-    ////PRINTF("Display Initialization \n");
-    gpio_write(GPIO_SPI_RST, 1);
-    ST7789_milli_delay(100);
-    gpio_write(GPIO_SPI_RST, 0);
-    ST7789_milli_delay(100);
-    gpio_write(GPIO_SPI_RST, 1);
-    ST7789_milli_delay(100);
 
     gpio_write(GPIO_SPI_DC, DC_COMMAND);
 

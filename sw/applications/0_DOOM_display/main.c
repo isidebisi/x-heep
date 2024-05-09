@@ -31,11 +31,10 @@
 
 
 
-// AR0 = DC
-// AR2 = RST (NOT USED)
-// AR6 = CS
-// AR4 = SCLK
-// AR8 = MOSI
+// V8  = Raspberri PI 19    = DC
+// H15 = ARDUINO SPI 3      = CLK
+// T12 = ARDUINO SPI 4      = MOSI
+// F16 = ARDUINO SPI 5      = CS
 
 
 
@@ -150,14 +149,6 @@ int main(int argc, char *argv[]) {
     
 
 }
-
-
-
-
-
-
-
-
 
 void ST7789_spi_write_command(uint8_t command)
 {
