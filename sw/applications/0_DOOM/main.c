@@ -39,7 +39,9 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
 
+/*
 #include "nrf.h"
 
 #include "FT810.h"
@@ -58,6 +60,8 @@
 #include "nrfx_clock.h"
 
 #include "board_config.h"
+*/
+
 
 int no_sdcard = 1;
 
@@ -106,14 +110,15 @@ void app_error_handler_bare(uint32_t code)
 
 void clock_initialization()
 {
-    nrfx_clock_hfclk_start();
-    nrf_clock_hfclk_div_set(NRF_CLOCK_S, NRF_CLOCK_HFCLK_DIV_1);
+    //nrfx_clock_hfclk_start();
+    //nrf_clock_hfclk_div_set(NRF_CLOCK_S, NRF_CLOCK_HFCLK_DIV_1);
 
 
 }
 
 void boot_net()
 {
+    /*
     printf("Booting NetMCU\n");
 
     // Network owns 30/31 (LED3/4)
@@ -129,13 +134,14 @@ void boot_net()
 
     // Wake up NetMcu
     NRF_RESET_S->NETWORK.FORCEOFF = 0;
+*/
 }
 
 int main(void)
 {
     clock_initialization();
 
-    N_uart_init();
+    //N_uart_init();
 
     printf("\n\n");
     printf("----------------------------------\n");
