@@ -7,7 +7,8 @@
 
 #include "core_v_mini_mcu.h"
 
-
+//#define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
+    
 spi_host_t ST7789_spi_LCD;
 
 /*
@@ -176,6 +177,62 @@ void ST7789_set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2
     ST7789_spi_write_command(0x2C);
 }
 
+
+
+void ST7789_spi_write_command(uint8_t command)
+{
+    gpio_write(GPIO_SPI_DC, DC_COMMAND);
+    spi_write_word(&ST7789_spi_LCD, command);
+    ST7789_milli_delay(1);
+    //PRINTF("SPI HOST ADDRESS = %x\n", ST7789_spi_LCD.base_addr);
+    //PRINTF("SPI WRITE COMMAND = %x\n", command);
+    spi_wait_for_ready(&ST7789_spi_LCD);
+    // Set up segment parameters -> send command and address
+    const uint32_t cmd = spi_create_command((spi_command_t){
+        .len        = 0,                 // 4 Bytes
+        .csaat      = false,              // Command not finished
+        .speed      = kSpiSpeedStandard, // Single speed
+        .direction  = kSpiDirTxOnly      // Write only
+    });
+    // Load segment parameters to COMMAND register
+    spi_set_command(&ST7789_spi_LCD, cmd);
+
+}
+
+void ST7789_spi_write_data(uint8_t data)
+{
+    gpio_write(GPIO_SPI_DC, DC_DATA);
+    spi_write_word(&ST7789_spi_LCD, data);
+    spi_wait_for_ready(&ST7789_spi_LCD);
+     // Set up segment parameters -> send command and address
+    const uint32_t cmd = spi_create_command((spi_command_t){
+        .len        = 0,                 // 4 Bytes
+        .csaat      = false,              // Command not finished
+        .speed      = kSpiSpeedStandard, // Single speed
+        .direction  = kSpiDirTxOnly      // Write only
+    });
+    // Load segment parameters to COMMAND register
+    spi_set_command(&ST7789_spi_LCD, cmd);
+}
+
+void ST7789_spi_write_data_2B(uint16_t data)
+{
+    gpio_write(GPIO_SPI_DC, DC_DATA);
+    data = ((data >> 8 & 0x00FF) | (data << 8 & 0xFF00));
+    spi_write_word(&ST7789_spi_LCD, data);
+    //PRINTF("SPI WRITE DATA = %x\n", data);
+
+    spi_wait_for_ready(&ST7789_spi_LCD);
+     // Set up segment parameters -> send command and address
+    const uint32_t cmd_read_1 = spi_create_command((spi_command_t){
+        .len        = 1,                 // 4 Bytes
+        .csaat      = false,              // Command not finished
+        .speed      = kSpiSpeedStandard, // Single speed
+        .direction  = kSpiDirTxOnly      // Write only
+    });
+    // Load segment parameters to COMMAND register
+    spi_set_command(&ST7789_spi_LCD, cmd_read_1);
+}
 
 uint32_t ST7789_test_write_pixel(uint16_t x, uint16_t y, uint16_t color) {
     

@@ -60,9 +60,7 @@ spi_host_t spi_LCD;
 
 
 
-void        ST7789_spi_write_command(uint8_t command);
-void        ST7789_spi_write_data(uint8_t data);
-void        ST7789_spi_write_data_2B(uint16_t data);
+
 
 
 
@@ -89,9 +87,9 @@ int main(int argc, char *argv[]) {
     //ST7789_test_fill_screen(0x8000);
 
 
-    PRINTF("PRINT SPI MEM REGION FROM MAIN = %x\n", spi_LCD.base_addr);
+    PRINTF("TEST: PRINT SPI MEM REGION FROM MAIN = %x\n", spi_LCD.base_addr);
     spi_host_t spi_test = ST7789_get_spi_host();
-    PRINTF("PRINT SPI MEM REGION FROM DRIVER = %x\n", spi_test.base_addr);
+    PRINTF("TEST: PRINT SPI MEM REGION FROM DRIVER = %x\n", spi_test.base_addr);
 
     int it =0;
     int a = 2;
@@ -144,63 +142,4 @@ int main(int argc, char *argv[]) {
             x++;
         }
     }
-
-    
-    
-
 }
-
-void ST7789_spi_write_command(uint8_t command)
-{
-    gpio_write(GPIO_SPI_DC, DC_COMMAND);
-    spi_write_word(&spi_LCD, command);
-    PRINTF("SPI HOST ADDRESS = %x\n", spi_LCD.base_addr);
-    PRINTF("SPI WRITE COMMAND = %x\n", command);
-    spi_wait_for_ready(&spi_LCD);
-    // Set up segment parameters -> send command and address
-    const uint32_t cmd = spi_create_command((spi_command_t){
-        .len        = 0,                 // 4 Bytes
-        .csaat      = false,              // Command not finished
-        .speed      = kSpiSpeedStandard, // Single speed
-        .direction  = kSpiDirTxOnly      // Write only
-    });
-    // Load segment parameters to COMMAND register
-    spi_set_command(&spi_LCD, cmd);
-
-}
-
-void ST7789_spi_write_data(uint8_t data)
-{
-    gpio_write(GPIO_SPI_DC, DC_DATA);
-    spi_write_word(&spi_LCD, data);
-    spi_wait_for_ready(&spi_LCD);
-     // Set up segment parameters -> send command and address
-    const uint32_t cmd = spi_create_command((spi_command_t){
-        .len        = 0,                 // 4 Bytes
-        .csaat      = false,              // Command not finished
-        .speed      = kSpiSpeedStandard, // Single speed
-        .direction  = kSpiDirTxOnly      // Write only
-    });
-    // Load segment parameters to COMMAND register
-    spi_set_command(&spi_LCD, cmd);
-}
-
-void ST7789_spi_write_data_2B(uint16_t data)
-{
-    gpio_write(GPIO_SPI_DC, DC_DATA);
-    data = ((data >> 8 & 0x00FF) | (data << 8 & 0xFF00));
-    spi_write_word(&spi_LCD, data);
-    //PRINTF("SPI WRITE DATA = %x\n", data);
-
-    spi_wait_for_ready(&spi_LCD);
-     // Set up segment parameters -> send command and address
-    const uint32_t cmd_read_1 = spi_create_command((spi_command_t){
-        .len        = 1,                 // 4 Bytes
-        .csaat      = false,              // Command not finished
-        .speed      = kSpiSpeedStandard, // Single speed
-        .direction  = kSpiDirTxOnly      // Write only
-    });
-    // Load segment parameters to COMMAND register
-    spi_set_command(&spi_LCD, cmd_read_1);
-}
-
