@@ -99,26 +99,32 @@ uint8_t ST7789_display_init(void)
 
 	ST7789_spi_write_command(ST7789_COLMOD);	// 3: Set color mode, 1 arg, delay: delay(10)
     //PRINTF("ST7789_COLMOD 0x3A\n");
-
+    ST7789_milli_delay(10);
     ST7789_spi_write_data(ST7789_COLOR_MODE_65K | ST7789_COLOR_MODE_16BIT);	// 65K color, 16-bit color
     //PRINTF("ST7789_COLOR_MODE_65K | ST7789_COLOR_MODE_16BIT = 0x55\n");
 	ST7789_milli_delay(150);
 
+    ST7789_milli_delay(10);
     ST7789_spi_write_command(ST7789_MADCTL);	// 4: Memory access ctrl (directions), 1 arg:
     //PRINTF("ST7789_MADCTL 0x36\n");
 
+    ST7789_milli_delay(10);
 	ST7789_spi_write_data(ST7789_MADCTL_RGB);	// RGB Color
     //PRINTF("ST7789_MADCTL_RGB = 0x00\n");
 
+    ST7789_milli_delay(10);
     ST7789_spi_write_command(ST7789_CASET);	// 5: Column addr set, 4 args, no delay:
     //PRINTF("ST7789_CASET 0x2A\n");
+    ST7789_milli_delay(10);
     ST7789_spi_write_data(ST7789_240x240_XSTART >> 8);
     ST7789_spi_write_data(ST7789_240x240_XSTART);
     ST7789_spi_write_data((ST7789_TFTWIDTH + ST7789_240x240_XSTART) >> 8);
     ST7789_spi_write_data((ST7789_TFTWIDTH + ST7789_240x240_XSTART));
 
+    ST7789_milli_delay(10);
     ST7789_spi_write_command(ST7789_RASET);	// 6: Row addr set, 4 args, no delay:
     //PRINTF("ST7789_RASET 0x2B\n");
+    ST7789_milli_delay(10);
     ST7789_spi_write_data(ST7789_240x240_YSTART >> 8);
     ST7789_spi_write_data(ST7789_240x240_YSTART);
     ST7789_spi_write_data((ST7789_TFTHEIGHT + ST7789_240x240_YSTART) >> 8);
@@ -155,25 +161,28 @@ void ST7789_set_adress_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2
     //(x1<<8 | x1>>8)
     //spi_write_data(x1 >> 8);
 
+    ST7789_milli_delay(10);
     ST7789_spi_write_data_2B(x1);
 
     //spi_write_data(x2 >> 8);
-
+    ST7789_milli_delay(10);
     ST7789_spi_write_data_2B(x2);
 
     // Set row address
+    ST7789_milli_delay(10);
     ST7789_spi_write_command(ST7789_RASET);
 
     //spi_write_data(y1 >> 8);
-
+    ST7789_milli_delay(10);
     ST7789_spi_write_data_2B(y1);
 
     //spi_write_data(y2 >> 8);
-
+    ST7789_milli_delay(10);
     ST7789_spi_write_data_2B(y2);
 
 
     // Write to RAM
+    ST7789_milli_delay(10);
     ST7789_spi_write_command(0x2C);
 }
 
@@ -183,7 +192,7 @@ void ST7789_spi_write_command(uint8_t command)
 {
     gpio_write(GPIO_SPI_DC, DC_COMMAND);
     spi_write_word(&ST7789_spi_LCD, command);
-    ST7789_milli_delay(1);
+    ST7789_milli_delay(10);
     //PRINTF("SPI HOST ADDRESS = %x\n", ST7789_spi_LCD.base_addr);
     //PRINTF("SPI WRITE COMMAND = %x\n", command);
     spi_wait_for_ready(&ST7789_spi_LCD);
@@ -288,17 +297,6 @@ void ST7789_test_fill_picture_with_shift(uint16_t* colors, uint8_t verticalShift
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 void ST7789_milli_delay(int n_milli_seconds)
