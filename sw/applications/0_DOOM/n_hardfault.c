@@ -37,19 +37,13 @@
 
 __WEAK void HardFault_process(HardFault_stack_t * p_stack)
 {
-    nrf_delay_ms(5000);
+    /*nrf_delay_ms(5000);
     // Restart the system by default
-    NVIC_SystemReset();
+    NVIC_SystemReset();*/
 }
 
 void HardFault_Print(const char *msg) {
-    for (int i=0;i<256;i++) {
-        char c = msg[i];
-        if (!c) return;
-        NRF_UART0->EVENTS_TXDRDY = 0;
-        NRF_UART0->TXD = c;
-        while (!NRF_UART0->EVENTS_TXDRDY) {}
-    }
+    PRINTF("%s", msg);
 }
 
 void intToHex(unsigned long n, char *outbuf)

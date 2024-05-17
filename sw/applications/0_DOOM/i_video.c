@@ -41,7 +41,7 @@
 
 #include "x_buttons.h"
 #include "n_display.h"
-#include "n_uart.h"
+//#include "n_uart.h"
 #include "n_rjoy.h"
 
 #include "FT810.h"
@@ -206,7 +206,7 @@ static void I_ToggleFullScreen(void)
 void I_GenerateEvents(void)
 {
     X_ReadButtons();
-    N_ReadUart();
+    //N_ReadUart();
 
     // printf("%d %d\n", joywait, I_GetTime());
     if (joywait < I_GetTime())
