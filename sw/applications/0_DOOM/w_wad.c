@@ -39,7 +39,7 @@
 
 #include "w_wad.h"
 
-#include "n_buttons.h"
+#include "x_buttons.h"
 
 typedef PACKED_STRUCT (
 {
@@ -143,11 +143,11 @@ wad_file_t *W_AddFile (char *filename)
 
     boolean do_wad_transfer = false;
 
-    N_ReadButtons();
+    X_ReadButtons();
     I_Sleep(1);
-    N_ReadButtons();
+    X_ReadButtons();
 
-    if (N_ButtonState(0)) {
+    if (X_ButtonState(0)) {
         do_wad_transfer = true;
     }
 

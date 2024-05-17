@@ -43,7 +43,7 @@
 
 #include "n_qspi.h"
 
-#include "n_buttons.h"
+#include "x_buttons.h"
 
 // NRFD-TODO: Check values for all supported games
 #define MAX_TEXTURES 125
@@ -342,10 +342,10 @@ size_t store_loc;
 
 void R_GenerateInit(int texture_storage_size)
 {
-    N_ReadButtons();
+    X_ReadButtons();
     I_Sleep(1);
-    N_ReadButtons();
-    generate_to_flash = N_ButtonState(1);
+    X_ReadButtons();
+    generate_to_flash = X_ButtonState(1);
 
     generate_buffer = (byte*)I_VideoBuffers;
     store_loc = N_qspi_alloc_block();

@@ -4,17 +4,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "csr.h"
-#include "hart.h"
-#include "handler.h"
-#include "core_v_mini_mcu.h"
-#include "rv_plic.h"
-#include "rv_plic_regs.h"
+//#include "csr.h"
+//#include "hart.h"
+//#include "handler.h"
+//#include "core_v_mini_mcu.h"
+//#include "rv_plic.h"
+//#include "rv_plic_regs.h"
 #include "gpio.h"
-#include "pad_control.h"
-#include "pad_control_regs.h"  // Generated.
-#include "x-heep.h"
-#include <limits.h> //todo: remove
+//#include "pad_control.h"
+//#include "pad_control_regs.h"  // Generated.
+//#include "x-heep.h"
+//#include <limits.h> //todo: remove
 
 
 
@@ -33,11 +33,11 @@
     #define PRINTF(...)
 #endif
 
-
+/*
 #ifndef RV_PLIC_IS_INCLUDED
-  #error ( "This app does NOT work as the RV_PLIC peripheral is not included" )
+  //#error ( "This app does NOT work as the RV_PLIC peripheral is not included" )
 #endif
-
+*/
 
 #define GPIO_TB_IN_UP  9 //RASP PI 15
 #define GPIO_INTR_UP GPIO_INTR_9
@@ -59,7 +59,7 @@
 
 
 //local functions
-int initGPIO(uint32_t pinNum, uint32_t gpio_tb);
+int initGPIO(/*uint32_t pinNum, */uint32_t gpio_tb);
 
 uint32_t gpio_tb[6] = {GPIO_TB_IN_UP, GPIO_TB_IN_DOWN, GPIO_TB_IN_LEFT, GPIO_TB_IN_RIGHT, GPIO_TB_IN_A, GPIO_TB_IN_B};
 bool button_prev_state[6] = {1,1,1,1,1,1,1};  //UP, DOWN, LEFT, RIGHT, A, B
@@ -99,6 +99,7 @@ void handler_b()
 int main(int argc, char *argv[])
 {
 
+/*
     plic_result_t plic_result;
     pad_control_t pad_control;
     pad_control.base_addr = mmio_region_from_addr((uintptr_t)PAD_CONTROL_START_ADDRESS);
@@ -107,21 +108,21 @@ int main(int argc, char *argv[])
         PRINTF("Init PLIC failed\n\r;");
         return -1;
     }
-
+*/
     // Enable interrupt on processor side
     // Enable global interrupt for machine-level interrupts
-    CSR_SET_BITS(CSR_REG_MSTATUS, 0x8);
+    //CSR_SET_BITS(CSR_REG_MSTATUS, 0x8);
     // Set mie.MEIE bit to one to enable machine-level external interrupts
-    const uint32_t mask = 1 << 11;
-    CSR_SET_BITS(CSR_REG_MIE, mask);
+    //const uint32_t mask = 1 << 11;
+    //CSR_SET_BITS(CSR_REG_MIE, mask);
 
 
-    initGPIO(GPIO_INTR_UP, GPIO_TB_IN_UP);
-    initGPIO(GPIO_INTR_DOWN, GPIO_TB_IN_DOWN);
-    initGPIO(GPIO_INTR_LEFT, GPIO_TB_IN_LEFT);
-    initGPIO(GPIO_INTR_RIGHT, GPIO_TB_IN_RIGHT);
-    initGPIO(GPIO_INTR_A, GPIO_TB_IN_A);
-    initGPIO(GPIO_INTR_B, GPIO_TB_IN_B);
+    initGPIO(GPIO_TB_IN_UP);
+    initGPIO(GPIO_TB_IN_DOWN);
+    initGPIO(GPIO_TB_IN_LEFT);
+    initGPIO(GPIO_TB_IN_RIGHT);
+    initGPIO(GPIO_TB_IN_A);
+    initGPIO(GPIO_TB_IN_B);
 /*
     gpio_assign_irq_handler( GPIO_INTR_UP, &handler_up );
     gpio_assign_irq_handler( GPIO_INTR_DOWN, &handler_down );
@@ -155,7 +156,7 @@ int main(int argc, char *argv[])
 }
 
 
-int initGPIO(uint32_t pinNum, uint32_t gpio_tb)
+int initGPIO(/*uint32_t pinNum,*/ uint32_t gpio_tb)
 {
     /*
     plic_result_t plic_res = kPlicOk;

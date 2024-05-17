@@ -50,7 +50,7 @@
 #include "n_uart.h"
 #include "n_qspi.h"
 #include "n_fs.h"
-#include "n_buttons.h"
+#include "x_buttons.h"
 #include "n_rjoy.h"
 #include "n_i2s.h"
 
@@ -62,11 +62,13 @@
 #include "board_config.h"
 */
 
+#define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
+
 
 int no_sdcard = 1;
 
-void D_DoomMain (void);
-void M_ArgvInit(void);
+//void D_DoomMain (void);
+//void M_ArgvInit(void);
 
 /*
 void MWU_IRQHandler(void)
@@ -104,7 +106,7 @@ void mwu_init()
 
 void app_error_handler_bare(uint32_t code)
 {
-    printf("nRF app_error\n");
+    PRINTF("nRF app_error\n");
 }
 
 
@@ -143,39 +145,32 @@ int main(void)
 
     //N_uart_init();
 
-    printf("\n\n");
-    printf("----------------------------------\n");
-    printf("UART Initialized\n");
-    printf("---------------------------------\n");
+    PRINTF("\n\n");
+    PRINTF("----------------------------------\n");
+    PRINTF("UART Initialized\n");
+    PRINTF("---------------------------------\n");
 
-    NRF_CACHE_S->ENABLE = 1;
+    //NRF_CACHE_S->ENABLE = 1;
 
     boot_net();
 
-    N_qspi_init();
+    //N_qspi_init();
 
     if (!no_sdcard) {
-        N_fs_init();
+        //N_fs_init();
     }
 
-    N_ButtonsInit();
+    X_ButtonsInit();
 
-    N_I2S_init();
+    //N_I2S_init();
 
-    M_ArgvInit();
+    //M_ArgvInit();
 
-    D_DoomMain();
+    //D_DoomMain();
 
-    while (true)
+    while (1)
     {
-        __WFE();
+        //__WFE();
     }
 }
 
-void exit(int code) {
-    printf("exit\n");
-    while (true)
-    {
-        __WFE();
-    }
-}

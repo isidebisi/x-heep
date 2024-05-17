@@ -39,7 +39,7 @@
 #include "w_wad.h"
 #include "z_zone.h"
 
-#include "n_buttons.h"
+#include "x_buttons.h"
 #include "n_display.h"
 #include "n_uart.h"
 #include "n_rjoy.h"
@@ -205,7 +205,7 @@ static void I_ToggleFullScreen(void)
 
 void I_GenerateEvents(void)
 {
-    N_ReadButtons();
+    X_ReadButtons();
     N_ReadUart();
 
     // printf("%d %d\n", joywait, I_GetTime());
