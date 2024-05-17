@@ -59,12 +59,13 @@
 
 
 //local functions
-int initGPIO(uint32_t pinNum);
-int configGPIOIn(uint32_t pinNum);
+int initGPIO(uint32_t pinNum, uint32_t gpio_tb);
 
+uint32_t gpio_tb[6] = {GPIO_TB_IN_UP, GPIO_TB_IN_DOWN, GPIO_TB_IN_LEFT, GPIO_TB_IN_RIGHT, GPIO_TB_IN_A, GPIO_TB_IN_B};
+bool button_prev_state[6] = {1,1,1,1,1,1,1};  //UP, DOWN, LEFT, RIGHT, A, B
+bool button_state[6];       //UP, DOWN, LEFT, RIGHT, A, B
 
-plic_result_t plic_res;
-
+void poll_handler(uint8_t iter, bool isPressed);
 
 void handler_up()
 {
@@ -98,22 +99,14 @@ void handler_b()
 int main(int argc, char *argv[])
 {
 
+    plic_result_t plic_result;
     pad_control_t pad_control;
     pad_control.base_addr = mmio_region_from_addr((uintptr_t)PAD_CONTROL_START_ADDRESS);
-    plic_res = plic_Init();
-    if (plic_res != kPlicOk) {
+    plic_result = plic_Init();
+    if (plic_result != kPlicOk) {
         PRINTF("Init PLIC failed\n\r;");
         return -1;
     }
-
-
-    initGPIO(GPIO_INTR_UP);
-    initGPIO(GPIO_INTR_DOWN);
-    initGPIO(GPIO_INTR_LEFT);
-    initGPIO(GPIO_INTR_RIGHT);
-    initGPIO(GPIO_INTR_A);
-    initGPIO(GPIO_INTR_B);
-
 
     // Enable interrupt on processor side
     // Enable global interrupt for machine-level interrupts
@@ -122,34 +115,51 @@ int main(int argc, char *argv[])
     const uint32_t mask = 1 << 11;
     CSR_SET_BITS(CSR_REG_MIE, mask);
 
-    
 
-    configGPIOIn(GPIO_TB_IN_UP);
-    configGPIOIn(GPIO_TB_IN_DOWN);
-    configGPIOIn(GPIO_TB_IN_LEFT);
-    configGPIOIn(GPIO_TB_IN_RIGHT);
-    configGPIOIn(GPIO_TB_IN_A);
-    configGPIOIn(GPIO_TB_IN_B);
-
-
-
+    initGPIO(GPIO_INTR_UP, GPIO_TB_IN_UP);
+    initGPIO(GPIO_INTR_DOWN, GPIO_TB_IN_DOWN);
+    initGPIO(GPIO_INTR_LEFT, GPIO_TB_IN_LEFT);
+    initGPIO(GPIO_INTR_RIGHT, GPIO_TB_IN_RIGHT);
+    initGPIO(GPIO_INTR_A, GPIO_TB_IN_A);
+    initGPIO(GPIO_INTR_B, GPIO_TB_IN_B);
+/*
     gpio_assign_irq_handler( GPIO_INTR_UP, &handler_up );
     gpio_assign_irq_handler( GPIO_INTR_DOWN, &handler_down );
     gpio_assign_irq_handler( GPIO_INTR_LEFT, &handler_left );
     gpio_assign_irq_handler( GPIO_INTR_RIGHT, &handler_right );
     gpio_assign_irq_handler( GPIO_INTR_A, &handler_a );
     gpio_assign_irq_handler( GPIO_INTR_B, &handler_b );
-
+*/
     PRINTF("Press Buttons for interrupt...\n\r");
     while(1) {
+
+        for(uint8_t iter=0; iter<6; iter++)
+        {
+            gpio_read(gpio_tb[iter], &button_state[iter]);
+            if(button_state[iter] != button_prev_state[iter])
+            {
+                if(button_state[iter] == true)
+                {
+                    poll_handler(iter, false);
+                }
+                else
+                {
+                    poll_handler(iter, true);
+                }
+                button_prev_state[iter] = button_state[iter];
+            }
+        }
     }
 
     return EXIT_SUCCESS;
 }
 
 
-int initGPIO(uint32_t pinNum)
+int initGPIO(uint32_t pinNum, uint32_t gpio_tb)
 {
+    /*
+    plic_result_t plic_res = kPlicOk;
+
         plic_res = plic_irq_set_priority(pinNum, 1);
     if (plic_res != kPlicOk) {
         PRINTF("Failed\n\r;");
@@ -161,14 +171,11 @@ int initGPIO(uint32_t pinNum)
         PRINTF("Failed\n\r;");
         return -1;
     }
-}
-
-int configGPIOIn(uint32_t pinNum)
-{
+*/
     gpio_result_t gpio_res;
 
     gpio_cfg_t cfg_in = {
-        .pin = pinNum,
+        .pin = gpio_tb,
         .mode = GpioModeIn,
         .en_input_sampling = true,
         .en_intr = true,
@@ -179,5 +186,61 @@ int configGPIOIn(uint32_t pinNum)
     if (gpio_res != GpioOk) {
         PRINTF("Failed\n;");
         return -1;
+    }
+}
+
+void poll_handler(uint8_t iter, bool isPressed)
+{
+    if(isPressed)
+    {
+        switch (iter)
+        {
+        case 0:
+            PRINTF("UP Button pressed\n");
+            break;
+        case 1:
+            PRINTF("DOWN Button pressed\n");
+            break;
+        case 2:
+            PRINTF("LEFT Button pressed\n");
+            break;
+        case 3:
+            PRINTF("RIGHT Button pressed\n");
+            break;
+        case 4:
+            PRINTF("A Button pressed\n");
+            break;
+        case 5:
+            PRINTF("B Button pressed\n");
+            break;       
+        default:
+            break;
+        }
+    }
+    else
+    {
+        switch (iter)
+        {
+        case 0:
+            PRINTF("UP Button released\n");
+            break;
+        case 1:
+            PRINTF("DOWN Button released\n");
+            break;
+        case 2:
+            PRINTF("LEFT Button released\n");
+            break;
+        case 3:
+            PRINTF("RIGHT Button released\n");
+            break;
+        case 4:
+            PRINTF("A Button released\n");
+            break;
+        case 5:
+            PRINTF("B Button released\n");
+            break;
+        default:
+            break;
+        }
     }
 }
