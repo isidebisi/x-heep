@@ -53,17 +53,6 @@
     #define PRINTF(...)
 #endif
 
-/**
- * @brief SPI structure.
-*/
-spi_host_t spi_LCD; 
-
-
-
-
-
-
-
 
 
 
@@ -77,7 +66,7 @@ int main(int argc, char *argv[]) {
     PRINTF("SPI INIT\n");
     
 
-    ST7789_spi_init(&spi_LCD);
+    ST7789_spi_init();
     ST7789_display_init();
 
     uint16_t x = 0;
@@ -87,7 +76,6 @@ int main(int argc, char *argv[]) {
     //ST7789_test_fill_screen(0x8000);
 
 
-    PRINTF("TEST: PRINT SPI MEM REGION FROM MAIN = %x\n", spi_LCD.base_addr);
     spi_host_t spi_test = ST7789_get_spi_host();
     PRINTF("TEST: PRINT SPI MEM REGION FROM DRIVER = %x\n", spi_test.base_addr);
 

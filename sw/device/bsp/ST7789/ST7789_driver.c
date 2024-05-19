@@ -59,10 +59,9 @@ void ST7789_gpio_init(void)
 }
 
 
-uint8_t ST7789_spi_init(spi_host_t* spi_HOST){
+uint8_t ST7789_spi_init(){
 
-    spi_HOST->base_addr = mmio_region_from_addr((uintptr_t)SPI_HOST_START_ADDRESS);
-    ST7789_spi_LCD = *spi_HOST;
+    ST7789_spi_LCD.base_addr = mmio_region_from_addr((uintptr_t)SPI_HOST_START_ADDRESS);
         // Enable SPI host device
     spi_set_enable(&ST7789_spi_LCD, true);
 

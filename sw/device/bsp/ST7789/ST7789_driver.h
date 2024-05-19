@@ -21,7 +21,7 @@
 
 //Public Test function definitions
 void        ST7789_gpio_init(void);
-uint8_t     ST7789_spi_init(spi_host_t* ST7789_spi_LCD);
+uint8_t     ST7789_spi_init();
 uint8_t     ST7789_display_init(void);
 spi_host_t  ST7789_get_spi_host(void);
 
