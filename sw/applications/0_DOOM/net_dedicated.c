@@ -26,7 +26,7 @@
 #include "m_argv.h"
 
 #include "net_defs.h"
-#include "net_sdl.h"
+//#include "net_sdl.h"
 #include "net_server.h"
 
 // 

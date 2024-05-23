@@ -128,6 +128,9 @@ pixel_t I_VideoBuffers[2][320*200];
 
 uint8_t  display_pal[DISPLAY_PALETTE_SIZE];
 
+palette_pixel_t display_palette[256];
+
+
 static int current_dl;
 
 // Memory references for display driver memory
@@ -378,10 +381,13 @@ void I_SetPalette (byte *doompalette)
         display_pal[i*4+2] = b;
         display_pal[i*4+3] = 0xFF;
 
+        display_palette[i].r = r;
+        display_palette[i].g = g;
+        display_palette[i].b = b;
     }
 }
 
-/* NRFD-EXCLUDE
+
 // Given an RGB value, find the closest matching palette index.
 
 int I_GetPaletteIndex(int r, int g, int b)
@@ -393,9 +399,9 @@ int I_GetPaletteIndex(int r, int g, int b)
 
     for (i = 0; i < 256; ++i)
     {
-        diff = (r - palette[i].r) * (r - palette[i].r)
-             + (g - palette[i].g) * (g - palette[i].g)
-             + (b - palette[i].b) * (b - palette[i].b);
+        diff = (r - display_palette[i].r) * (r - display_palette[i].r)
+             + (g - display_palette[i].g) * (g - display_palette[i].g)
+             + (b - display_palette[i].b) * (b - display_palette[i].b);
 
         if (diff < best_diff)
         {
@@ -412,7 +418,19 @@ int I_GetPaletteIndex(int r, int g, int b)
     return best;
 }
 
-    */
+
+uint16_t I_GetRGB565FromPaletteIndex(int index)
+{
+    // Extract the RGB values from the palette
+    int r = display_palette[index].r;
+    int g = display_palette[index].g;
+    int b = display_palette[index].b;
+
+    // Convert the RGB values to the RGB565 format
+    uint16_t rgb565 = ((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3);
+
+    return rgb565;
+}
 
 // 
 // Set the window title

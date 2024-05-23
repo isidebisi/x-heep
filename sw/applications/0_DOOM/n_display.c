@@ -32,12 +32,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "board_config.h"
-#include "nrf.h"
-#include "nrf_delay.h"
-#include "nrf_gpio.h"
+//#include "board_config.h"
+//#include "nrf.h"
+//#include "nrf_delay.h"
+//#include "nrf_gpio.h"
 
-#include "FT810.h"
+//#include "FT810.h"
 
 #define BUF_MAXCNT 8
 

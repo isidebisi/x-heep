@@ -30,7 +30,7 @@
 #include "net_packet.h"
 #include "net_query.h"
 #include "net_structrw.h"
-#include "net_sdl.h"
+//#include "net_sdl.h"
 
 // DNS address of the Internet master server.
 
