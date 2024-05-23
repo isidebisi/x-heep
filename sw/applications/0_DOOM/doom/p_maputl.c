@@ -64,7 +64,7 @@ P_PointOnLineSide
   fixed_t       y,
   line_t*       line )
 {
-    // printf("P_PointOnLineSide\n");
+    // PRINTF("P_PointOnLineSide\n");
 
     fixed_t     dx;
     fixed_t     dy;
@@ -454,7 +454,7 @@ void P_UnsetThingPosition (mobj_t* thing)
 void
 P_SetThingPosition (mobj_t* thing)
 {
-    // printf("P_SetThingPosition\n");
+    // PRINTF("P_SetThingPosition\n");
 
     subsector_t*        ss;
     sector_t*           sec;
@@ -610,7 +610,7 @@ P_BlockThingsIterator
         }
         i++;
         if (i > 512) {
-            printf("P_BlockThingsIterator: problem with blocklinks\n");
+            PRINTF("P_BlockThingsIterator: problem with blocklinks\n");
             break;
         }
     }

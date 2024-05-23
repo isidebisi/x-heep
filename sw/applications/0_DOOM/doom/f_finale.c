@@ -658,7 +658,7 @@ void F_BunnyScroll (void)
         laststage = stage;
     }
         
-    DEH_snprintf(name, 10, "END%i", stage);
+    //DEH_snprintf(name, 10, "END%i", stage);
     V_DrawPatch((SCREENWIDTH - 13 * 8) / 2, 
                 (SCREENHEIGHT - 8 * 8) / 2, 
                 W_CacheLumpName (name,PU_CACHE));

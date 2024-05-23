@@ -27,7 +27,7 @@
 
 #include "i_midipipe.h"
 
-#include "config.h"
+//#include "config.h"
 #include "doomtype.h"
 #include "memio.h"
 #include "mus2mid.h"
@@ -706,7 +706,7 @@ static void LoadSubstituteConfigs(void)
 
     if (subst_music_len > 0)
     {
-        printf("Loaded %i music substitutions from config files.\n",
+        PRINTF("Loaded %i music substitutions from config files.\n",
                subst_music_len);
     }
 }
@@ -789,7 +789,7 @@ static void DumpSubstituteConfig(char *filename)
     fprintf(fs, "\n");
     fclose(fs);
 
-    printf("Substitute MIDI config file written to %s.\n", filename);
+    PRINTF("Substitute MIDI config file written to %s.\n", filename);
     I_Quit();
 }
 

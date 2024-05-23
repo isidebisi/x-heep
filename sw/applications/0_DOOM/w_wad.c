@@ -176,14 +176,14 @@ wad_file_t *W_AddFile (char *filename)
         I_Error("Only one wad file supported\n");
     }
 
-    printf("W_AddFile: Reading %s\n", filename);
+    PRINTF("W_AddFile: Reading %s\n", filename);
     // Open the file and add to directory
     // wad_file = W_OpenFile(filename);
     if (!no_sdcard) {
         wad_file = N_fs_open(filename);
         if (wad_file == NULL)
         {
-            printf (" couldn't open %s\n", filename);
+            PRINTF (" couldn't open %s\n", filename);
             return NULL;
         }
     }
@@ -219,7 +219,7 @@ wad_file_t *W_AddFile (char *filename)
         if (!no_sdcard) {
             file_size = N_fs_size(wad_file);
         }
-        printf("File size: %ld\n", file_size);
+        PRINTF("File size: %ld\n", file_size);
 
         int num_blocks = (file_size + N_QSPI_BLOCK_SIZE - 1) / N_QSPI_BLOCK_SIZE;
         N_qspi_reserve_blocks(num_blocks);
@@ -231,16 +231,16 @@ wad_file_t *W_AddFile (char *filename)
 
             /*
             for (i = 0; i<num_blocks; i++) {
-                printf("Verifying block %d of %d\n", i, num_blocks);
+                PRINTF("Verifying block %d of %d\n", i, num_blocks);
                 int block_next = block_loc + N_QSPI_BLOCK_SIZE;
                 int block_size = block_next > file_size ? (file_size%N_QSPI_BLOCK_SIZE) : N_QSPI_BLOCK_SIZE;
-                printf("N_fs_read\n");
+                PRINTF("N_fs_read\n");
                 N_fs_read(wad_file, block_loc, block_data, block_size);
-                printf("Comparing...\n");
+                PRINTF("Comparing...\n");
                 for (int j = 0; j<block_size; j++) {
                     if (block_data[j] != qspi_data[block_loc+j]) {
                         data_mismatch = true;
-                        printf("Found mismatch in byte %d\n", block_loc+j);
+                        PRINTF("Found mismatch in byte %d\n", block_loc+j);
                         break;
                     }
                 }
@@ -250,15 +250,15 @@ wad_file_t *W_AddFile (char *filename)
             */
             
             if (data_mismatch) {
-                printf("Uploading WAD data to QSPI flash memory..");
+                PRINTF("Uploading WAD data to QSPI flash memory..");
                 block_loc = 0;
                 for (i = 0; i<num_blocks; i++) {
-                    printf("Copying block %d of %d\n", i, num_blocks);
+                    PRINTF("Copying block %d of %d\n", i, num_blocks);
                     int block_next = block_loc + N_QSPI_BLOCK_SIZE;
                     int block_size = block_next > file_size ? (file_size%N_QSPI_BLOCK_SIZE) : N_QSPI_BLOCK_SIZE;
-                    printf("N_fs_read\n");
+                    PRINTF("N_fs_read\n");
                     N_fs_read(wad_file, block_loc, block_data, block_size);
-                    printf("N_qspi_write_block\n");
+                    PRINTF("N_qspi_write_block\n");
                     N_qspi_write_block(block_loc, block_data, block_size);
                     block_loc = block_next;
                 }
@@ -300,10 +300,10 @@ wad_file_t *W_AddFile (char *filename)
         // length = header_ptr->numlumps*sizeof(filelump_t);
         // fileinfo = Z_Malloc(length, PU_STATIC, 0);
 
-        printf("WAD header_ptr\n");
-        printf("ID: %.4s\n", header_ptr->identification);
-        printf("Num lumps: %d\n", header_ptr->numlumps);
-        printf("Info table: %d\n", header_ptr->infotableofs);
+        PRINTF("WAD header_ptr\n");
+        PRINTF("ID: %.4s\n", header_ptr->identification);
+        PRINTF("Num lumps: %d\n", header_ptr->numlumps);
+        PRINTF("Info table: %d\n", header_ptr->infotableofs);
 
         
         if (numlumps != 0) { 
@@ -333,24 +333,24 @@ wad_file_t *W_AddFile (char *filename)
             lump_p->cache = N_qspi_data_pointer(lump_filepos);
             strncpy(lump_p->name, filelump.name, 8);
 
-            // printf("Lump %.8s: num: %d size: %d location: %X\n", lump_p->name, numlumps, lump_p->size, (unsigned int)lump_p->cache);
+            // PRINTF("Lump %.8s: num: %d size: %d location: %X\n", lump_p->name, numlumps, lump_p->size, (unsigned int)lump_p->cache);
 
             if (0) //!strncasecmp(filelump.name, "ENDOOM", 8))
             {
-                printf("Found ENDOOM at %X\n", lump_filepos);
+                PRINTF("Found ENDOOM at %X\n", lump_filepos);
                 char *endoom = lump_p->cache;
-                printf("%X\n", (unsigned int)(endoom));
+                PRINTF("%X\n", (unsigned int)(endoom));
                 for (int i=0; i<80*4; i++) {
                     char c = endoom[i];
                     if (i%2==1) continue;
                     if ((i/2)%80==0)
-                        printf("\n");
+                        PRINTF("\n");
                     if (c < 32 || c > 127)
-                        printf("X");
+                        PRINTF("X");
                     else 
-                        printf("%c", c);
+                        PRINTF("%c", c);
                 }
-                printf("\n");
+                PRINTF("\n");
             }
 
             numlumps += 1;
@@ -498,7 +498,7 @@ void W_ReadLump(lumpindex_t lump, void *dest)
 
     // lumpinfo_t *l;
     // l = &lumpinfo[lump];
-    // printf("W_ReadLump(dummy): %.8s\n", l->name);
+    // PRINTF("W_ReadLump(dummy): %.8s\n", l->name);
 
     // V_BeginRead(l->size);
     filelump_t *filelump = &filelumps[lump];
@@ -510,7 +510,7 @@ void W_ReadLump(lumpindex_t lump, void *dest)
     /* NRFD-EXCLUDE
 
     // int c;
-    // printf("Read lump at %d with size %d to %X\n", l->position, l->size, (unsigned int)(dest));
+    // PRINTF("Read lump at %d with size %d to %X\n", l->position, l->size, (unsigned int)(dest));
     // c = W_Read(l->wad_file, l->position, dest, l->size);
     // c = W_Read(wad_file, l->position, dest, l->size);
 
@@ -561,7 +561,7 @@ void *W_CacheLumpNum(lumpindex_t lumpnum, int tag)
             byte *qspi_data = W_LumpDataPointer(lumpnum);
             for (int j=0;j<filelumps[lumpnum].size;j++) {
                 if (cache[j] != qspi_data[j]) {
-                    printf("X");
+                    PRINTF("X");
                 }
             }
             return cache;
@@ -717,7 +717,7 @@ void W_Profile (void)
 void W_GenerateHashTable(void)
 {
     lumpindex_t i;
-    printf("NRDF-TODO? W_GenerateHashTable\n");
+    PRINTF("NRDF-TODO? W_GenerateHashTable\n");
 
     /*
     // Free the old hash table, if there is one:
@@ -808,7 +808,7 @@ void W_DebugLump(int lump)
 
     filelump_t *filelump = &filelumps[lump];
 
-    printf("W_DebugLump: %d size: %d\n", lump, filelump->size);
+    PRINTF("W_DebugLump: %d size: %d\n", lump, filelump->size);
 
     byte *cache = N_malloc(filelump->size);
     

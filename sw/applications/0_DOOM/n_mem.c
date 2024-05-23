@@ -41,9 +41,9 @@ void *N_malloc(size_t size)
     result = malloc(size);
     size_t end = (size_t)result + size;
     
-    // printf("A %d at %X - %X - %lX\n", size, (size_t)result, end, heapLimit);
+    // PRINTF("A %d at %X - %X - %lX\n", size, (size_t)result, end, heapLimit);
     if (end > heapLimit) {
-        printf("Heap Overflow!!\n");
+        PRINTF("Heap Overflow!!\n");
         return NULL;
     }
 

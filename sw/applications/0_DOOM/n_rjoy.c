@@ -71,9 +71,9 @@ void N_rjoy_read() {
     rjoy_radio_packet_t new_joy_state;
     uint32_t *tmp = (uint32_t*)(&new_joy_state);
     *tmp = radio_packet;
-    // printf("%lx\n", *tmp);
+    // PRINTF("%lx\n", *tmp);
     if (new_joy_state.counter != prev_joy_state.counter) {
-        // printf("N_rjoy_read: %d\n", new_joy_state.counter);
+        // PRINTF("N_rjoy_read: %d\n", new_joy_state.counter);
         event_t ev;
 
         int joyX = new_joy_state.joyX-x_cen;
@@ -82,7 +82,7 @@ void N_rjoy_read() {
         if (-guard < joyX && joyX < guard) joyX = 0;
         if (-guard < joyY && joyY < guard) joyY = 0;
 
-        // printf("N_rjoy_read: %d %d\n", joyX, joyY);
+        // PRINTF("N_rjoy_read: %d %d\n", joyX, joyY);
 
         ev.type = ev_joystick;
         ev.data1 = new_joy_state.buttons;

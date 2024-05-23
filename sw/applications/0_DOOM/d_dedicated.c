@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include "config.h"
+//#include "config.h"
 
 #include "m_argv.h"
 #include "net_defs.h"
@@ -38,7 +38,7 @@ void NET_CL_Run(void)
 
 void D_DoomMain(void)
 {
-    printf(PACKAGE_NAME " standalone dedicated server\n");
+    //PRINTF(PACKAGE_NAME " standalone dedicated server\n");
 
     Z_Init();
 

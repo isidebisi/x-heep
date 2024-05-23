@@ -3,7 +3,7 @@
 #include "i_video.h"
 #include "ST7789_driver.h"
 
-#define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
+#define PRINTF(fmt, ...)    PRINTF(fmt, ## __VA_ARGS__)
 
 uint16_t ST7789_screenBuffer[ST7789_TFTHEIGHT*ST7789_TFTWIDTH];
 

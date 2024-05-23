@@ -273,7 +273,7 @@ R_DrawColumnInCache
 //
 void R_GenerateComposite (int texnum)
 {
-    printf("NRFD-TODO: R_GenerateComposite %d\n", texnum);
+    PRINTF("NRFD-TODO: R_GenerateComposite %d\n", texnum);
     
     /*
     byte*           block;
@@ -349,7 +349,7 @@ void R_GenerateInit(int texture_storage_size)
 
     generate_buffer = (byte*)I_VideoBuffers;
     store_loc = N_qspi_alloc_block();
-    printf("R_GenerateInit: %d %d\n", store_loc, generate_to_flash);
+    PRINTF("R_GenerateInit: %d %d\n", store_loc, generate_to_flash);
 
     for (int ofs=0; ofs<texture_storage_size; ofs+=N_QSPI_BLOCK_SIZE) {
         if (generate_to_flash) {
@@ -365,7 +365,7 @@ void R_GenerateInit(int texture_storage_size)
 void R_GenerateComposite_N (int num, texture_t *texture, char *patch_names)
 {
 
-    // printf("R_GenerateComposite_N: %d\n", num);
+    // PRINTF("R_GenerateComposite_N: %d\n", num);
     
     byte*           block;
     int             i;
@@ -399,7 +399,7 @@ void R_GenerateComposite_N (int num, texture_t *texture, char *patch_names)
         patch_t*     realpatch     = W_CacheLumpName(patch_name, PU_CACHE); //W_CacheLumpNum (patch_lump, PU_CACHE);
         int          columnofs[256];
 
-        // printf("        %.8s(%d)\n", patch_name, patch_num);
+        // PRINTF("        %.8s(%d)\n", patch_name, patch_num);
 
         // int *patch_columnofs = realpatch->columnofs;
         // NOTE: Having some trouble with reliable reading of this data from QSPI
@@ -464,7 +464,7 @@ void R_GenerateComposite_N (int num, texture_t *texture, char *patch_names)
 //
 void R_GenerateLookup (int texnum)
 {
-    printf("NRFD-TODO: R_GenerateLookup\n");
+    PRINTF("NRFD-TODO: R_GenerateLookup\n");
      /*   
     
     texture_t*          texture;
@@ -523,7 +523,7 @@ void R_GenerateLookup (int texnum)
     {
         if (!patchcount[x])
         {
-            printf ("R_GenerateLookup: column without a patch (%s)\n",
+            PRINTF ("R_GenerateLookup: column without a patch (%s)\n",
                 R_TextureNameForNum(texnum));
             return;
         }
@@ -556,7 +556,7 @@ R_GetCachedColumn
 ( int           tex,
   int           col )
 {
-    // printf("NRF-TODO: R_GetColumn\n");
+    // PRINTF("NRF-TODO: R_GetColumn\n");
 
     texture_t      *texture;
     short           height;
@@ -568,7 +568,7 @@ R_GetCachedColumn
     width = R_TextureWidth(texture);
 
     if (col < 0 || col >= width) {
-        printf("Assertion failed: %d < %d < %d\n", 0, col, width);
+        PRINTF("Assertion failed: %d < %d < %d\n", 0, col, width);
         I_Error("R_GetCachedColumn");
     }
 
@@ -586,7 +586,7 @@ R_GetColumn
 ( int           tex,
   int           col )
 {
-    // printf("NRF-TODO: R_GetColumn\n");
+    // PRINTF("NRF-TODO: R_GetColumn\n");
 
     texture_t      *texture;
     short           height;
@@ -598,7 +598,7 @@ R_GetColumn
     width = R_TextureWidth(texture);
 
     if (col < 0 || col >= width) {
-        printf("Assertion failed: %d < %d < %d\n", 0, col, width);
+        PRINTF("Assertion failed: %d < %d < %d\n", 0, col, width);
         I_Error("R_GetColumn");
     }
     I_Error("R_GetColumn");
@@ -609,7 +609,7 @@ R_GetColumn
 
 static void GenerateTextureHashTable(void)
 {
-    printf("NRFD-EXCLUDE: GenerateTextureHashTable\n");
+    PRINTF("NRFD-EXCLUDE: GenerateTextureHashTable\n");
     /*
     texture_t **rover;
     int i;
@@ -659,7 +659,7 @@ static void GenerateTextureHashTable(void)
 //
 void R_InitTextures (void)
 {
-    printf("R_InitTextures\n");
+    PRINTF("R_InitTextures\n");
 
     maptexture_t*       mtexture;
     texture_t*          texture;
@@ -735,7 +735,7 @@ void R_InitTextures (void)
     }
     numtextures = numtextures1 + numtextures2;
 
-    printf("R_InitTextures: nummappatches = %d, numtextures = %d\n", nummappatches, numtextures);
+    PRINTF("R_InitTextures: nummappatches = %d, numtextures = %d\n", nummappatches, numtextures);
 
     if (numtextures > MAX_TEXTURES) {
         I_Error("Too many textures in WAD\n");
@@ -754,12 +754,12 @@ void R_InitTextures (void)
     /* NRFD-EXCLUDE
     if (I_ConsoleStdout())
     {
-        printf("[");
+        PRINTF("[");
         for (i = 0; i < temp3 + 9; i++)
-            printf(" ");
-        printf("]");
+            PRINTF(" ");
+        PRINTF("]");
         for (i = 0; i < temp3 + 10; i++)
-            printf("\b");
+            PRINTF("\b");
     }
     */
 
@@ -774,7 +774,7 @@ void R_InitTextures (void)
         short height;
         /* NRFD-EXCLUDE
         if (!(i&63))
-            printf (".");
+            PRINTF (".");
         */
 
         if (i == numtextures1)
@@ -811,7 +811,7 @@ void R_InitTextures (void)
         // }
         texture_patches_count += patchcount;
 
-        printf("Texture %d %.8s: width = %d, height = %d, patchcount = %d\n", 
+        PRINTF("Texture %d %.8s: width = %d, height = %d, patchcount = %d\n", 
             i, mtexture->name, width, height, patchcount);
 
         /* NRFD-NOTE: Moved to texture_t
@@ -830,8 +830,8 @@ void R_InitTextures (void)
         // textureheight[i] = texture->height<<FRACBITS;
     }
 
-    printf("Texture patches count: %d\n", texture_patches_count);
-    printf("Texture storage size: %d\n", texture_storage_size);
+    PRINTF("Texture patches count: %d\n", texture_patches_count);
+    PRINTF("Texture storage size: %d\n", texture_storage_size);
 
 
     // NRFD-NOTE: Do second pass after allocating texture patches 
@@ -898,7 +898,7 @@ void R_InitTextures (void)
     
     // Precalculate whatever possible.      
 
-    printf("NRFD-TODO: R_InitTextures\n");
+    PRINTF("NRFD-TODO: R_InitTextures\n");
     /*
     for (i=0 ; i<numtextures ; i++)
         R_GenerateLookup (i);
@@ -927,7 +927,7 @@ void R_InitFlats (void)
     numflats = lastflat - firstflat + 1;
 
     // NRFD-TODO: Assert that numflats < 65k?
-    printf("R_InitFlats: firstflat = %d, numflats = %d\n", firstflat, numflats);
+    PRINTF("R_InitFlats: firstflat = %d, numflats = %d\n", firstflat, numflats);
         
     // Create translation table for global animation.
     // NRFD-TODO? flattranslation could be bytes if we used offset from firstflat 
@@ -949,7 +949,7 @@ void R_InitSpriteLumps (void)
     int             i;
     patch_t     *patch;
 
-    printf("R_InitSpriteLumps\n");
+    PRINTF("R_InitSpriteLumps\n");
 
 
     firstspritelump = W_GetNumForName (DEH_String("S_START")) + 1;
@@ -963,7 +963,7 @@ void R_InitSpriteLumps (void)
     for (i=0 ; i< numspritelumps ; i++)
     {
         // if (!(i&63))
-        //     printf (".");
+        //     PRINTF (".");
 
         // patch = W_CacheLumpNum (firstspritelump+i, PU_CACHE);
         // spritewidth[i] = SHORT(patch->width)<<FRACBITS;
@@ -1009,7 +1009,7 @@ void R_InitColormaps (void)
     // colormaps = W_CacheLumpNum(lump, PU_STATIC);
 
     int length = W_LumpLength(lump);
-    printf("R_InitColormaps: length = %d\n", length);
+    PRINTF("R_InitColormaps: length = %d\n", length);
 
     colormaps = Z_Malloc(length, PU_STATIC, 0);
     W_ReadLump(lump, colormaps);
@@ -1051,7 +1051,7 @@ int R_FlatNumForName (const char* name)
         memcpy (namet, name,8);
         I_Error ("R_FlatNumForName: %s not found",namet);
     }
-    // printf("R_FlatNumForName: %d\n", i);
+    // PRINTF("R_FlatNumForName: %d\n", i);
     return i - firstflat;
 }
 
@@ -1072,10 +1072,10 @@ int     R_CheckTextureNumForName (const char *name)
         return 0;
 
     // NRFD-NOTE: Slower but requires less memory. Potential for optimization
-    // printf("Checking %.7s\n", name);
+    // PRINTF("Checking %.7s\n", name);
     for (int i=0; i<numtextures; i++) {
         texture = &textures[i];
-        // printf("  %d: %.8s\n", i, texture->name);
+        // PRINTF("  %d: %.8s\n", i, texture->name);
         if (!strncasecmp (texture->wad_texture->name, name, 8) ) {
             return i;
         }
@@ -1124,7 +1124,7 @@ int     R_TextureNumForName (const char* name)
 
 
 char *R_TextureNameForNum(int num) {
-    // printf("NRFD-TODO: R_TextureNameForNum\n");
+    // PRINTF("NRFD-TODO: R_TextureNameForNum\n");
     // return "TODO";
     return textures[num].wad_texture->name;
 }
@@ -1140,7 +1140,7 @@ int             spritememory;
 
 void R_PrecacheLevel (void)
 {
-    printf("NRF-TODO: R_PrecacheLevel\n");
+    PRINTF("NRF-TODO: R_PrecacheLevel\n");
     /*
     char*           flatpresent;
     char*           texturepresent;

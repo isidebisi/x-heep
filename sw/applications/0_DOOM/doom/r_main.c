@@ -445,7 +445,7 @@ R_PointOnSide
   fixed_t       y,
   node_t*       node )
 {
-    // printf("R_PointOnSide\n");
+    // PRINTF("R_PointOnSide\n");
 
     fixed_t     dx;
     fixed_t     dy;
@@ -847,7 +847,7 @@ void R_InitTextureMapping (void)
     int                 t2;
     fixed_t             focallength;
     
-    printf("NRFD-TODO: R_InitTextureMapping (review)\n");
+    PRINTF("NRFD-TODO: R_InitTextureMapping (review)\n");
     // Use tangent table to generate viewangletox:
     //  viewangletox will give the next greatest x
     //  after the view angle.
@@ -858,7 +858,7 @@ void R_InitTextureMapping (void)
                             finetangent[FINEANGLES/4+FIELDOFVIEW/2] );
     
     /*
-    printf("viewangletox = {");
+    PRINTF("viewangletox = {");
     for (i=0 ; i<FINEANGLES/2 ; i++)
     {
         if (finetangent[i] > FRACUNIT*2)
@@ -884,10 +884,10 @@ void R_InitTextureMapping (void)
 
         // viewangletox[i] = t;
         if (i != FINEANGLES/2-1)
-            printf("%d, ", t);
+            PRINTF("%d, ", t);
         else
-            printf("%d };\n\n", t);
-        if (i % 16 == 15) printf("\n");
+            PRINTF("%d };\n\n", t);
+        if (i % 16 == 15) PRINTF("\n");
     }
     
     // NRFD-NOTE: Has to be run twice to get correct results!
@@ -896,7 +896,7 @@ void R_InitTextureMapping (void)
     // Scan viewangletox[] to generate xtoviewangle[]:
     //  xtoviewangle will give the smallest view angle
     //  that maps to x. 
-    printf("xtoviewangle = {");
+    PRINTF("xtoviewangle = {");
     for (x=0;x<=viewwidth;x++)
     {
         angle_t angle; 
@@ -909,10 +909,10 @@ void R_InitTextureMapping (void)
         // xtoviewangle[x] = angle;
 
         if (x != viewwidth-1)
-            printf("%d, ", angle);
+            PRINTF("%d, ", angle);
         else
-            printf("%d };\n\n", angle);
-        if (x % 8 == 7) printf("\n");
+            PRINTF("%d };\n\n", angle);
+        if (x % 8 == 7) PRINTF("\n");
     }
     */
 
@@ -1018,11 +1018,11 @@ void R_ExecuteSetViewSize (void)
     centeryfrac = centery<<FRACBITS;
     projection = centerxfrac;
 
-    printf("R_ExecuteSetViewSize\n");
-    printf("   scaledviewwidth = %d\n", scaledviewwidth);
-    printf("   viewheight      = %d\n", viewheight);
-    printf("   viewwidth       = %d\n", scaledviewwidth);
-    printf("   detailshift     = %d\n", detailshift);
+    PRINTF("R_ExecuteSetViewSize\n");
+    PRINTF("   scaledviewwidth = %d\n", scaledviewwidth);
+    PRINTF("   viewheight      = %d\n", viewheight);
+    PRINTF("   viewwidth       = %d\n", scaledviewwidth);
+    PRINTF("   detailshift     = %d\n", detailshift);
 
     if (!detailshift)
     {
@@ -1054,29 +1054,29 @@ void R_ExecuteSetViewSize (void)
         screenheightarray[i] = viewheight;
     */
 
-    printf("NRFD-TODO: R_ExecuteSetViewSize\n");
+    PRINTF("NRFD-TODO: R_ExecuteSetViewSize\n");
     /*
     // planes
-    printf("yslope = {\n");
+    PRINTF("yslope = {\n");
     for (i=0 ; i<viewheight ; i++)
     {
         dy = ((i-viewheight/2)<<FRACBITS)+FRACUNIT/2;
         dy = abs(dy);
         // yslope[i] = FixedDiv ( (viewwidth<<detailshift)/2*FRACUNIT, dy);
         fixed_t ys = FixedDiv ( (viewwidth<<detailshift)/2*FRACUNIT, dy);
-        printf("0x%X,", ys);
+        PRINTF("0x%X,", ys);
     }
-    printf("}\n");
+    PRINTF("}\n");
         
-    printf("distscale = {\n");
+    PRINTF("distscale = {\n");
     for (i=0 ; i<viewwidth ; i++)
     {
         cosadj = abs(finecosine[xtoviewangle[i]>>ANGLETOFINESHIFT]);
         // distscale[i] = FixedDiv (FRACUNIT,cosadj);
         fixed_t ds = FixedDiv (FRACUNIT,cosadj);
-        printf("0x%X,", ds);
+        PRINTF("0x%X,", ds);
     }
-    printf("}\n");
+    PRINTF("}\n");
     */
 
     // NRF-TODO: Move to const table?
@@ -1134,7 +1134,7 @@ R_PointInSubsector
 ( fixed_t       x,
   fixed_t       y )
 {
-    // printf("R_PointInSubsector\n");
+    // PRINTF("R_PointInSubsector\n");
     
     int         side;
     int         nodenum;
@@ -1203,7 +1203,7 @@ void R_SetupFrame (player_t* player)
 //
 void R_RenderPlayerView (player_t* player)
 {       
-    // printf("Setup start ... \n");
+    // PRINTF("Setup start ... \n");
     R_SetupFrame (player);
 
     // Clear buffers.
@@ -1211,29 +1211,29 @@ void R_RenderPlayerView (player_t* player)
     R_ClearDrawSegs ();
     R_ClearPlanes ();
     R_ClearSprites ();
-    // printf("finish\n");
+    // PRINTF("finish\n");
     
     // check for new console commands.
     NetUpdate ();
 
     // The head node is the last node output.
-    // printf("R_RenderBSPNode start ... \n");
+    // PRINTF("R_RenderBSPNode start ... \n");
     R_RenderBSPNode (numnodes-1);
-    // printf("finish\n");
+    // PRINTF("finish\n");
     
     // Check for new console commands.
     NetUpdate ();
     
-    // printf("R_DrawPlanes start ... \n");
+    // PRINTF("R_DrawPlanes start ... \n");
     R_DrawPlanes ();
-    // printf("finish\n");
+    // PRINTF("finish\n");
     
     // Check for new console commands.
     NetUpdate ();
     
-    // printf("R_DrawMasked start ...\n");
+    // PRINTF("R_DrawMasked start ...\n");
     R_DrawMasked ();
-    // printf("finish\n");
+    // PRINTF("finish\n");
 
     // Check for new console commands.
     NetUpdate ();                               

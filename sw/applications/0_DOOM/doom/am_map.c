@@ -485,7 +485,7 @@ void AM_loadPics(void)
     /* NRFD-TODO: mark points 
     for (i=0;i<10;i++)
     {
-        DEH_snprintf(namebuf, 9, "AMMNUM%d", i);
+        //DEH_snprintf(namebuf, 9, "AMMNUM%d", i);
         marknums[i] = W_CacheLumpName(namebuf, PU_STATIC);
     }
     */
@@ -499,7 +499,7 @@ void AM_unloadPics(void)
   
     for (i=0;i<10;i++)
     {
-        DEH_snprintf(namebuf, 9, "AMMNUM%d", i);
+        //DEH_snprintf(namebuf, 9, "AMMNUM%d", i);
         W_ReleaseLumpName(namebuf);
     }
 }
@@ -1031,7 +1031,7 @@ AM_drawFline
            || fl->b.x < 0 || fl->b.x >= f_w
            || fl->b.y < 0 || fl->b.y >= f_h)
     {
-        DEH_fprintf(stderr, "fuck %d \r", fuck++);
+        //DEH_fprintf(stderr, "fuck %d \r", fuck++);
         return;
     }
 
@@ -1327,7 +1327,7 @@ AM_drawThings
 ( int   colors,
   int   colorrange)
 {
-    printf("NRFD-TODO: AM_drawThings\n");
+    PRINTF("NRFD-TODO: AM_drawThings\n");
     /*
     int         i;
     mobj_t*     t;

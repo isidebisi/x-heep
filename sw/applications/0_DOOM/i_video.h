@@ -41,14 +41,13 @@ extern pixel_t *I_VideoBuffer;
 extern pixel_t *I_VideoBackBuffer;
 extern pixel_t I_VideoBuffers[2][320*200];
 
-extern palette_pixel_t display_palette[256];
-
 typedef struct palette_pixel {
     uint8_t r;
     uint8_t g;
     uint8_t b;
 } palette_pixel_t;
 
+extern palette_pixel_t display_palette[256];
 
 // extern int screen_width;
 // extern int screen_height;

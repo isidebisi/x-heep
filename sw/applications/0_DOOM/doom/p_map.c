@@ -205,14 +205,14 @@ static void SpechitOverrun(line_t *ld);
 //
 boolean PIT_CheckLine (line_t* ld)
 {
-    // printf("  PIT_CheckLine\n");
+    // PRINTF("  PIT_CheckLine\n");
 
     fixed_t* ld_bbox = LineBBox(ld);
 
-    // printf("   RL: %d <= %d", tmbbox[BOXRIGHT], ld_bbox[BOXLEFT]);
-    // printf("   LR: %d >= %d", tmbbox[BOXLEFT], ld_bbox[BOXRIGHT]);
-    // printf("   TB: %d <= %d", tmbbox[BOXTOP], ld_bbox[BOXBOTTOM]);
-    // printf("   BT: %d >= %d\n", tmbbox[BOXBOTTOM], ld_bbox[BOXTOP]);
+    // PRINTF("   RL: %d <= %d", tmbbox[BOXRIGHT], ld_bbox[BOXLEFT]);
+    // PRINTF("   LR: %d >= %d", tmbbox[BOXLEFT], ld_bbox[BOXRIGHT]);
+    // PRINTF("   TB: %d <= %d", tmbbox[BOXTOP], ld_bbox[BOXBOTTOM]);
+    // PRINTF("   BT: %d >= %d\n", tmbbox[BOXBOTTOM], ld_bbox[BOXTOP]);
 
     if (tmbbox[BOXRIGHT] <= ld_bbox[BOXLEFT]
         || tmbbox[BOXLEFT] >= ld_bbox[BOXRIGHT]
@@ -245,11 +245,11 @@ boolean PIT_CheckLine (line_t* ld)
         if ( !tmthing->player && (LineFlags(ld) & ML_BLOCKMONSTERS) )
             return false;       // block monsters only
     }
-    // printf("J");
+    // PRINTF("J");
 
     // set openrange, opentop, openbottom
     P_LineOpening (ld); 
-    // printf("K");
+    // PRINTF("K");
 
     // adjust floor / ceiling heights
     if (opentop < tmceilingz)
@@ -263,7 +263,7 @@ boolean PIT_CheckLine (line_t* ld)
 
     if (lowfloor < tmdropoffz)
         tmdropoffz = lowfloor;
-    // printf("L");
+    // PRINTF("L");
 
     // if contacted a special line, add it to the list
     if (ld->special)
@@ -277,7 +277,7 @@ boolean PIT_CheckLine (line_t* ld)
             SpechitOverrun(ld);
         }
     }
-    // printf("M");
+    // PRINTF("M");
     return true;
 }
 
@@ -416,7 +416,7 @@ P_CheckPosition
   fixed_t       x,
   fixed_t       y )
 {
-    // printf("P_CheckPosition\n");
+    // PRINTF("P_CheckPosition\n");
     int                 xl;
     int                 xh;
     int                 yl;
@@ -462,7 +462,7 @@ P_CheckPosition
     yl = (tmbbox[BOXBOTTOM] - bmaporgy - MAXRADIUS)>>MAPBLOCKSHIFT;
     yh = (tmbbox[BOXTOP] - bmaporgy + MAXRADIUS)>>MAPBLOCKSHIFT;
 
-    // printf("P_BlockThingsIterator\n");
+    // PRINTF("P_BlockThingsIterator\n");
     for (bx=xl ; bx<=xh ; bx++)
         for (by=yl ; by<=yh ; by++)
             if (!P_BlockThingsIterator(bx,by,PIT_CheckThing))
@@ -625,7 +625,7 @@ fixed_t         tmymove;
 //
 void P_HitSlideLine (line_t* ld)
 {
-    // printf("P_HitSlideLine\n");
+    // PRINTF("P_HitSlideLine\n");
     int                 side;
 
     angle_t             lineangle;

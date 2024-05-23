@@ -170,7 +170,7 @@ void V_DrawPatch(int x, int y, patch_t *patch)
      || y < 0
      || y + h > SCREENHEIGHT)
     {
-        printf("%d, %d - %d x %d", x, y, w, h);
+        PRINTF("%d, %d - %d x %d", x, y, w, h);
         I_Error("Bad V_DrawPatch");
     }
 #endif
@@ -731,12 +731,12 @@ void WritePCXfile(char *filename, byte *data,
 
 static void error_fn(png_structp p, png_const_charp s)
 {
-    printf("libpng error: %s\n", s);
+    PRINTF("libpng error: %s\n", s);
 }
 
 static void warning_fn(png_structp p, png_const_charp s)
 {
-    printf("libpng warning: %s\n", s);
+    PRINTF("libpng warning: %s\n", s);
 }
 
 void WritePNGfile(char *filename, byte *data,
@@ -848,7 +848,7 @@ void WritePNGfile(char *filename, byte *data,
 
 void V_ScreenShot(char *format)
 {
-    printf("NRFD-TODO: V_ScreenShot\n");
+    PRINTF("NRFD-TODO: V_ScreenShot\n");
 /* NRFD-TODO: Screenshot
 
     int i;

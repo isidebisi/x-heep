@@ -35,7 +35,7 @@ extern wad_file_class_t fatfs_wad_file;
 static wad_file_t *W_FatFS_OpenFile(char *path)
 {
     return NULL; /*
-    printf("FatFS: Opening: %s\n", path);
+    PRINTF("FatFS: Opening: %s\n", path);
     fatfs_wad_file_t *result;
     FIL fstream;
     FRESULT ff_result;
@@ -55,7 +55,7 @@ static wad_file_t *W_FatFS_OpenFile(char *path)
     result->wad.path = M_StringDuplicate(path);
     result->fstream = fstream;
 
-    printf("FatFS: Open OK\n");
+    PRINTF("FatFS: Open OK\n");
     return &result->wad;
     */
 }
@@ -92,7 +92,7 @@ size_t W_FatFS_Read(wad_file_t *wad, unsigned int offset,
     ff_result = f_lseek(&fatfs_wad->fstream, offset);
     if (ff_result != FR_OK)
     {
-        printf("W_FatFS_Read: seek failed\n");
+        PRINTF("W_FatFS_Read: seek failed\n");
         return 0;
     }
     // Read into the buffer.
@@ -100,7 +100,7 @@ size_t W_FatFS_Read(wad_file_t *wad, unsigned int offset,
     ff_result = f_read(&fatfs_wad->fstream, buffer, buffer_len, &result);
     if (ff_result != FR_OK)
     {
-        printf("W_FatFS_Read: seek failed\n");
+        PRINTF("W_FatFS_Read: seek failed\n");
         return 0;
     }
 

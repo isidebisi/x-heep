@@ -86,17 +86,17 @@ static void configure_memory(void)
 
 
     // Send reset enable
-    printf("N_qspi: Send reset enable\n");
+    PRINTF("N_qspi: Send reset enable\n");
     err_code = nrfx_qspi_cinstr_xfer(&cinstr_cfg, NULL, NULL);
     APP_ERROR_CHECK(err_code);
 
     // Send reset command
-    printf("N_qspi: Send reset command\n");
+    PRINTF("N_qspi: Send reset command\n");
     cinstr_cfg.opcode = QSPI_STD_CMD_RST;
     err_code = nrfx_qspi_cinstr_xfer(&cinstr_cfg, NULL, NULL);
     APP_ERROR_CHECK(err_code);
 
-    printf("N_qspi: Read ID\n");
+    PRINTF("N_qspi: Read ID\n");
     cinstr_cfg.opcode = QSPI_STD_CMD_RDID;
     cinstr_cfg.length = NRF_QSPI_CINSTR_LEN_3B;
     data[0] = 0;
@@ -104,26 +104,26 @@ static void configure_memory(void)
     data[2] = 0;
     err_code = nrfx_qspi_cinstr_xfer(&cinstr_cfg, data, rxdata);
     APP_ERROR_CHECK(err_code);
-    printf("N_qspi:   %x %x %x\n", rxdata[0], rxdata[1], rxdata[2]);
+    PRINTF("N_qspi:   %x %x %x\n", rxdata[0], rxdata[1], rxdata[2]);
 
 
-    printf("N_qspi: Read status\n");
+    PRINTF("N_qspi: Read status\n");
     cinstr_cfg.opcode = QSPI_STD_CMD_RDSR;
     cinstr_cfg.length = NRF_QSPI_CINSTR_LEN_2B;
     data[0] = 0;
     err_code = nrfx_qspi_cinstr_xfer(&cinstr_cfg, data, rxdata);
     APP_ERROR_CHECK(err_code);
-    printf("N_qspi:   %x\n", rxdata[0]);
+    PRINTF("N_qspi:   %x\n", rxdata[0]);
 
 
-    printf("N_qspi: Read Conf\n");
+    PRINTF("N_qspi: Read Conf\n");
     cinstr_cfg.opcode = QSPI_STD_CMD_RDCR;
     cinstr_cfg.length = NRF_QSPI_CINSTR_LEN_3B;
     data[0] = 0;
     data[2] = 0;
     err_code = nrfx_qspi_cinstr_xfer(&cinstr_cfg, data, rxdata);
     APP_ERROR_CHECK(err_code);
-    printf("N_qspi:   %x %x\n", rxdata[0], rxdata[1]);
+    PRINTF("N_qspi:   %x %x\n", rxdata[0], rxdata[1]);
 
     /*
     // Send reset enable
@@ -198,12 +198,12 @@ void N_qspi_init() {
     // TODO: Use define if MDK is updated to include it
     NRF_QSPI_S->IFTIMING = (1 << 8); 
 
-    printf("QSPI initialized\n");
-    printf("QSPI initialized %ld %ld\n", (NRF_QSPI_S->IFTIMING>>8), ((NRF_QSPI_S->IFCONFIG1>>28)&0xF));
+    PRINTF("QSPI initialized\n");
+    PRINTF("QSPI initialized %ld %ld\n", (NRF_QSPI_S->IFTIMING>>8), ((NRF_QSPI_S->IFCONFIG1>>28)&0xF));
 
     // Restart and configure external memory to use quad line mode for data exchange.
     configure_memory();
-    printf("Memory device configured. Quad Mode activated.\n");
+    PRINTF("Memory device configured. Quad Mode activated.\n");
 
     qspi_next_loc = 0;
 }
@@ -215,7 +215,7 @@ void N_qspi_erase_block(size_t loc)
     err_code = nrfx_qspi_erase(NRF_QSPI_ERASE_LEN_64KB, loc);
     if (err_code != NRF_SUCCESS) I_Error("N_qspi_write_block: nrfx_qspi_erase fail");
     N_qspi_wait();
-    printf("N_qspi: Erased 64KB block at %d\n", loc);
+    PRINTF("N_qspi: Erased 64KB block at %d\n", loc);
 }
 
 void N_qspi_write(size_t loc, void *buffer, size_t size) 
@@ -224,7 +224,7 @@ void N_qspi_write(size_t loc, void *buffer, size_t size)
     err_code = nrfx_qspi_write(buffer, size, loc);
     if (err_code != NRF_SUCCESS) I_Error("N_qspi_write_block: nrfx_qspi_write fail");
     N_qspi_wait();
-    printf("N_qspi: Wrote %d byte chunk at %d\n", size, loc);    
+    PRINTF("N_qspi: Wrote %d byte chunk at %d\n", size, loc);    
 }
 
 
@@ -239,12 +239,12 @@ void N_qspi_write_block(size_t loc, void *buffer, size_t size)
     err_code = nrfx_qspi_erase(NRF_QSPI_ERASE_LEN_64KB, loc);
     if (err_code != NRF_SUCCESS) I_Error("N_qspi_write_block: nrfx_qspi_erase fail");
     N_qspi_wait();
-    printf("N_qspi: Erased 64KB block at %d\n", loc);
+    PRINTF("N_qspi: Erased 64KB block at %d\n", loc);
 
     err_code = nrfx_qspi_write(buffer, size, loc);
     if (err_code != NRF_SUCCESS) I_Error("N_qspi_write_block: nrfx_qspi_write fail");
     N_qspi_wait();
-    printf("N_qspi: Wrote %d byte chunk at %d\n", size, loc);
+    PRINTF("N_qspi: Wrote %d byte chunk at %d\n", size, loc);
 
 }
 

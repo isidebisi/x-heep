@@ -84,14 +84,14 @@ void I_ShutdownJoystick(void)
 
 void I_InitJoystick(void)
 {
-    printf("NRFD_TODO: I_InitJoystick\n");
+    PRINTF("NRFD_TODO: I_InitJoystick\n");
 
     // I_AtExit(I_ShutdownJoystick, true);
 }
 
 void I_UpdateJoystick(void)
 {
-        printf("NRFD_TODO: I_UpdateJoystick\n");
+        PRINTF("NRFD_TODO: I_UpdateJoystick\n");
         /*
 
     if (joystick != NULL)
@@ -113,7 +113,7 @@ void I_UpdateJoystick(void)
 void I_BindJoystickVariables(void)
 {
     int i;
-    printf("NRFD-TODO: I_BindJoystickVariables\n");/*
+    PRINTF("NRFD-TODO: I_BindJoystickVariables\n");/*
     M_BindIntVariable("use_joystick",          &usejoystick);
     M_BindStringVariable("joystick_guid",      &joystick_guid);
     M_BindIntVariable("joystick_index",        &joystick_index);

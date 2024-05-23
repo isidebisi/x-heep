@@ -4,7 +4,7 @@
 
 //#include "n_uart.h"
 
-//  Retargeting (for printf etc)
+//  Retargeting (for PRINTF etc)
 // ------------------------------------
 
 #ifdef __PRINTF_TAG_PTR_DEFINED

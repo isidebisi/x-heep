@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 
-#include "SDL.h"
+//#include "SDL.h"
 
 #include "doomtype.h"
 
@@ -28,10 +28,11 @@ int cd_Error;
 
 int I_CDMusInit(void)
 {
-    fprintf(stderr,
+
+    /*fprintf(stderr,
         "I_CDMusInit: CD music playback is no longer supported! "
         "Please use digital music packs instead:\n"
-        "https://www.chocolate-doom.org/wiki/index.php/Digital_music_packs\n");
+        "https://www.chocolate-doom.org/wiki/index.php/Digital_music_packs\n");*/
     return -1;
 }
 

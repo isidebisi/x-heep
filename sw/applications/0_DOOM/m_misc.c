@@ -48,7 +48,7 @@
 
 void M_MakeDirectory(char *path)
 {
-    printf("NRFD-TODO M_MakeDirectory\n");
+    PRINTF("NRFD-TODO M_MakeDirectory\n");
 }
 
 // Check if a file exists
@@ -90,7 +90,7 @@ long M_FileLength(FILE *handle)
 
 boolean M_WriteFile(char *name, void *source, int length)
 {
-    printf("NRFD-TODO M_WriteFile\n"); return false;
+    PRINTF("NRFD-TODO M_WriteFile\n"); return false;
 /*
     FILE *handle;
     int	count;
@@ -117,7 +117,7 @@ boolean M_WriteFile(char *name, void *source, int length)
 
 int M_ReadFile(char *name, byte **buffer)
 {
-    printf("NRFD-TODO M_ReadFile\n"); return 0;
+    PRINTF("NRFD-TODO M_ReadFile\n"); return 0;
     /*
     FILE *handle;
     int	count, length;
@@ -153,7 +153,7 @@ char *M_TempFile(char *s)
 {
     char *tempdir;
 
-    printf("NRFD-TODO: M_Tempfile\n");
+    PRINTF("NRFD-TODO: M_Tempfile\n");
     tempdir = "/tmp";
 
     return M_StringJoin(tempdir, DIR_SEPARATOR_S, s, NULL);
@@ -195,7 +195,7 @@ void M_ExtractFileBase(char *path, char *dest)
     {
         if (length >= 8)
         {
-            printf("Warning: Truncated '%s' lump name to '%.8s'.\n",
+            PRINTF("Warning: Truncated '%s' lump name to '%.8s'.\n",
                    filename, dest);
             break;
         }

@@ -52,7 +52,7 @@ P_SetPsprite
   int           position,
   statenum_t    stnum ) 
 {
-    // printf("P_SetPsprite: %d \n", stnum);
+    // PRINTF("P_SetPsprite: %d \n", stnum);
 
     pspdef_t*   psp;
     const state_t*      state;

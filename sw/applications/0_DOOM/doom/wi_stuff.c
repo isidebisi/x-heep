@@ -539,7 +539,7 @@ WI_drawOnLnode
     else
     {
         // DEBUG
-        printf("Could not place patch on level %d", n+1); 
+        PRINTF("Could not place patch on level %d", n+1); 
     }
 }
 
@@ -582,7 +582,7 @@ void WI_initAnimatedBack(void)
             // if (wbs->epsd != 1 || j != 8)
             // {
                 // animations
-                DEH_snprintf(name, 9, "WIA%d%.2d%.2d", wbs->epsd, j, i);
+                //DEH_snprintf(name, 9, "WIA%d%.2d%.2d", wbs->epsd, j, i);
                 as->p[i] = W_CacheLumpName(name, PU_STATIC);
             // }
             // else
@@ -1379,7 +1379,7 @@ static int      sp_state;
 
 void WI_initStats(void)
 {
-    printf("WI_initStats\n");
+    PRINTF("WI_initStats\n");
     state = StatCount;
     acceleratestage = 0;
     sp_state = 1;
@@ -1392,7 +1392,7 @@ void WI_initStats(void)
 
 void WI_updateStats(void)
 {
-    // printf("WI_updateStats\n");
+    // PRINTF("WI_updateStats\n");
 
     WI_updateAnimatedBack();
 
@@ -1499,7 +1499,7 @@ void WI_updateStats(void)
 
 void WI_drawStats(void)
 {
-    // printf("WI_drawStats\n");
+    // PRINTF("WI_drawStats\n");
     // line height
     int lh;     
 
@@ -1567,7 +1567,7 @@ void WI_checkForAccelerate(void)
 // Updates stuff each tick
 void WI_Ticker(void)
 {
-    // printf("WI_Ticker\n");
+    // PRINTF("WI_Ticker\n");
     
     // counter for general background animation
     bcnt++;  
@@ -1619,7 +1619,7 @@ static void WI_loadUnloadData(load_callback_t callback)
     {
         for (i=0 ; i<NUMCMAPS ; i++)
         {
-            DEH_snprintf(name, 9, "CWILV%2.2d", i);
+            //DEH_snprintf(name, 9, "CWILV%2.2d", i);
             callback(name, &lnames[i]);
         }
     }
@@ -1627,7 +1627,7 @@ static void WI_loadUnloadData(load_callback_t callback)
     {
         for (i=0 ; i<NUMMAPS ; i++)
         {
-            DEH_snprintf(name, 9, "WILV%d%d", wbs->epsd, i);
+            //DEH_snprintf(name, 9, "WILV%d%d", wbs->epsd, i);
             callback(name, &lnames[i]);
         }
 
@@ -1652,7 +1652,7 @@ static void WI_loadUnloadData(load_callback_t callback)
                     if (wbs->epsd != 1 || j != 8)
                     {
                         // animations
-                        DEH_snprintf(name, 9, "WIA%d%.2d%.2d", wbs->epsd, j, i);
+                        //DEH_snprintf(name, 9, "WIA%d%.2d%.2d", wbs->epsd, j, i);
                         callback(name, &a->p[i]);
                     }
                     else
@@ -1672,7 +1672,7 @@ static void WI_loadUnloadData(load_callback_t callback)
     for (i=0;i<10;i++)
     {
          // numbers 0-9
-        DEH_snprintf(name, 9, "WINUM%d", i);
+        //DEH_snprintf(name, 9, "WINUM%d", i);
         callback(name, &num[i]);
     }
 
@@ -1733,11 +1733,11 @@ static void WI_loadUnloadData(load_callback_t callback)
     for (i=0 ; i<MAXPLAYERS ; i++)
     {
         // "1,2,3,4"
-        DEH_snprintf(name, 9, "STPB%d", i);
+        //DEH_snprintf(name, 9, "STPB%d", i);
         callback(name, &p[i]);
 
         // "1,2,3,4"
-        DEH_snprintf(name, 9, "WIBP%d", i+1);
+        //DEH_snprintf(name, 9, "WIBP%d", i+1);
         callback(name, &bp[i]);
     }
 
@@ -1753,7 +1753,7 @@ static void WI_loadUnloadData(load_callback_t callback)
     }
     else
     {
-        DEH_snprintf(name, sizeof(name), "WIMAP%d", wbs->epsd);
+        //DEH_snprintf(name, sizeof(name), "WIMAP%d", wbs->epsd);
     }
 
     // Draw backdrop and save to a temporary buffer
@@ -1768,7 +1768,7 @@ static void WI_loadCallback(char *name, patch_t **variable)
 
 void WI_loadData(void)
 {
-    printf("WI_loadData\n");
+    PRINTF("WI_loadData\n");
 
     if (gamemode == commercial)
     {
@@ -1802,7 +1802,7 @@ static void WI_unloadCallback(char *name, patch_t **variable)
 
 void WI_unloadData(void)
 {
-    printf("WI_unloadData\n");
+    PRINTF("WI_unloadData\n");
     WI_loadUnloadData(WI_unloadCallback);
 
     // We do not free these lumps as they are shared with the status
@@ -1810,12 +1810,12 @@ void WI_unloadData(void)
    
     // W_ReleaseLumpName("STFST01");
     // W_ReleaseLumpName("STFDEAD0");
-    printf("WI_unloadData finished\n");
+    PRINTF("WI_unloadData finished\n");
 }
 
 void WI_Drawer (void)
 {
-    // printf("WI_Drawer\n");
+    // PRINTF("WI_Drawer\n");
     switch (state)
     {
       case StatCount:
@@ -1841,7 +1841,7 @@ void WI_Drawer (void)
 
 void WI_initVariables(wbstartstruct_t* wbstartstruct)
 {
-    printf("WI_initVariables\n");
+    PRINTF("WI_initVariables\n");
 
     wbs = wbstartstruct;
 

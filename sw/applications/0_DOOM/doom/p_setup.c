@@ -129,7 +129,7 @@ void P_LoadVertexes (int lump)
     numvertexes = W_LumpLength (lump) / sizeof(mapvertex_t);
 
     // NRFD-TODO: Access mapvertexes directly?
-    printf("P_LoadVertexes: lump = %d, lumplength = %d, numvertexes = %d\n", lump,  W_LumpLength (lump), numvertexes);
+    PRINTF("P_LoadVertexes: lump = %d, lumplength = %d, numvertexes = %d\n", lump,  W_LumpLength (lump), numvertexes);
 
     // Allocate zone memory for buffer.
     vertexes = Z_Malloc (numvertexes*sizeof(vertex_t),PU_LEVEL,0);      
@@ -176,7 +176,7 @@ sector_t* GetSectorAtNullAddress(void)
 //
 void P_LoadSegs (int lump)
 {
-    printf("P_LoadSegs\n");
+    PRINTF("P_LoadSegs\n");
 
     byte*               data;
     int                 i;
@@ -321,7 +321,7 @@ side_t *SegSideDef(seg_t *seg)
 //
 void P_LoadSubsectors (int lump)
 {
-    printf("P_LoadSubsectors\n");
+    PRINTF("P_LoadSubsectors\n");
 
     byte*               data;
     int                 i;
@@ -352,7 +352,7 @@ void P_LoadSubsectors (int lump)
 //
 void P_LoadSectors (int lump)
 {
-    printf("P_LoadSectors\n");
+    PRINTF("P_LoadSectors\n");
 
     byte*               data;
     int                 i;
@@ -391,7 +391,7 @@ degenmobj_t *SectorSoundOrg(sector_t *sec)
 //
 void P_LoadNodes (int lump)
 {
-    printf("P_LoadNodes\n");
+    PRINTF("P_LoadNodes\n");
 
     // byte*       data;
     // int         i;
@@ -433,7 +433,7 @@ void P_LoadNodes (int lump)
 //
 void P_LoadThings (int lump)
 {
-    printf("P_LoadThings\n");
+    PRINTF("P_LoadThings\n");
     
     byte               *data;
     int                 i;
@@ -495,7 +495,7 @@ void P_LoadThings (int lump)
 //
 void P_LoadLineDefs (int lump)
 {
-    printf("P_LoadLineDefs\n");
+    PRINTF("P_LoadLineDefs\n");
 
     byte*               data;
     int                 i;
@@ -723,7 +723,7 @@ fixed_t* LineBBox(line_t* ld)
 //
 void P_LoadSideDefs (int lump)
 {
-    printf("P_LoadSideDefs\n");
+    PRINTF("P_LoadSideDefs\n");
 
     byte*               data;
     int                 i;
@@ -783,7 +783,7 @@ sector_t* SideNumSector(int sidenum)
 //
 void P_LoadBlockMap (int lump)
 {
-    printf("P_LoadBlockMap\n");
+    PRINTF("P_LoadBlockMap\n");
 
     int i;
     int count;
@@ -816,7 +816,7 @@ void P_LoadBlockMap (int lump)
     bmapwidth = blockmaplump[2];
     bmapheight = blockmaplump[3];
 
-    printf("BlockMap: %d %d %d %d\n", blockmaplump[0], blockmaplump[1], bmapwidth, bmapheight);
+    PRINTF("BlockMap: %d %d %d %d\n", blockmaplump[0], blockmaplump[1], bmapwidth, bmapheight);
         
     // Clear out mobj chains
     int block_count =  bmapwidth * bmapheight;
@@ -837,7 +837,7 @@ void P_LoadBlockMap (int lump)
 //
 void P_GroupLines (void)
 {
-    printf("P_GroupLines\n");
+    PRINTF("P_GroupLines\n");
 
     line_t**            linebuffer;
     int                 i;
@@ -1018,7 +1018,7 @@ static void PadRejectArray(byte *array, unsigned int len)
 
 static void P_LoadReject(int lumpnum)
 {
-    printf("P_LoadReject\n");
+    PRINTF("P_LoadReject\n");
 
     int minlength;
     int lumplen;
@@ -1057,7 +1057,7 @@ P_SetupLevel
   skill_t       skill)
 {
     // map = 4;
-    printf("P_SetupLevel %d %d\n", episode, map);
+    PRINTF("P_SetupLevel %d %d\n", episode, map);
     int         i;
     char        lumpname[9];
     int         lumpnum;
@@ -1089,9 +1089,9 @@ P_SetupLevel
     if ( gamemode == commercial)
     {
         if (map<10)
-            DEH_snprintf(lumpname, 9, "map0%i", map);
+            //DEH_snprintf(lumpname, 9, "map0%i", map);
         else
-            DEH_snprintf(lumpname, 9, "map%i", map);
+            //DEH_snprintf(lumpname, 9, "map%i", map);
     }
     else
     {
@@ -1147,7 +1147,7 @@ P_SetupLevel
     if (precache)
         R_PrecacheLevel ();
 
-    //printf ("free memory: 0x%x\n", Z_FreeMemory());
+    //PRINTF ("free memory: 0x%x\n", Z_FreeMemory());
 
 }
 

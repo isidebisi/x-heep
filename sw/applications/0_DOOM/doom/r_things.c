@@ -245,8 +245,8 @@ void R_InitSpriteDefs ()
         
     if (!numsprites)
         return;
-    printf("R_InitSpriteDefs");
-    printf("  numsprites = %d\n", numsprites);
+    PRINTF("R_InitSpriteDefs");
+    PRINTF("  numsprites = %d\n", numsprites);
 
     if (numsprites > MAX_SPRITES) {
         I_Error("R_InitSpriteDefs: %d > MAX_SPRITES", numsprites);
@@ -287,14 +287,14 @@ void R_InitSpriteDefs ()
                 else
                     patched = l;
 
-                // printf("  Frame %d rot %d: %.8s - %d\n", frame, rotation, lumpName, patched);
+                // PRINTF("  Frame %d rot %d: %.8s - %d\n", frame, rotation, lumpName, patched);
                 R_InstallSpriteLump (patched, frame, rotation, false);
 
                 if (lumpName[6])
                 {
                     frame = lumpName[6] - 'A';
                     rotation = lumpName[7] - '0';
-                    // printf("  Frame %d rot %d: %.8s - %d\n", frame, rotation, lumpName, l);
+                    // PRINTF("  Frame %d rot %d: %.8s - %d\n", frame, rotation, lumpName, l);
                     R_InstallSpriteLump (l, frame, rotation, true);
                 }
             }
@@ -349,7 +349,7 @@ void R_InitSpriteDefs ()
         //     Z_Malloc (maxframe * sizeof(spriteframe_t), PU_STATIC, NULL);
         // memcpy (sprites[i].spriteframes, sprtemp, maxframe*sizeof(spriteframe_t));
     }
-    printf("  spriteframe_count = %d\n", spriteframe_count);
+    PRINTF("  spriteframe_count = %d\n", spriteframe_count);
 }
 
 
@@ -388,7 +388,7 @@ int vissprite_count = 0;
 void R_ClearSprites (void)
 {
     if (vissprite_count != 0) {
-        // printf("VSC: %d\n", vissprite_count);
+        // PRINTF("VSC: %d\n", vissprite_count);
     }
     vissprite_count = 0;
     vissprite_p = vissprites;
@@ -403,7 +403,7 @@ vissprite_t     overflowsprite;
 vissprite_t* R_NewVisSprite (void)
 {
     if (vissprite_p == &vissprites[MAXVISSPRITES]) {
-        // printf("R_NewVisSprite: overflow %d\n", vissprite_count);
+        // PRINTF("R_NewVisSprite: overflow %d\n", vissprite_count);
         vissprite_count++;
         return &overflowsprite;
     }
@@ -488,7 +488,7 @@ R_DrawVisSprite
 
     if (lumpnum == 561) {
         dc_debug = true;
-        // printf("R_DrawVisSprite: Pistol\n");
+        // PRINTF("R_DrawVisSprite: Pistol\n");
     }
 
     patch = W_CacheLumpNum (lumpnum, PU_CACHE);
@@ -744,7 +744,7 @@ void R_AddSprites (sector_t* sec)
 //
 void R_DrawPSprite (pspdef_t* psp)
 {
-    // printf("R_DrawPSprite\n");
+    // PRINTF("R_DrawPSprite\n");
     fixed_t             tx;
     fixed_t             width;
     int                 x1;
@@ -772,8 +772,8 @@ void R_DrawPSprite (pspdef_t* psp)
 
     lump = sprframe->lump[0];
 
-    // printf("Frame: %d\n", psp->state->frame);
-    // printf("Lump: %d %.8s\n", lump, lumpinfo[firstspritelump+lump].name);
+    // PRINTF("Frame: %d\n", psp->state->frame);
+    // PRINTF("Lump: %d %.8s\n", lump, lumpinfo[firstspritelump+lump].name);
     // patch_t     *patch;
     // patch = W_CacheLumpNum (lump, PU_CACHE);
 
@@ -895,9 +895,9 @@ void R_DrawPlayerSprites (void)
 void R_SortVisSprites (void)
 {
     int count = vissprite_p - vissprites;
-    // printf("R_SortVisSprites: %d\n", count);
+    // PRINTF("R_SortVisSprites: %d\n", count);
     // NRFD-NOTE: Completely rewritten for singly-linked list
-    // printf("R_SortVisSprites: %d\n", count);
+    // PRINTF("R_SortVisSprites: %d\n", count);
 
     // Initialize sorted list
     vsprsortedhead = &vissprites[0];
@@ -953,7 +953,7 @@ void R_SortVisSprites (void)
         vsprsortedhead = dummy_head.next;
     }
 
-    // printf("  ");
+    // PRINTF("  ");
     vissprite_t*        spr;
     int count2 = 0;
     for (spr = vsprsortedhead ;
@@ -961,13 +961,13 @@ void R_SortVisSprites (void)
          spr=spr->next)
     {
         count2++;
-        // printf("%d ", spr->scale);
+        // PRINTF("%d ", spr->scale);
         if (spr->next && (spr->next->scale < spr->scale)) {
-            printf("\n%d %d\n", spr->scale, spr->next->scale);
+            PRINTF("\n%d %d\n", spr->scale, spr->next->scale);
             I_Error("R_SortVisSprites: sort failed order");
         }
     }
-    // printf("\n");
+    // PRINTF("\n");
     if (count != count2) {
         I_Error("R_SortVisSprites: sort failed count");
     }

@@ -101,7 +101,7 @@ P_RecursiveSound
 ( sector_t*     sec,
   int           soundblocks )
 {
-    // printf("P_RecursiveSound\n");
+    // PRINTF("P_RecursiveSound\n");
     int         i;
     line_t*     check;
     sector_t*   other;

@@ -106,7 +106,7 @@ static boolean CacheSFX(sfxinfo_t *sfxinfo, int handle)
     length -= 32;
 
     // Setup channel
-    // printf("CacheSFX: channel = %0d samplerate = %d, length = %d\n", handle, samplerate, length);
+    // PRINTF("CacheSFX: channel = %0d samplerate = %d, length = %d\n", handle, samplerate, length);
 
     channels[handle].ptr = data;
     channels[handle].pos = 0;
@@ -143,7 +143,7 @@ static void GetSfxLumpName(sfxinfo_t *sfx, char *buf, size_t buf_len)
 
 static void N_I2S_PrecacheSounds(sfxinfo_t *sounds, int num_sounds)
 {
-    printf("NRFD-TODO: N_I2S_PrecacheSounds?\n");
+    PRINTF("NRFD-TODO: N_I2S_PrecacheSounds?\n");
 }
 
 
@@ -165,7 +165,7 @@ static void N_I2S_UpdateSoundParams(int handle, int vol, int sep)
 {
     int left, right;
 
-    // printf("N_I2S_UpdateSoundParams\n");
+    // PRINTF("N_I2S_UpdateSoundParams\n");
 
     if (!sound_initialized || handle < 0 || handle >= NUM_CHANNELS)
     {
@@ -183,12 +183,12 @@ static void N_I2S_UpdateSoundParams(int handle, int vol, int sep)
     channels[handle].left_vol = left;
     channels[handle].right_vol = right;
 
-    // printf("N_I2S_UpdateSoundParams: %d %d\n", left, right);
+    // PRINTF("N_I2S_UpdateSoundParams: %d %d\n", left, right);
 }
 
 static void ClearSoundOnChannel(int channel)
 {
-    // printf("Clear channel %0d\n", channel);
+    // PRINTF("Clear channel %0d\n", channel);
     channels[channel].ptr = NULL;
     channels[channel].len = 0;
     channels[channel].pos = 0;
@@ -213,7 +213,7 @@ static int N_I2S_StartSound(sfxinfo_t *sfxinfo, int channel, int vol, int sep, i
 {
     // allocated_sound_t *snd;
 
-    // printf("N_I2S_StartSound %.9s %d %d %d %d\n", sfxinfo->name, channel, vol, sep, pitch);
+    // PRINTF("N_I2S_StartSound %.9s %d %d %d %d\n", sfxinfo->name, channel, vol, sep, pitch);
 
     if (!sound_initialized || channel < 0 || channel >= NUM_CHANNELS)
     {
@@ -229,7 +229,7 @@ static int N_I2S_StartSound(sfxinfo_t *sfxinfo, int channel, int vol, int sep, i
 
     if (!CacheSFX(sfxinfo, channel))
     {
-        printf("N_I2S_StartSound: Error caching SFX\n");
+        PRINTF("N_I2S_StartSound: Error caching SFX\n");
         return false;
     }
 
@@ -259,7 +259,7 @@ static boolean N_I2S_SoundIsPlaying(int handle)
         return false;
     }
 
-    // printf("N_I2S_SoundIsPlaying\n");
+    // PRINTF("N_I2S_SoundIsPlaying\n");
 
     return (channels[handle].ptr != NULL);
 }
@@ -270,7 +270,7 @@ static boolean N_I2S_SoundIsPlaying(int handle)
 
 static void N_I2S_UpdateSound(void)
 {
-    // printf("N_I2S_UpdateSound\n");
+    // PRINTF("N_I2S_UpdateSound\n");
 
     int16_t *buf;
     int      buf_len;
@@ -310,7 +310,7 @@ static boolean N_I2S_InitSound(boolean _use_sfx_prefix)
 
     use_sfx_prefix = _use_sfx_prefix;
 
-    printf("N_I2S_InitSound\n");
+    PRINTF("N_I2S_InitSound\n");
 
     for (int i=0; i<NUM_CHANNELS; i++) {
         ClearSoundOnChannel(i);

@@ -433,7 +433,7 @@ void G_BuildTiccmd (ticcmd_t* cmd, int maketic)
 
         if (joyxmove != 0) {
             cmd->angleturn = -(int)joyxmove*10;
-            // printf("%d %d\n",  joyxmove, cmd->angleturn);
+            // PRINTF("%d %d\n",  joyxmove, cmd->angleturn);
 
         }
 
@@ -901,7 +901,7 @@ boolean G_Responder (event_t* ev)
         return true;    // eat events
  */
       case ev_joystick:
-        // printf("ev_joystick: %x %d %d\n", ev->data1, ev->data2, ev->data3);
+        // PRINTF("ev_joystick: %x %d %d\n", ev->data1, ev->data2, ev->data3);
         SetJoyButtons(ev->data1);
         joyxmove = ev->data2;
         joyymove = ev->data3;
@@ -1075,7 +1075,7 @@ void G_Ticker (void)
     if (oldgamestate == GS_INTERMISSION && gamestate != GS_INTERMISSION)
     {
         WI_End();
-        printf("WI_End\n");
+        PRINTF("WI_End\n");
     }
 
     oldgamestate = gamestate;
@@ -1335,7 +1335,7 @@ void G_DoReborn (int playernum)
         // reload the level from scratch
         gameaction = ga_loadlevel;
     }
-    printf("NRFD-TODO: G_DoReborn\n");
+    PRINTF("NRFD-TODO: G_DoReborn\n");
     /*
     else
     {
@@ -1626,7 +1626,7 @@ void G_LoadGame (char* name)
 
 void G_DoLoadGame (void)
 {
-    printf("NRFD-TODO: G_DoLoadGame\n");
+    PRINTF("NRFD-TODO: G_DoLoadGame\n");
     /*
     int savedleveltime;
 
@@ -1815,7 +1815,7 @@ G_InitNew
 {
     char *skytexturename;
     int             i;
-    printf("G_InitNew %0d %0d %0d\n", skill, episode, map);
+    PRINTF("G_InitNew %0d %0d %0d\n", skill, episode, map);
     if (paused)
     {
         paused = false;
@@ -1857,7 +1857,7 @@ G_InitNew
          && ( gamemode != commercial) )
       map = 9;
 
-    printf("M_ClearRandom\n");
+    PRINTF("M_ClearRandom\n");
     M_ClearRandom ();
 
     if (skill == sk_nightmare || respawnparm )
@@ -1865,7 +1865,7 @@ G_InitNew
     else
         respawnmonsters = false;
 
-    printf("NRFD-TODO: Skill adjustemnts\n");
+    PRINTF("NRFD-TODO: Skill adjustemnts\n");
 
     /*
     if (fastparm || (skill == sk_nightmare && gameskill != sk_nightmare) )
@@ -1886,7 +1886,7 @@ G_InitNew
     }
     */
 
-    printf("Init players\n");
+    PRINTF("Init players\n");
 
     // force players to be initialized upon first level load
     for (i=0 ; i<MAXPLAYERS ; i++)
@@ -1912,7 +1912,7 @@ G_InitNew
     // start of a level, the sky texture never changes unless we
     // restore from a saved game.  This was fixed before the Doom
     // source release, but this IS the way Vanilla DOS Doom behaves.
-    printf("Set sky\n");
+    PRINTF("Set sky\n");
 
     if (gamemode == commercial)
     {
@@ -1943,13 +1943,13 @@ G_InitNew
         }
     }
 
-        printf("Get sky texture\n");
+        PRINTF("Get sky texture\n");
 
     skytexturename = DEH_String(skytexturename);
 
     skytexture = R_TextureNumForName(skytexturename);
 
-    printf("Load level\n");
+    PRINTF("Load level\n");
 
     G_DoLoadLevel ();
 }
@@ -2178,7 +2178,7 @@ char*   defdemoname;
 
 void G_DeferedPlayDemo (char* name)
 {
-    printf("G_DeferedPlayDemo: %s\n", name);
+    PRINTF("G_DeferedPlayDemo: %s\n", name);
     defdemoname = name;
     gameaction = ga_playdemo;
 }
@@ -2226,7 +2226,7 @@ static char *DemoVersionDescription(int version)
 
 void G_DoPlayDemo (void)
 {
-    printf("G_DoPlayDemo\n");
+    PRINTF("G_DoPlayDemo\n");
     skill_t skill;
     int i, lumpnum, episode, map;
     int demoversion;

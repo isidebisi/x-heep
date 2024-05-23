@@ -1726,7 +1726,7 @@ static const int scantokey[128] =
 
 static void SaveDefaultCollection(default_collection_t *collection, const char *filename)
 {
-    printf("NRFD-TODO: SaveDefaultCollection\n");
+    PRINTF("NRFD-TODO: SaveDefaultCollection\n");
     /*
     default_t *defaults;
     int i, v;
@@ -1891,7 +1891,7 @@ static void SetVariable(default_t *def, char *value)
 
 static void LoadDefaultCollection(default_collection_t *collection, const char *filename)
 {
-    printf("NRFD-TODO: LoadDefaultCollection\n");
+    PRINTF("NRFD-TODO: LoadDefaultCollection\n");
     // TODO: Use FatFS
     /*
     FILE *f;
@@ -2024,14 +2024,14 @@ void M_LoadDefaults (void)
     if (i)
     {
         doom_defaults.filename = myargv[i+1];
-        printf ("       default file: %s\n",doom_defaults.filename);
+        PRINTF ("       default file: %s\n",doom_defaults.filename);
     }
     else
     {
         doom_defaults.filename = M_StringJoin(configdir, default_main_config, NULL);
     }
 
-    printf("saving config in %s\n", doom_defaults.filename);
+    PRINTF("saving config in %s\n", doom_defaults.filename);
 
     //!
     // @arg <file>
@@ -2045,7 +2045,7 @@ void M_LoadDefaults (void)
     if (i)
     {
         extra_defaults.filename = myargv[i+1];
-        printf("        extra configuration file: %s\n", 
+        PRINTF("        extra configuration file: %s\n", 
                extra_defaults.filename);
     }
     else
@@ -2218,7 +2218,7 @@ void M_SetConfigDir(char *dir)
 
     if (strcmp(configdir, "") != 0)
     {
-        printf("Using %s for configuration and saves\n", configdir);
+        PRINTF("Using %s for configuration and saves\n", configdir);
     }
 
     // Make the directory if it doesn't already exist:
@@ -2233,7 +2233,7 @@ void M_SetConfigDir(char *dir)
 
 char *M_GetSaveGameDir(char *iwadname)
 {
-    printf("NRFD-TODO: M_GetSaveGameDir\n");
+    PRINTF("NRFD-TODO: M_GetSaveGameDir\n");
     return "/savegames";
     /*
     char *savegamedir;
@@ -2259,7 +2259,7 @@ char *M_GetSaveGameDir(char *iwadname)
         // add separator at end just in case
         savegamedir = M_StringJoin(savegamedir, DIR_SEPARATOR_S, NULL);
 
-        printf("Save directory changed to %s.\n", savegamedir);
+        PRINTF("Save directory changed to %s.\n", savegamedir);
     }
     // If not "doing" a configuration directory (Windows), don't "do"
     // a savegame directory, either.

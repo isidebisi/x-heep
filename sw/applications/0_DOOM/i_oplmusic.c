@@ -697,7 +697,7 @@ static void KeyOffEvent(opl_track_data_t *track, midi_event_t *event)
     unsigned int key;
 
 /*
-    printf("note off: channel %i, %i, %i\n",
+    PRINTF("note off: channel %i, %i, %i\n",
            event->data.channel.channel,
            event->data.channel.param1,
            event->data.channel.param2);
@@ -966,7 +966,7 @@ static void KeyOnEvent(opl_track_data_t *track, midi_event_t *event)
     boolean double_voice;
 
 /*
-    printf("note on: channel %i, %i, %i\n",
+    PRINTF("note on: channel %i, %i, %i\n",
            event->data.channel.channel,
            event->data.channel.param1,
            event->data.channel.param2);
@@ -1185,7 +1185,7 @@ static void ControllerEvent(opl_track_data_t *track, midi_event_t *event)
     unsigned int param;
 
 /*
-    printf("change controller: channel %i, %i, %i\n",
+    PRINTF("change controller: channel %i, %i, %i\n",
            event->data.channel.channel,
            event->data.channel.param1,
            event->data.channel.param2);
@@ -1717,7 +1717,7 @@ static boolean I_OPL_InitMusic(void)
     chip_type = OPL_Init(opl_io_port);
     if (chip_type == OPL_INIT_NONE)
     {
-        printf("Dude.  The Adlib isn't responding.\n");
+        PRINTF("Dude.  The Adlib isn't responding.\n");
         return false;
     }
 

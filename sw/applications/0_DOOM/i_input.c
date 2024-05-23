@@ -122,7 +122,7 @@ void I_ReadMouse(void)
 // Bind all variables controlling input options.
 void I_BindInputVariables(void)
 {
-    printf("NRFD-TODO: I_BindInputVariables\n"); /*
+    PRINTF("NRFD-TODO: I_BindInputVariables\n"); /*
     M_BindFloatVariable("mouse_acceleration",      &mouse_acceleration);
     M_BindIntVariable("mouse_threshold",           &mouse_threshold);
     M_BindIntVariable("vanilla_keyboard_mapping",  &vanilla_keyboard_mapping);

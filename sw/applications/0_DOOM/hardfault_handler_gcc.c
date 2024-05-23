@@ -37,7 +37,8 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#include "sdk_common.h"
+
+//#include "sdk_common.h"
 #include <stdint.h>
 #include "compiler_abstraction.h"
 
@@ -47,6 +48,7 @@ void HardFault_Handler(void) __attribute__(( naked ));
 
 void HardFault_Handler(void)
 {
+    
     __ASM volatile(
     "   tst lr, #4                              \n"
 

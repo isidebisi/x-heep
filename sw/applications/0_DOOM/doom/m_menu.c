@@ -493,7 +493,7 @@ short skull_offset_y = 0;
 //
 void M_ReadSaveStrings(void)
 {
-    printf("NRFD-TODO: M_ReadSaveStrings\n");
+    PRINTF("NRFD-TODO: M_ReadSaveStrings\n");
     /*
     FILE   *handle;
     int     i;
@@ -708,7 +708,7 @@ void M_QuickSaveResponse(int key)
 
 void M_QuickSave(void)
 {
-    printf("NRFD-TODO: M_QuickSave\n");
+    PRINTF("NRFD-TODO: M_QuickSave\n");
     /*
     if (!usergame)
     {
@@ -727,7 +727,7 @@ void M_QuickSave(void)
         quickSaveSlot = -2;     // means to pick a slot now
         return;
     }
-    DEH_snprintf(tempstring, 80, QSPROMPT, savegamestrings[quickSaveSlot]);
+    //DEH_snprintf(tempstring, 80, QSPROMPT, savegamestrings[quickSaveSlot]);
     M_StartMessage(tempstring,M_QuickSaveResponse,true);
     */
 }
@@ -749,7 +749,7 @@ void M_QuickLoadResponse(int key)
 
 void M_QuickLoad(void)
 {
-    printf("NRFD-TODO: M_QuickLoad\n");
+    PRINTF("NRFD-TODO: M_QuickLoad\n");
     /*
     if (netgame)
     {
@@ -762,7 +762,7 @@ void M_QuickLoad(void)
         M_StartMessage(DEH_String(QSAVESPOT),NULL,false);
         return;
     }
-    DEH_snprintf(tempstring, 80, QLPROMPT, savegamestrings[quickSaveSlot]);
+    //DEH_snprintf(tempstring, 80, QLPROMPT, savegamestrings[quickSaveSlot]);
     M_StartMessage(tempstring,M_QuickLoadResponse,true);
     */
 }
@@ -778,7 +778,7 @@ void M_DrawReadThis(void)
 {
     inhelpscreens = true;
 
-    printf("M_DrawReadThis %d\n", read_this_num);
+    PRINTF("M_DrawReadThis %d\n", read_this_num);
 
     if (read_this_num == 0) {
         // commercial
@@ -1122,7 +1122,7 @@ static char *M_SelectEndMessage(void)
 void M_QuitDOOM(int choice)
 {
     // NRFD-TODO? Dehacked
-    // DEH_snprintf(endstring, sizeof(endstring), "%s\n\n" DOSY,
+    // //DEH_snprintf(endstring, sizeof(endstring), "%s\n\n" DOSY,
     //              DEH_String(M_SelectEndMessage()));
     // M_StartMessage(endstring,M_QuitResponse,true);
 
@@ -1154,7 +1154,7 @@ void M_ChangeSensitivity(int choice)
 
 void M_ChangeDetail(int choice)
 {
-    printf("NRFD-TODO: Detail level\n");
+    PRINTF("NRFD-TODO: Detail level\n");
     /*
     choice = 0;
     detailLevel = 1 - detailLevel;
@@ -1173,7 +1173,7 @@ void M_ChangeDetail(int choice)
 
 void M_SizeDisplay(int choice)
 {
-    printf("NRFD-TODO: M_SizeDisplay\n");/*
+    PRINTF("NRFD-TODO: M_SizeDisplay\n");/*
     switch(choice)
     {
       case 0:
@@ -1379,7 +1379,7 @@ boolean M_Responder (event_t* ev)
     static  int     mousex = 0;
     static  int     lastx = 0;
 
-    // printf("NRFD-TODO: M_Responder\n");
+    // PRINTF("NRFD-TODO: M_Responder\n");
     // In testcontrols mode, none of the function keys should do anything
     // - the only key is escape to quit.
 
@@ -1779,7 +1779,7 @@ boolean M_Responder (event_t* ev)
     if (key == key_menu_down)
     {
         // Move down to next item
-        printf("MENU DOWN\n");
+        PRINTF("MENU DOWN\n");
         do
         {
             if (itemOn+1 > currentMenu->numitems-1)
@@ -1793,7 +1793,7 @@ boolean M_Responder (event_t* ev)
     else if (key == key_menu_up)
     {
         // Move back up to previous item
-        printf("MENU UP\n");
+        PRINTF("MENU UP\n");
         do
         {
             if (!itemOn)
@@ -1863,7 +1863,7 @@ boolean M_Responder (event_t* ev)
     else if (key == key_menu_back)
     {
         // Go back to previous menu
-        printf("MENU BACK\n");
+        PRINTF("MENU BACK\n");
 
         // NRFD-TODO: menu
         // currentMenu->lastOn = itemOn;
@@ -1913,7 +1913,7 @@ boolean M_Responder (event_t* ev)
 //
 void M_StartControlPanel (void)
 {
-    printf("M_StartControlPanel\n");
+    PRINTF("M_StartControlPanel\n");
     // intro might call this repeatedly
     if (menuactive)
         return;

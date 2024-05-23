@@ -184,7 +184,7 @@ R_RenderMaskedSegRange
             R_DrawMaskedColumn (col);
             */
 
-            // printf("%d\n", texnum);
+            // PRINTF("%d\n", texnum);
             byte *coldata = R_GetCachedColumn(texnum, maskedtexturecol[dc_x]);
             // NRFD-NOTE: Rewrite of R_DrawMaskedColumn
             {
@@ -237,7 +237,7 @@ R_RenderMaskedSegRange
 
 void R_RenderSegLoop (void)
 {
-    // printf("R_RenderSegLoop\n");
+    // PRINTF("R_RenderSegLoop\n");
     angle_t             angle;
     unsigned            index;
     int                 yl;
@@ -422,7 +422,7 @@ R_StoreWallRange
 
     // don't overflow and crash
     if (ds_p == &drawsegs[MAXDRAWSEGS]) {
-        printf("R_StoreWallRange: MAXDRAWSEGS\n");
+        PRINTF("R_StoreWallRange: MAXDRAWSEGS\n");
         return;         
     }
                 

@@ -255,7 +255,7 @@ R_FindPlane
   int           picnum,
   int           lightlevel )
 {
-    // printf("R_FindPlane\n");
+    // PRINTF("R_FindPlane\n");
     visplane_t* check;
         
     if (picnum == skyflatnum)
@@ -304,7 +304,7 @@ R_CheckPlane
   int           start,
   int           stop )
 {
-    // printf("R_CheckPlane\n");
+    // PRINTF("R_CheckPlane\n");
     int         intrl;
     int         intrh;
     int         unionl;

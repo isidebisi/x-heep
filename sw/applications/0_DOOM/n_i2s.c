@@ -78,7 +78,7 @@ static void clear_buffers()
 
 void N_I2S_init()
 {
-    printf("N_I2S_init\n");
+    PRINTF("N_I2S_init\n");
 
     // Pull SCK down
     /* FIXME
@@ -128,7 +128,7 @@ boolean N_I2S_next_buffer(int *buf_size, int16_t **buffer) {
         bufIdx = (bufIdx+1)%NUM_BUFFERS;
         switch (bufferStates[bufIdx]) {
             case BUF_EMPTY:
-                // printf("Empty buffer at %d\n", bufIdx);
+                // PRINTF("Empty buffer at %d\n", bufIdx);
                 *buf_size = BUFFER_SIZE;
                 *buffer = sampleBuffers[bufIdx];
                 bufferStates[bufIdx] = BUF_FILLED;
@@ -168,7 +168,7 @@ static void N_I2S_queue_buffers()
 void N_I2S_process()
 {
     if (!i2s_started) {
-        printf("N_I2S_process: Starting I2S..\n");
+        PRINTF("N_I2S_process: Starting I2S..\n");
         N_I2S_queue_buffers();
         NRF_I2S->TASKS_START = 1;
         i2s_started = true;

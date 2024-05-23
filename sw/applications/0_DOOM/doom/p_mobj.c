@@ -123,7 +123,7 @@ void P_ExplodeMissile (mobj_t* mo)
 
 void P_XYMovement (mobj_t* mo) 
 {       
-    // printf("P_XYMovement\n");
+    // PRINTF("P_XYMovement\n");
     
     fixed_t     ptryx;
     fixed_t     ptryy;
@@ -400,7 +400,7 @@ void P_ZMovement (mobj_t* mo)
 void
 P_NightmareRespawn (mobj_t* mobj)
 {
-    printf("NRFD-TODO: P_NightmareRespawn\n");
+    PRINTF("NRFD-TODO: P_NightmareRespawn\n");
     /*
     fixed_t             x;
     fixed_t             y;
@@ -521,7 +521,7 @@ void P_MobjThinker (mobj_t* mobj)
 
 void P_InitMobjs (int num)
 {
-    printf("P_InitMobjs %d\n", num);
+    PRINTF("P_InitMobjs %d\n", num);
     int i;
     for (i=0; i<MAX_MOBJ; i++) {
         memset (&mobjs[i], 0, sizeof (*mobjs));
@@ -537,13 +537,13 @@ mobj_t* P_AllocMobj (void)
         if (mobjs[i].type == MT_FREE) {
             mobj = &mobjs[i];
             memset (mobj, 0, sizeof (*mobj));
-            // printf("  Allocated mobj #%d %X\n", i, (unsigned int)mobj); 
+            // PRINTF("  Allocated mobj #%d %X\n", i, (unsigned int)mobj); 
             mobj->type = MT_ALLOC;
             return mobj;
         }
     }
 
-    printf("P_AllocMobj: Out of free mobjs\n");
+    PRINTF("P_AllocMobj: Out of free mobjs\n");
     mobj = Z_Malloc (sizeof(*mobj), PU_LEVEL, NULL);
     memset (mobj, 0, sizeof (*mobj));
     return mobj;
@@ -551,7 +551,7 @@ mobj_t* P_AllocMobj (void)
 
 void P_FreeMobj (mobj_t* mobj)
 {
-    // printf("P_FreeMobj %X\n", (unsigned int)mobj);
+    // PRINTF("P_FreeMobj %X\n", (unsigned int)mobj);
     if (mobj >= mobjs && mobj < &mobjs[MAX_MOBJ]) { 
         // In pre-allocated buffer
         mobj->type = MT_FREE;
@@ -576,7 +576,7 @@ P_SpawnMobj
     const state_t*    st;
     const mobjinfo_t* info;
  
-    // printf("P_SpawnMobj\n");
+    // PRINTF("P_SpawnMobj\n");
 
     mobj = P_AllocMobj();
     info = &mobjinfo[type];
@@ -739,7 +739,7 @@ void P_RespawnSpecials (void)
 //
 void P_SpawnPlayer (mapthing_t* mthing)
 {
-    // printf("P_SpawnPlayer\n");
+    // PRINTF("P_SpawnPlayer\n");
     player_t*           p;
     fixed_t             x;
     fixed_t             y;
@@ -818,7 +818,7 @@ void P_SpawnMapThing (mapthing_t* mthing)
     fixed_t             y;
     fixed_t             z;
 
-    // printf("P_SpawnMapThing\n");
+    // PRINTF("P_SpawnMapThing\n");
     // count deathmatch start positions
     if (mthing->type == 11)
     {

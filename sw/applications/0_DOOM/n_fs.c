@@ -78,34 +78,34 @@ void N_fs_init()
 
     diskio_blockdev_register(drives, ARRAY_SIZE(drives));
 
-    printf("Initializing disk 0 (SDC)...\n");
+    PRINTF("Initializing disk 0 (SDC)...\n");
     for (uint32_t retries = 3; retries && disk_state; --retries)
     {
         disk_state = disk_initialize(0);
     }
     if (disk_state)
     {
-        printf("Disk initialization failed.\n");
+        PRINTF("Disk initialization failed.\n");
         return;
     }
 
     uint32_t blocks_per_mb = (1024uL * 1024uL) / m_block_dev_sdc.block_dev.p_ops->geometry(&m_block_dev_sdc.block_dev)->blk_size;
     uint32_t capacity = m_block_dev_sdc.block_dev.p_ops->geometry(&m_block_dev_sdc.block_dev)->blk_count / blocks_per_mb;
-    printf("Capacity: %ld MB\n", capacity);
+    PRINTF("Capacity: %ld MB\n", capacity);
 
-    printf("Mounting volume...\n");
+    PRINTF("Mounting volume...\n");
     ff_result = f_mount(fs, "", 1);
     if (ff_result)
     {
-        printf("Mount failed.\n");
+        PRINTF("Mount failed.\n");
         return;
     }
 
-    printf("Listing directory: /\n");
+    PRINTF("Listing directory: /\n");
     ff_result = f_opendir(&dir, "/");
     if (ff_result)
     {
-        printf("Directory listing failed!\n");
+        PRINTF("Directory listing failed!\n");
         return;
     }
 
@@ -114,7 +114,7 @@ void N_fs_init()
         ff_result = f_readdir(&dir, &fno);
         if (ff_result != FR_OK)
         {
-            printf("Directory read failed.\n");
+            PRINTF("Directory read failed.\n");
             return;
         }
 
@@ -122,22 +122,22 @@ void N_fs_init()
         {
             if (fno.fattrib & AM_DIR)
             {
-                // printf("   <DIR>   %s",(uint32_t)fno.fname);
+                // PRINTF("   <DIR>   %s",(uint32_t)fno.fname);
             }
             else
             {
-                printf("%9lu  %s\n", fno.fsize, fno.fname);
+                PRINTF("%9lu  %s\n", fno.fsize, fno.fname);
             }
         }
     }
     while (fno.fname[0]);
-    printf("----\n \n");
+    PRINTF("----\n \n");
     return;
 }
 
 void N_fs_shutdown()
 {
-    printf("N_fs_shutdown\n");
+    PRINTF("N_fs_shutdown\n");
     disk_uninitialize(0);
     N_free(fs);
     fs = NULL;
@@ -146,7 +146,7 @@ void N_fs_shutdown()
 FIL *N_fs_open(char *path)
 {
     if (!fs) I_Error("N_fs_open: fs not iniitialized\n");
-    printf("FatFS: Opening: %s\n", path);
+    PRINTF("FatFS: Opening: %s\n", path);
     FIL *fstream = N_malloc(sizeof(FIL));
     FRESULT ff_result;
 
@@ -156,7 +156,7 @@ FIL *N_fs_open(char *path)
         return NULL;
     }
 
-    printf("FatFS: Open OK\n");
+    PRINTF("FatFS: Open OK\n");
 
     return fstream;
 }
@@ -189,7 +189,7 @@ size_t N_fs_read(FIL *fstream, unsigned int offset, void *buffer, size_t buffer_
     ff_result = f_lseek(fstream, offset);
     if (ff_result != FR_OK)
     {
-        printf("W_FatFS_Read: seek failed\n");
+        PRINTF("W_FatFS_Read: seek failed\n");
         return 0;
     }
     // Read into the buffer.
@@ -197,7 +197,7 @@ size_t N_fs_read(FIL *fstream, unsigned int offset, void *buffer, size_t buffer_
     ff_result = f_read(fstream, buffer, buffer_len, &result);
     if (ff_result != FR_OK)
     {
-        printf("W_FatFS_Read: seek failed\n");
+        PRINTF("W_FatFS_Read: seek failed\n");
         return 0;
     }
 

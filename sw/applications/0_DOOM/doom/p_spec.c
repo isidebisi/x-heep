@@ -141,7 +141,7 @@ extern  line_t* linespeciallist[MAXLINEANIMS];
 void P_InitPicAnims (void)
 {
     int         i;
-    printf("P_InitPicAnims\n");
+    PRINTF("P_InitPicAnims\n");
     
     //  Init animation
     lastanim = tex_anims;
@@ -157,7 +157,7 @@ void P_InitPicAnims (void)
         startname = DEH_String((char*)(animdefs[i].startname));
         endname = DEH_String((char*)(animdefs[i].endname));
 
-        // printf("  Anim #%d: %.8s\n", i, startname);
+        // PRINTF("  Anim #%d: %.8s\n", i, startname);
 
         if (animdefs[i].istexture)
         {
@@ -516,7 +516,7 @@ P_CrossSpecialLine
   int           side,
   mobj_t*       thing )
 {
-    // printf("P_CrossSpecialLine\n");
+    // PRINTF("P_CrossSpecialLine\n");
     line_t*     line;
     int         ok;
 
@@ -1385,7 +1385,7 @@ line_t*         linespeciallist[MAXLINEANIMS];
 // Parses command line parameters.
 void P_SpawnSpecials (void)
 {
-    printf("P_SpawnSpecials\n");
+    PRINTF("P_SpawnSpecials\n");
     sector_t*   sector;
     int         i;
 

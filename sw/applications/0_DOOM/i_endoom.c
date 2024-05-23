@@ -18,11 +18,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "config.h"
+// #include "config.h"
 #include "doomtype.h"
 #include "i_video.h"
 
-#include "txt_main.h"
+// #include "txt_main.h"
 
 #define ENDOOM_W 80
 #define ENDOOM_H 25
@@ -39,6 +39,7 @@ void I_Endoom(byte *endoom_data)
 
     // Set up text mode screen
 
+    /* x-heep: Not implemented
     TXT_Init();
 
     TXT_SetWindowTitle(PACKAGE_STRING);
@@ -75,5 +76,7 @@ void I_Endoom(byte *endoom_data)
     // Shut down text mode screen
 
     TXT_Shutdown();
+
+    */
 }
 

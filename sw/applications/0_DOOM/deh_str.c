@@ -374,8 +374,8 @@ static char *FormatStringReplacement(char *s)
 
     if (!ValidFormatReplacement(s, repl))
     {
-        printf("WARNING: Unsafe dehacked replacement provided for "
-               "printf format string: %s\n", s);
+        PRINTF("WARNING: Unsafe dehacked replacement provided for "
+               "PRINTF format string: %s\n", s);
 
         return s;
     }
@@ -383,7 +383,7 @@ static char *FormatStringReplacement(char *s)
     return repl;
 }
 
-// printf(), performing a replacement on the format string.
+// PRINTF(), performing a replacement on the format string.
 
 void DEH_printf(char *fmt, ...)
 {

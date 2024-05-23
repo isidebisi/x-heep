@@ -127,7 +127,7 @@ void R_DrawTransColumn (void)
         || dc_yl < 0
         || dc_yh >= SCREENHEIGHT) {
         // NRFD-TODO: I_Error 
-        printf ("R_DrawColumn: %i to %i at %i\n", dc_yl, dc_yh, dc_x);
+        PRINTF ("R_DrawColumn: %i to %i at %i\n", dc_yl, dc_yh, dc_x);
         return;
     }
 #endif 
@@ -185,7 +185,7 @@ void R_DrawColumn (void)
         || dc_yl < 0
         || dc_yh >= SCREENHEIGHT) {
         // NRFD-TODO: I_Error 
-        printf ("R_DrawColumn: %i to %i at %i\n", dc_yl, dc_yh, dc_x);
+        PRINTF ("R_DrawColumn: %i to %i at %i\n", dc_yl, dc_yh, dc_x);
         return;
     }
 #endif 
@@ -588,7 +588,7 @@ void R_DrawTranslatedColumn (void)
 
 void R_DrawTranslatedColumnLow (void) 
 { 
-    printf("NRFD-TODO: R_DrawTranslatedColumnLow\n"); /*
+    PRINTF("NRFD-TODO: R_DrawTranslatedColumnLow\n"); /*
 
     int                 count; 
     pixel_t*            dest;
@@ -676,13 +676,13 @@ void R_InitTranslationTables (void)
     }
     */
     /*
-    printf("translationtables_const[256*3] = {\n");
+    PRINTF("translationtables_const[256*3] = {\n");
     for (i=0 ; i<256*3 ; i++)
     {
-        printf("%3d, ", translationtables[i]);
-        if (i%16==15) { printf("\n"); }
+        PRINTF("%3d, ", translationtables[i]);
+        if (i%16==15) { PRINTF("\n"); }
     }
-    printf("}\n");
+    PRINTF("}\n");
     */
 }
 

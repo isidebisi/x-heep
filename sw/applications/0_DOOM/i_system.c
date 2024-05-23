@@ -83,7 +83,7 @@ void I_Tactile(int on, int off, int total)
 
 static byte *AutoAllocMemory(int *size, int default_ram, int min_ram)
 {
-    printf("TODO AutoAllocMemory\n"); return NULL;
+    PRINTF("TODO AutoAllocMemory\n"); return NULL;
     /* NRFD-TODO: 
     byte *zonemem;
 
@@ -124,7 +124,7 @@ static byte *AutoAllocMemory(int *size, int default_ram, int min_ram)
 
 byte *I_ZoneBase (int *size)
 {
-    printf("TODO I_ZoneBase\n"); return NULL;
+    PRINTF("TODO I_ZoneBase\n"); return NULL;
     /* NRFD-TODO:
     byte *zonemem;
     int min_ram, default_ram;
@@ -151,7 +151,7 @@ byte *I_ZoneBase (int *size)
 
     zonemem = AutoAllocMemory(size, default_ram, min_ram);
 
-    printf("zone memory: %p, %x allocated for zone\n", 
+    PRINTF("zone memory: %p, %x allocated for zone\n", 
            zonemem, *size);
 
     return zonemem;
@@ -187,10 +187,10 @@ void I_PrintStartupBanner(char *gamedescription)
     I_PrintBanner(gamedescription);
     I_PrintDivider();
     
-    printf(" " DOOM_PACKAGE_NAME " is free software, covered by the GNU General Public\n");
-    printf(" License.  There is NO warranty; not even for MERCHANTABILITY or FITNESS\n");
-    printf(" FOR A PARTICULAR PURPOSE. You are welcome to change and distribute\n");
-    printf(" copies under certain conditions. See the source for more information.\n");
+    PRINTF(" " DOOM_PACKAGE_NAME " is free software, covered by the GNU General Public\n");
+    PRINTF(" License.  There is NO warranty; not even for MERCHANTABILITY or FITNESS\n");
+    PRINTF(" FOR A PARTICULAR PURPOSE. You are welcome to change and distribute\n");
+    PRINTF(" copies under certain conditions. See the source for more information.\n");
 
     I_PrintDivider();
 }
@@ -275,7 +275,7 @@ void I_Error (char *error, ...)
     va_start(argptr, error);
     //fprintf(stderr, "\nError: ");
     vprintf(error, argptr);
-    printf("\n\n");
+    PRINTF("\n\n");
     va_end(argptr);
 
     /* NRFD-EXCLUDE

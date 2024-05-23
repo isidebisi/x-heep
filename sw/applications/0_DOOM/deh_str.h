@@ -32,7 +32,7 @@
 // Static macro versions of the functions above
 
 #define DEH_String(x) (x)
-#define DEH_printf printf
+#define DEH_printf PRINTF
 #define DEH_fprintf fprintf
 #define DEH_snprintf snprintf
 

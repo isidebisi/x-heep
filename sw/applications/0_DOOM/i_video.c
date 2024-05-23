@@ -166,10 +166,10 @@ unsigned int joywait = 0;
 void PrintVBuffer(void)
 {
     // pixel_t *vb = I_VideoBuffer;
-    // printf("%.2X %.2X %.2X %2X %.2X %.2X %.2X %2X\n", 
+    // PRINTF("%.2X %.2X %.2X %2X %.2X %.2X %.2X %2X\n", 
     //     vb[0], vb[1], vb[2], vb[3],
     //     vb[4], vb[5], vb[6], vb[7]); 
-    // printf("%.2X %.2X %.2X %2X %.2X %.2X %.2X %2X\n", 
+    // PRINTF("%.2X %.2X %.2X %2X %.2X %.2X %.2X %2X\n", 
     //     vb[1*SCREENWIDTH+0], vb[1*SCREENWIDTH+1], vb[1*SCREENWIDTH+2], vb[1*SCREENWIDTH+3],
     //     vb[1*SCREENWIDTH+4], vb[1*SCREENWIDTH+5], vb[1*SCREENWIDTH+6], vb[1*SCREENWIDTH+7]); 
 }
@@ -211,7 +211,7 @@ void I_GenerateEvents(void)
     X_ReadButtons();
     //N_ReadUart();
 
-    // printf("%d %d\n", joywait, I_GetTime());
+    // PRINTF("%d %d\n", joywait, I_GetTime());
     if (joywait < I_GetTime())
     {
         joywait = 0;
@@ -363,7 +363,7 @@ void I_ReadScreen (pixel_t* scr)
 void I_SetPalette (byte *doompalette)
 {
     int i;
-    // printf("I_SetPalette %X\n", (unsigned int)(doompalette));
+    // PRINTF("I_SetPalette %X\n", (unsigned int)(doompalette));
 
     // Convert Doom palette to FT810 palette
 
@@ -477,7 +477,7 @@ void I_GraphicsCheckCommandLine(void)
 
 void I_InitGraphics(void)
 {
-    printf("I_InitGraphics\n");
+    PRINTF("I_InitGraphics\n");
     N_display_init();
     display_palette_locs[0] = N_display_ram_alloc(DISPLAY_PALETTE_SIZE);
     display_palette_locs[1] = N_display_ram_alloc(DISPLAY_PALETTE_SIZE);

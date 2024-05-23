@@ -82,8 +82,8 @@
 #include "n_fs.h"
 #include "n_rjoy.h"
 
-#include "nrf.h"
-#include "nrf_cache.h"
+//#include "nrf.h"
+//#include "nrf_cache.h"
 
 
 extern int no_sdcard; //NRFD-NOTE: from main.c
@@ -199,7 +199,7 @@ void D_Display (void)
     boolean                     wipe;
     boolean                     redrawsbar;
 
-    // printf("D_Display\n");
+    // PRINTF("D_Display\n");
     if (nodrawers)
         return;                    // for comparative timing / profiling
 
@@ -460,7 +460,7 @@ void D_DoomLoop (void)
     if (gamevariant == bfgedition &&
         (demorecording || (gameaction == ga_playdemo) || netgame))
     {
-        printf(" WARNING: You are playing using one of the Doom Classic\n"
+        PRINTF(" WARNING: You are playing using one of the Doom Classic\n"
                " IWAD files shipped with the Doom 3: BFG Edition. These are\n"
                " known to be incompatible with the regular IWAD files and\n"
                " may cause demos and network games to get out of sync.\n");
@@ -469,7 +469,7 @@ void D_DoomLoop (void)
     if (demorecording)
         G_BeginRecording ();
     */
-    printf("D_DoomLoop\n");
+    PRINTF("D_DoomLoop\n");
     main_loop_started = true;
 
     I_SetWindowTitle(gamedescription);
@@ -499,7 +499,7 @@ void D_DoomLoop (void)
         int frame_time = I_GetTimeRaw();
         frame_time_fps = I_RawTimeToFps(frame_time-frame_time_prev);
 
-        // printf("== LOOP START  ==\n");
+        // PRINTF("== LOOP START  ==\n");
 
         // Toggle GPIO pin for measuring frame-rate
         // NRF_P0_S->OUT = NRF_P0_S->OUT^(1<<28);
@@ -526,8 +526,8 @@ void D_DoomLoop (void)
         int xdh = nrf_cache_data_hit_counter_get(NRF_CACHE_S, NRF_CACHE_REGION_XIP);
         int xdm = nrf_cache_data_miss_counter_get(NRF_CACHE_S, NRF_CACHE_REGION_XIP);
 
-        printf("fih = %d | fim = %d | fdh = %d | fdm = %d\n", fih, fim, fdh, fdm);
-        printf("xih = %d | xim = %d | xdh = %d | xdm = %d\n", xih, xim, xdh, xdm);
+        PRINTF("fih = %d | fim = %d | fdh = %d | fdm = %d\n", fih, fim, fdh, fdm);
+        PRINTF("xih = %d | xim = %d | xdh = %d | xdm = %d\n", xih, xim, xdh, xdm);
         */
 
         N_ldbg("=== LOOP END ===\n");
@@ -673,7 +673,7 @@ void D_DoAdvanceDemo (void)
 //
 void D_StartTitle (void)
 {
-    printf("D_StartTitle\n");
+    PRINTF("D_StartTitle\n");
     gameaction = ga_nothing;
     demosequence = -1;
     D_AdvanceDemo ();
@@ -746,7 +746,7 @@ static char *GetGameName(char *gamename)
             int version;
 
             // Has been replaced.
-            // We need to expand via printf to include the Doom version number
+            // We need to expand via PRINTF to include the Doom version number
             // We also need to cut off spaces to get the basic name
 
             gamename_size = strlen(deh_sub) + 10;
@@ -794,11 +794,11 @@ static void SetMissionForPackName(char *pack_name)
         }
     }
 
-    printf("Valid mission packs are:\n");
+    PRINTF("Valid mission packs are:\n");
 
     for (i = 0; i < arrlen(packs); ++i)
     {
-        printf("\t%s\n", packs[i].name);
+        PRINTF("\t%s\n", packs[i].name);
     }
 
     I_Error("Unknown mission pack name: %s", pack_name);
@@ -953,7 +953,7 @@ static boolean D_AddFile(char *filename)
 {
     wad_file_t *handle;
 
-    printf(" adding %s\n", filename);
+    PRINTF(" adding %s\n", filename);
     handle = W_AddFile(filename);
 
     return handle != NULL;
@@ -999,14 +999,14 @@ void PrintDehackedBanners(void)
 
         if (deh_s != copyright_banners[i])
         {
-            printf("%s", deh_s);
+            PRINTF("%s", deh_s);
 
             // Make sure the modified banner always ends in a newline character.
             // If it doesn't, add a newline.  This fixes av.wad.
 
             if (deh_s[strlen(deh_s) - 1] != '\n')
             {
-                printf("\n");
+                PRINTF("\n");
             }
         }
     }
@@ -1066,11 +1066,11 @@ static void InitGameVersion(void)
         
         if (gameversions[i].description == NULL) 
         {
-            printf("Supported game versions:\n");
+            PRINTF("Supported game versions:\n");
 
             for (i=0; gameversions[i].description != NULL; ++i)
             {
-                printf("\t%s (%s)\n", gameversions[i].cmdline,
+                PRINTF("\t%s (%s)\n", gameversions[i].cmdline,
                         gameversions[i].description);
             }
             
@@ -1099,7 +1099,7 @@ static void InitGameVersion(void)
             // original
             gameversion = exe_doom_1_9;
 
-            printf("NRFD-TODO: game detect\n");
+            PRINTF("NRFD-TODO: game detect\n");
             /*
             // Detect version from demo lump
             for (i = 1; i <= 3; ++i)
@@ -1107,7 +1107,7 @@ static void InitGameVersion(void)
                 M_snprintf(demolumpname, 6, "demo%i", i);
                 if (W_CheckNumForName(demolumpname) > 0)
                 {
-                    printf("Found %d\n", i);
+                    PRINTF("Found %d\n", i);
                     demolump = W_CacheLumpName(demolumpname, PU_STATIC);
                     demoversion = demolump[0];
                     W_ReleaseLumpName(demolumpname);
@@ -1177,7 +1177,7 @@ void PrintGameVersion(void)
     {
         if (gameversions[i].version == gameversion)
         {
-            printf("Emulating the behavior of the "
+            PRINTF("Emulating the behavior of the "
                    "'%s' executable.\n", gameversions[i].description);
             break;
         }
@@ -1210,7 +1210,7 @@ static void D_Endoom(void)
 // Load dehacked patches needed for certain IWADs.
 static void LoadIwadDeh(void)
 {
-    printf("NRFD-TODO: LoadIwadDeh\n"); 
+    PRINTF("NRFD-TODO: LoadIwadDeh\n"); 
     /* NRFD-TODO
     // The Freedoom IWADs have DEHACKED lumps that must be loaded.
     if (gamevariant == freedoom || gamevariant == freedm)
@@ -1316,7 +1316,7 @@ void D_DoomMain (void)
 
     if (M_CheckParm("-dedicated") > 0)
     {
-        printf("Dedicated server mode.\n");
+        PRINTF("Dedicated server mode.\n");
         NET_DedicatedServer();
 
         // Never returns
@@ -1494,24 +1494,24 @@ void D_DoomMain (void)
         I_Error("Game mode indeterminate.  No IWAD file was found.  Try\n"
                 "specifying one with the '-iwad' command line parameter.\n");
     }
-    printf("WAD File: %s\n", iwadfile);
+    PRINTF("WAD File: %s\n", iwadfile);
     // modifiedgame = false; // NRFD-TODO: modified game / PWAD?
 
     DEH_printf("W_Init: Init WADfiles.\n");
     D_AddFile(iwadfile);
     numiwadlumps = numlumps;
 
-    printf("W_CheckCorrectIWAD\n");
+    PRINTF("W_CheckCorrectIWAD\n");
     W_CheckCorrectIWAD(doom);
 
     // Now that we've loaded the IWAD, we can figure out what gamemission
     // we're playing and which version of Vanilla Doom we need to emulate.
-    printf("D_IdentifyVersion\n");
+    PRINTF("D_IdentifyVersion\n");
     D_IdentifyVersion();
-    printf("InitGameVersion\n");
+    PRINTF("InitGameVersion\n");
     InitGameVersion();
 
-    printf("Game version: \n");
+    PRINTF("Game version: \n");
     PrintGameVersion();
 
     // Check which IWAD variant we are using.
@@ -1557,7 +1557,7 @@ void D_DoomMain (void)
     // loaded which could probably include a lump of that name.
     if (gamevariant == bfgedition)
     {
-        printf("BFG Edition: Using workarounds as needed.\n");
+        PRINTF("BFG Edition: Using workarounds as needed.\n");
 
         // BFG Edition changes the names of the secret levels to
         // censor the Wolfenstein references. It also has an extra
@@ -1638,7 +1638,7 @@ void D_DoomMain (void)
         }
         else
         {
-            DEH_snprintf(file, sizeof(file), "%s.lmp", myargv[p+1]);
+            //DEH_snprintf(file, sizeof(file), "%s.lmp", myargv[p+1]);
         }
 
         free(uc_filename);
@@ -1657,7 +1657,7 @@ void D_DoomMain (void)
             M_StringCopy(demolumpname, myargv[p + 1], sizeof(demolumpname));
         }
 
-        printf("Playing demo %s.\n", file);
+        PRINTF("Playing demo %s.\n", file);
     }
 
     I_AtExit(G_CheckDemoStatusAtExit, true);
@@ -1689,13 +1689,13 @@ void D_DoomMain (void)
             }
         }
 
-        printf("  loaded %i DEHACKED lumps from PWAD files.\n", loaded);
+        PRINTF("  loaded %i DEHACKED lumps from PWAD files.\n", loaded);
     }
     */
 
     // Set the gamedescription string. This is only possible now that
     // we've finished loading Dehacked patches.
-    printf("D_SetGameDescription\n");
+    PRINTF("D_SetGameDescription\n");
     D_SetGameDescription();
 
     savegamedir = M_GetSaveGameDir(D_SaveGameIWADName(gamemission));
@@ -1730,7 +1730,7 @@ void D_DoomMain (void)
      || W_CheckNumForName("FF_END") >= 0)
     {
         I_PrintDivider();
-        printf(" WARNING: The loaded WAD file contains modified sprites or\n"
+        PRINTF(" WARNING: The loaded WAD file contains modified sprites or\n"
                " floor textures.  You may want to use the '-merge' command\n"
                " line option instead of '-file'.\n");
     }
@@ -1744,7 +1744,7 @@ void D_DoomMain (void)
     // message and give a link to the website.
     if (gamevariant == freedoom)
     {
-        printf(" WARNING: You are playing using one of the Freedoom IWAD\n"
+        PRINTF(" WARNING: You are playing using one of the Freedoom IWAD\n"
                " files, which might not work in this port. See this page\n"
                " for more information on how to play using Freedoom:\n"
                "   https://www.chocolate-doom.org/wiki/index.php/Freedoom\n");
@@ -1756,7 +1756,7 @@ void D_DoomMain (void)
     I_InitTimer();
 
     /*
-    printf("Testing timer:\n");
+    PRINTF("Testing timer:\n");
     int t_ms, t1_ms;
     int t_tick, t1_tick;
     t_ms = I_GetTimeMS();
@@ -1764,8 +1764,8 @@ void D_DoomMain (void)
     I_Sleep(1000); // Sleep one second
     t1_ms = I_GetTimeMS();
     t1_tick = I_GetTime();
-    printf("I_GetTimeMS: T0: %d T1: %d Delta: %d\n", t_ms, t1_ms, t1_ms-t_ms);
-    printf("I_GetTime T0: %d T1: %d Delta: %d\n", t_tick, t1_tick, t1_tick-t_tick);
+    PRINTF("I_GetTimeMS: T0: %d T1: %d Delta: %d\n", t_ms, t1_ms, t1_ms-t_ms);
+    PRINTF("I_GetTime T0: %d T1: %d Delta: %d\n", t_tick, t1_tick, t1_tick-t_tick);
     */
     
 
@@ -1774,7 +1774,7 @@ void D_DoomMain (void)
     I_InitMusic();
 
 /* NRFD-TODO:
-    printf ("NET_Init: Init network subsystem.\n");
+    PRINTF ("NET_Init: Init network subsystem.\n");
     NET_Init ();
 
     // Initial netgame startup. Connect to server etc.

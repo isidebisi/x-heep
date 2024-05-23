@@ -62,7 +62,7 @@
 #include "board_config.h"
 */
 
-#define PRINTF(fmt, ...)    printf(fmt, ## __VA_ARGS__)
+#define PRINTF(fmt, ...)    PRINTF(fmt, ## __VA_ARGS__)
 
 
 int no_sdcard = 1;
@@ -73,7 +73,7 @@ int no_sdcard = 1;
 /*
 void MWU_IRQHandler(void)
 {
-    printf("!!!!!!Stack or Heap Overflow!!!!!!: %d %d %d %d\n", 
+    PRINTF("!!!!!!Stack or Heap Overflow!!!!!!: %d %d %d %d\n", 
             (int)NRF_MWU->EVENTS_REGION[0].WA, 
             (int)NRF_MWU->EVENTS_REGION[0].RA, 
             (int)NRF_MWU->EVENTS_REGION[1].WA, 
@@ -121,7 +121,7 @@ void clock_initialization()
 void boot_net()
 {
     /*
-    printf("Booting NetMCU\n");
+    PRINTF("Booting NetMCU\n");
 
     // Network owns 30/31 (LED3/4)
     nrf_gpio_pin_mcu_select(LED_PIN_3, NRF_GPIO_PIN_MCUSEL_NETWORK);

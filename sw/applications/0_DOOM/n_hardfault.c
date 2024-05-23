@@ -127,7 +127,7 @@ void HardFault_c_handler(uint32_t * p_stack_address)
     {
         if (((cfsr & (1 << i)) != 0) && (cfsr_msgs[i] != NULL))
         {
-            printf("Cause: %s.\n", (char*)cfsr_msgs[i]);
+            PRINTF("Cause: %s.\n", (char*)cfsr_msgs[i]);
         }
     }
 
@@ -186,38 +186,38 @@ void HardFault_c_handler(uint32_t * p_stack_address)
     if (p_stack != NULL)
     {
         // Print information about error.
-        printf("HARD FAULT at 0x%08X\n", (unsigned int)p_stack->pc);
-        printf("  R0:  0x%08X  R1:  0x%08X  R2:  0x%08X  R3:  0x%08X\n",
+        PRINTF("HARD FAULT at 0x%08X\n", (unsigned int)p_stack->pc);
+        PRINTF("  R0:  0x%08X  R1:  0x%08X  R2:  0x%08X  R3:  0x%08X\n",
                              (unsigned int)p_stack->r0, (unsigned int)p_stack->r1, (unsigned int)p_stack->r2, (unsigned int)p_stack->r3);
-        printf("  R12: 0x%08X  LR:  0x%08X  PSR: 0x%08X\n",
+        PRINTF("  R12: 0x%08X  LR:  0x%08X  PSR: 0x%08X\n",
                              (unsigned int)p_stack->r12, (unsigned int)p_stack->lr, (unsigned int)p_stack->psr);
     }
     else
     {
-        printf("Stack violation: stack pointer outside stack area.\n");
+        PRINTF("Stack violation: stack pointer outside stack area.\n");
     }
 
     if (SCB->HFSR & SCB_HFSR_VECTTBL_Msk)
     {
-        printf("Cause: BusFault on a vector table read during exception processing.\n");
+        PRINTF("Cause: BusFault on a vector table read during exception processing.\n");
     }
 
     for (uint32_t i = 0; i < sizeof(cfsr_msgs) / sizeof(cfsr_msgs[0]); i++)
     {
         if (((cfsr & (1 << i)) != 0) && (cfsr_msgs[i] != NULL))
         {
-            printf("Cause: %s.\n", (char*)cfsr_msgs[i]);
+            PRINTF("Cause: %s.\n", (char*)cfsr_msgs[i]);
         }
     }
 
     if (cfsr & CFSR_MMARVALID)
     {
-        printf("MemManage Fault Address: 0x%08X\n", (unsigned int)SCB->MMFAR);
+        PRINTF("MemManage Fault Address: 0x%08X\n", (unsigned int)SCB->MMFAR);
     }
 
     if (cfsr & CFSR_BFARVALID)
     {
-        printf("Bus Fault Address: 0x%08X\n", (unsigned int)SCB->BFAR);
+        PRINTF("Bus Fault Address: 0x%08X\n", (unsigned int)SCB->BFAR);
     }
     */
 

@@ -38,6 +38,9 @@
 //#include "net_sdl.h"
 #include "net_loop.h"
 
+#define PRINTF(fmt, ...)    PRINTF(fmt, ## __VA_ARGS__)
+
+
 // The complete set of data for a particular tic.
 
 typedef struct   __attribute__((packed))
@@ -176,7 +179,7 @@ static boolean BuildNewTic(void)
            return false;
     }
 
-    //printf ("mk:%i ",maketic);
+    //PRINTF ("mk:%i ",maketic);
     memset(&cmd, 0, sizeof(ticcmd_t));
     loop_interface->BuildTiccmd(&cmd, maketic);
 
@@ -244,7 +247,7 @@ void NetUpdate (void)
 
 static void D_Disconnected(void)
 {
-    printf("NRFD-TODO: D_Disconnected\n");
+    //PRINTF("NRFD-TODO: D_Disconnected\n");
     /*
     // In drone mode, the game cannot continue once disconnected.
 
@@ -255,7 +258,7 @@ static void D_Disconnected(void)
 
     // disconnected from server
 
-    printf("Disconnected from server.\n");
+    PRINTF("Disconnected from server.\n");
     */
 }
 
@@ -300,7 +303,7 @@ void D_ReceiveTic(ticcmd_t *ticcmds, boolean *players_mask)
 
 void D_StartGameLoop(void)
 {
-    printf("D_StartGameLoop\n");
+    PRINTF("D_StartGameLoop\n");
     lasttime = GetAdjustedTime() / ticdup;
 }
 
@@ -311,7 +314,7 @@ void D_StartGameLoop(void)
 static void BlockUntilStart(net_gamesettings_t *settings,
                             netgame_startup_callback_t callback)
 {
-    printf("NRFD-TODO: BlockUntilStart");
+    PRINTF("NRFD-TODO: BlockUntilStart");
     /*
     while (!NET_CL_GetSettings(settings))
     {
@@ -430,13 +433,13 @@ void D_StartNetGame(net_gamesettings_t *settings,
     // TODO: Message disabled until we fix new_sync.
     //if (!new_sync)
     //{
-    //    printf("Syncing netgames like Vanilla Doom.\n");
+    //    PRINTF("Syncing netgames like Vanilla Doom.\n");
     //}
 }
 
 boolean D_InitNetGame(net_connect_data_t *connect_data)
 {
-        printf("NRFD-TODO: D_InitNetGame\n");
+        PRINTF("NRFD-TODO: D_InitNetGame\n");
 /*
     boolean result = false;
     net_addr_t *addr = NULL;
@@ -521,7 +524,7 @@ boolean D_InitNetGame(net_connect_data_t *connect_data)
                     NET_AddrToString(addr));
         }
 
-        printf("D_InitNetGame: Connected to %s\n", NET_AddrToString(addr));
+        PRINTF("D_InitNetGame: Connected to %s\n", NET_AddrToString(addr));
 
         // Wait for launch message received from server.
 
@@ -542,7 +545,7 @@ boolean D_InitNetGame(net_connect_data_t *connect_data)
 //
 void D_QuitNetGame (void)
 {
-        printf("NRFD-TODO: ");
+        PRINTF("NRFD-TODO: ");
 /*
     NET_SV_Shutdown();
     NET_CL_Disconnect();
@@ -605,7 +608,7 @@ static void OldNetSync(void)
         if (maketic <= recvtic)
         {
             lasttime--;
-            // printf ("-");
+            // PRINTF ("-");
         }
 
         frameskip[frameon & 3] = oldnettics > recvtic;
@@ -614,7 +617,7 @@ static void OldNetSync(void)
         if (frameskip[0] && frameskip[1] && frameskip[2] && frameskip[3])
         {
             skiptics = 1;
-            // printf ("+");
+            // PRINTF ("+");
         }
     }
 }
@@ -841,7 +844,7 @@ boolean D_NonVanillaRecord(boolean conditional, char *feature)
         return false;
     }
 
-    printf("Warning: Recording a demo file with a non-vanilla extension "
+    PRINTF("Warning: Recording a demo file with a non-vanilla extension "
            "(%s). Use -strictdemos to disable this extension.\n",
            feature);
 
@@ -852,7 +855,7 @@ boolean D_NonVanillaRecord(boolean conditional, char *feature)
 // file, as opposed to a WAD.
 static boolean IsDemoFile(int lumpnum)
 {
-    printf("NRFD-TODO: IsDemoFile\n"); return false; /*
+    PRINTF("NRFD-TODO: IsDemoFile\n"); return false; /*
     char *lower;
     boolean result;
 
@@ -882,12 +885,12 @@ boolean D_NonVanillaPlayback(boolean conditional, int lumpnum,
 
     if (!IsDemoFile(lumpnum))
     {
-        printf("Warning: WAD contains demo with a non-vanilla extension "
+        PRINTF("Warning: WAD contains demo with a non-vanilla extension "
                "(%s)\n", feature);
         return false;
     }
 
-    printf("Warning: Playing back a demo file with a non-vanilla extension "
+    PRINTF("Warning: Playing back a demo file with a non-vanilla extension "
            "(%s). Use -strictdemos to disable this extension.\n",
            feature);
 

@@ -129,7 +129,7 @@ static void Z_RemoveBlock(memblock_t *block)
 void Z_Init (void)
 {
     memset(allocated_blocks, 0, sizeof(allocated_blocks));
-    printf("zone memory: Using native C allocator.\n");
+    PRINTF("zone memory: Using native C allocator.\n");
 }
 
 
@@ -138,7 +138,7 @@ void Z_Init (void)
 //
 void Z_Free (void* ptr)
 {
-    // printf("Z_Free\n");
+    // PRINTF("Z_Free\n");
     memblock_t*		block;
 
     block = (memblock_t *) ((byte *)ptr - sizeof(memblock_t));
@@ -173,7 +173,7 @@ static boolean ClearCache(int size)
     memblock_t *next_block;
     int remaining;
 
-    printf("ClearCache\n");
+    PRINTF("ClearCache\n");
 
     block = allocated_blocks[PU_CACHE];
 
@@ -193,7 +193,7 @@ static boolean ClearCache(int size)
         block = block->next;
     }
 
-    //printf("out of memory; cleaning out the cache: %i\n", test_malloced);
+    //PRINTF("out of memory; cleaning out the cache: %i\n", test_malloced);
 
     // Search backwards through the list freeing blocks until we have
     // freed the amount of memory required.
@@ -355,7 +355,7 @@ void Z_FileDumpHeap(FILE *f)
 //
 void Z_CheckHeap (void)
 {
-    printf("Z_CheckHeap\n");
+    PRINTF("Z_CheckHeap\n");
     memblock_t *block;
     memblock_t *prev;
     int i;

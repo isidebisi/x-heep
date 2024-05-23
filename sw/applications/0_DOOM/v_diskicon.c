@@ -64,7 +64,7 @@ static void CopyRegion(byte *dest, int dest_pitch,
 
 static void SaveDiskData(char *disk_lump, int xoffs, int yoffs)
 {
-    printf("NRFD-TODO: SaveDiskData\n");
+    PRINTF("NRFD-TODO: SaveDiskData\n");
     /*
     byte *tmpscreen;
     patch_t *disk;
@@ -94,7 +94,7 @@ static void SaveDiskData(char *disk_lump, int xoffs, int yoffs)
 
 void V_EnableLoadingDisk(char *lump_name, int xoffs, int yoffs)
 {
-    printf("NRFD-TODO: V_EnableLoadingDisk\n");
+    PRINTF("NRFD-TODO: V_EnableLoadingDisk\n");
     /*
     loading_disk_xoffs = xoffs;
     loading_disk_yoffs = yoffs;
@@ -120,7 +120,7 @@ static byte *DiskRegionPointer(void)
 
 void V_DrawDiskIcon(void)
 {
-    printf("NRFD-TODO: V_DrawDiskIcon\n");
+    PRINTF("NRFD-TODO: V_DrawDiskIcon\n");
     /*
     if (disk_data != NULL && recent_bytes_read > diskicon_threshold)
     {
@@ -142,7 +142,7 @@ void V_DrawDiskIcon(void)
 
 void V_RestoreDiskBackground(void)
 {
-    printf("NRFD-TODO: V_RestoreDiskBackground\n");
+    PRINTF("NRFD-TODO: V_RestoreDiskBackground\n");
     /*
     if (disk_drawn)
     {

@@ -212,7 +212,7 @@ const int dclick_use = 1;
 
 void M_BindBaseControls(void)
 {
-    printf("NRFD-TODO: M_BindStrifeControls\n");
+    PRINTF("NRFD-TODO: M_BindStrifeControls\n");
     /* 
     M_BindIntVariable("key_right",          &key_right);
     M_BindIntVariable("key_left",           &key_left);
@@ -254,7 +254,7 @@ void M_BindBaseControls(void)
 
 void M_BindHereticControls(void)
 {
-    printf("NRFD-TODO: M_BindStrifeControls\n");
+    PRINTF("NRFD-TODO: M_BindStrifeControls\n");
     /* 
     M_BindIntVariable("key_flyup",          &key_flyup);
     M_BindIntVariable("key_flydown",        &key_flydown);
@@ -272,7 +272,7 @@ void M_BindHereticControls(void)
 
 void M_BindHexenControls(void)
 {
-    printf("NRFD-TODO: M_BindStrifeControls\n");
+    PRINTF("NRFD-TODO: M_BindStrifeControls\n");
     /* 
 
     M_BindIntVariable("key_jump",           &key_jump);
@@ -292,7 +292,7 @@ void M_BindHexenControls(void)
 
 void M_BindStrifeControls(void)
 {
-    printf("NRFD-TODO: M_BindStrifeControls\n");
+    PRINTF("NRFD-TODO: M_BindStrifeControls\n");
     /* 
     // These are shared with all games, but have different defaults:
     key_message_refresh = '/';
@@ -330,7 +330,7 @@ void M_BindStrifeControls(void)
 
 void M_BindWeaponControls(void)
 {
-    printf("NRFD-TODO: M_BindWeaponControls\n");
+    PRINTF("NRFD-TODO: M_BindWeaponControls\n");
     /*
     M_BindIntVariable("key_weapon1",        &key_weapon1);
     M_BindIntVariable("key_weapon2",        &key_weapon2);
@@ -354,7 +354,7 @@ void M_BindWeaponControls(void)
 
 void M_BindMapControls(void)
 {
-    printf("NRFD-TODO: M_BindMapControls\n");
+    PRINTF("NRFD-TODO: M_BindMapControls\n");
     /*
     M_BindIntVariable("key_map_north",      &key_map_north);
     M_BindIntVariable("key_map_south",      &key_map_south);
@@ -373,7 +373,7 @@ void M_BindMapControls(void)
 
 void M_BindMenuControls(void)
 {
-    printf("NRFD-TODO: M_BindMenuControls\n");
+    PRINTF("NRFD-TODO: M_BindMenuControls\n");
     /*
     M_BindIntVariable("key_menu_activate",  &key_menu_activate);
     M_BindIntVariable("key_menu_up",        &key_menu_up);
@@ -407,7 +407,7 @@ void M_BindMenuControls(void)
 
 void M_BindChatControls(unsigned int num_players)
 {
-    printf("NRFD-TODO: M_BindChatControls\n");
+    PRINTF("NRFD-TODO: M_BindChatControls\n");
     /* 
     char name[32];  // haleyjd: 20 not large enough - Thank you, come again!
     unsigned int i; // haleyjd: signedness conflict

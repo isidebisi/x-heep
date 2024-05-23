@@ -31,7 +31,7 @@
 
 static int GetFileNumber(wad_file_t *handle)
 {
-    printf("NRF-TODO: GetFileNumber\n"); return 0; /*
+    PRINTF("NRF-TODO: GetFileNumber\n"); return 0; /*
     int i;
     int result;
 
@@ -59,7 +59,7 @@ static int GetFileNumber(wad_file_t *handle)
 
 static void ChecksumAddLump(sha1_context_t *sha1_context, lumpinfo_t *lump)
 {
-    printf("NRF-TODO: ChecksumAddLump\n"); /*
+    PRINTF("NRF-TODO: ChecksumAddLump\n"); /*
     char buf[9];
 
     M_StringCopy(buf, lump->name, sizeof(buf));

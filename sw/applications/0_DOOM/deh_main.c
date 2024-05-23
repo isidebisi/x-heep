@@ -335,7 +335,7 @@ static void DEH_ParseContext(deh_context_t *context)
                     current_section->end(context, tag);
                 }
 
-                //printf("end %s tag\n", current_section->name);
+                //PRINTF("end %s tag\n", current_section->name);
                 current_section = NULL;
             }
         }
@@ -358,11 +358,11 @@ static void DEH_ParseContext(deh_context_t *context)
                 if (current_section != NULL)
                 {
                     tag = current_section->start(context, line);
-                    //printf("started %s tag\n", section_name);
+                    //PRINTF("started %s tag\n", section_name);
                 }
                 else
                 {
-                    //printf("unknown section name %s\n", section_name);
+                    //PRINTF("unknown section name %s\n", section_name);
                 }
             }
         }
@@ -387,7 +387,7 @@ int DEH_LoadFile(char *filename)
     deh_allow_long_cheats = false;
     deh_allow_extended_strings = false;
 
-    printf(" loading %s\n", filename);
+    PRINTF(" loading %s\n", filename);
 
     context = DEH_OpenFile(filename);
 

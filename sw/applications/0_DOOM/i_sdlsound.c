@@ -17,14 +17,14 @@
 //	System interface for sound.
 //
 
-#include "config.h"
+//#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "SDL.h"
-#include "SDL_mixer.h"
+//#include "SDL.h"
+//#include "SDL_mixer.h"
 
 #ifdef HAVE_LIBSAMPLERATE
 #include <samplerate.h>
@@ -248,7 +248,7 @@ static void LockAllocatedSound(allocated_sound_t *snd)
 
     ++snd->use_count;
 
-    //printf("++ %s: Use count=%i\n", snd->sfxinfo->name, snd->use_count);
+    //PRINTF("++ %s: Use count=%i\n", snd->sfxinfo->name, snd->use_count);
 
     // When we use a sound, re-link it into the list at the head, so
     // that the oldest sounds fall to the end of the list for freeing.
@@ -268,7 +268,7 @@ static void UnlockAllocatedSound(allocated_sound_t *snd)
 
     --snd->use_count;
 
-    //printf("-- %s: Use count=%i\n", snd->sfxinfo->name, snd->use_count);
+    //PRINTF("-- %s: Use count=%i\n", snd->sfxinfo->name, snd->use_count);
 }
 
 // Search through the list of allocated sounds and return the one that matches
@@ -824,13 +824,13 @@ static void I_SDL_PrecacheSounds(sfxinfo_t *sounds, int num_sounds)
 	return;
     }
 
-    printf("I_SDL_PrecacheSounds: Precaching all sound effects..");
+    PRINTF("I_SDL_PrecacheSounds: Precaching all sound effects..");
 
     for (i=0; i<num_sounds; ++i)
     {
         if ((i % 6) == 0)
         {
-            printf(".");
+            PRINTF(".");
             fflush(stdout);
         }
 
@@ -844,7 +844,7 @@ static void I_SDL_PrecacheSounds(sfxinfo_t *sounds, int num_sounds)
         }
     }
 
-    printf("\n");
+    PRINTF("\n");
 }
 
 #else

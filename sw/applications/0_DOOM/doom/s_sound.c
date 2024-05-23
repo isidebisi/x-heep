@@ -117,7 +117,7 @@ static musicinfo_t *mus_playing = NULL;
 
 void S_Init(int sfxVolume, int musicVolume)
 {
-    printf("S_Init\n");
+    PRINTF("S_Init\n");
 
     int i;
 
@@ -174,7 +174,7 @@ void S_Init(int sfxVolume, int musicVolume)
 
 void S_Shutdown(void)
 {
-    printf("NRFD-TODO: S_Shutdown\n");
+    PRINTF("NRFD-TODO: S_Shutdown\n");
     /*
     I_ShutdownSound();
     I_ShutdownMusic();
@@ -186,7 +186,7 @@ static void S_StopChannel(int cnum)
     int i;
     channel_t *c;
 
-    // printf("NRFD-TODO: S_StopChannel\n");
+    // PRINTF("NRFD-TODO: S_StopChannel\n");
 
     c = &channels[cnum];
 
@@ -228,7 +228,7 @@ void S_Start(void)
     int cnum;
     int mnum;
 
-    printf("S_Start\n");
+    PRINTF("S_Start\n");
 
     // kill all playing sounds at start of level
     //  (trust me - a good idea)
@@ -284,7 +284,7 @@ void S_StopSound(mobj_t *origin)
     int cnum;
 
 
-    // printf("NRFD-TODO: S_StopSound\n");
+    // PRINTF("NRFD-TODO: S_StopSound\n");
 
     for (cnum=0 ; cnum<snd_channels ; cnum++)
     {
@@ -306,7 +306,7 @@ static int S_GetChannel(mobj_t *origin, sfxinfo_t *sfxinfo)
     // channel number to use
     int                cnum;
 
-    // printf("S_GetChannel\n");
+    // PRINTF("S_GetChannel\n");
 
     channel_t*        c;
 
@@ -354,7 +354,7 @@ static int S_GetChannel(mobj_t *origin, sfxinfo_t *sfxinfo)
     c->sfxinfo = sfxinfo;
     c->origin = origin;
 
-    // printf("   %d\n", cnum);
+    // PRINTF("   %d\n", cnum);
 
     return cnum;
 }
@@ -374,7 +374,7 @@ static int S_AdjustSoundParams(mobj_t *listener, mobj_t *source,
     fixed_t        ady;
     angle_t        angle;
 
-    // printf("S_AdjustSoundParams\n");
+    // PRINTF("S_AdjustSoundParams\n");
 
     // calculate the distance to sound origin
     //  and clip it if necessary
@@ -462,7 +462,7 @@ void S_StartSound(void *origin_p, int sfx_id)
     int cnum;
     int volume;
 
-    // printf("S_StartSound\n");
+    // PRINTF("S_StartSound\n");
 
     origin = (mobj_t *) origin_p;
     volume = snd_SfxVolume;
@@ -563,7 +563,7 @@ void S_StartSound(void *origin_p, int sfx_id)
 
 void S_PauseSound(void)
 {
-    printf("NRFD-TODO: S_PauseSound\n");
+    PRINTF("NRFD-TODO: S_PauseSound\n");
     /*
     if (mus_playing && !mus_paused)
     {
@@ -575,7 +575,7 @@ void S_PauseSound(void)
 
 void S_ResumeSound(void)
 {
-    printf("NRFD-TODO: S_ResumeSound\n");
+    PRINTF("NRFD-TODO: S_ResumeSound\n");
     /*
     if (mus_playing && mus_paused)
     {
@@ -598,7 +598,7 @@ void S_UpdateSounds(mobj_t *listener)
     sfxinfo_t*        sfx;
     channel_t*        c;
 
-    // printf("NRFD-TODO: S_UpdateSounds\n");
+    // PRINTF("NRFD-TODO: S_UpdateSounds\n");
 
     I_UpdateSound();
 
@@ -691,7 +691,7 @@ void S_StartMusic(int m_id)
 
 void S_ChangeMusic(int musicnum, int looping)
 {
-    printf("NRFD-TODO: S_ChangeMusic\n");
+    PRINTF("NRFD-TODO: S_ChangeMusic\n");
     /*
     musicinfo_t *music = NULL;
     char namebuf[9];
