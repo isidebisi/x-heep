@@ -80,6 +80,7 @@ endif
 
 #binary to store in flash memory
 FLASHWRITE_FILE = $(mkfile_path)/sw/build/main.hex
+FLASHDOOM_WAD_FILE = $(mkfile_path)/sw/applications/0_DOOM/doom.wad
 
 # Export variables to sub-makefiles
 export
@@ -261,6 +262,11 @@ flash-readid:
 flash-prog:
 	cd sw/vendor/yosyshq_icestorm/iceprog; make; \
 	./iceprog -a $(FLASHRWITE_BYTES) -d i:0x0403:0x6011 -I B $(FLASHWRITE_FILE);
+	
+flash-prog-doom:	flash-prog
+    
+    ./iceprog -a $(FLASHRWITE_BYTES) -d i:0x0403:0x6011 -o 1024*1024 -I B $(FLASHDOOM_WAD_FILE);
+	
 
 ## Read the EPFL_Programmer flash
 flash-read:
