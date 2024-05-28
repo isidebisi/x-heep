@@ -263,9 +263,8 @@ flash-prog:
 	cd sw/vendor/yosyshq_icestorm/iceprog; make; \
 	./iceprog -a $(FLASHRWITE_BYTES) -d i:0x0403:0x6011 -I B $(FLASHWRITE_FILE);
 	
-flash-prog-doom:	flash-prog
-    
-    ./iceprog -a $(FLASHRWITE_BYTES) -d i:0x0403:0x6011 -o 1024*1024 -I B $(FLASHDOOM_WAD_FILE);
+flash-prog-doom: flash-prog
+	./iceprog -a $(FLASHRWITE_BYTES) -d i:0x0403:0x6011 -o 1024*1024 -I B $(FLASHDOOM_WAD_FILE);
 	
 
 ## Read the EPFL_Programmer flash
