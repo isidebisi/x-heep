@@ -40,6 +40,7 @@
 #include "w_wad.h"
 
 #include "x_buttons.h"
+#include "x_spi.h"
 
 typedef PACKED_STRUCT (
 {
@@ -496,14 +497,19 @@ void W_ReadLump(lumpindex_t lump, void *dest)
         I_Error ("W_ReadLump: %i >= numlumps", lump);
     }
 
+    read_flash(WAD_START_ADDRESS + lumpinfo[lump].filepos, dest, lumpinfo[lump].size);
+
+
     // lumpinfo_t *l;
     // l = &lumpinfo[lump];
     // PRINTF("W_ReadLump(dummy): %.8s\n", l->name);
 
     // V_BeginRead(l->size);
+    /*X_HEEP Comment
     filelump_t *filelump = &filelumps[lump];
     void *ptr = N_qspi_data_pointer(LONG(filelump->filepos));
     memcpy(dest, ptr, LONG(filelump->size));
+    X-HEEP Finished comment*/
 
     // memcpy(dest, l->cache, l->size);
 
@@ -538,6 +544,25 @@ void W_ReadLump(lumpindex_t lump, void *dest)
 
 void *W_CacheLumpNum(lumpindex_t lumpnum, int tag)
 {
+    byte *ptr;
+
+    if ((unsigned)lump >= numlumps)
+        I_Error("W_CacheLumpNum: %i >= numlumps", lump);
+
+    if (!lumpcache[lump])
+    {
+        // read the lump in
+        ptr = Z_Malloc(W_LumpLength(lump), tag, &lumpcache[lump]);
+        X_spi_read(WAD_START_ADDRESS + lumpinfo[lump].filepos, ptr, lumpinfo[lump].size);
+    }
+    else
+    {
+        Z_ChangeTag(lumpcache[lump], tag);
+    }
+
+    return lumpcache[lump];
+
+    /* X-HEEP Comment
     byte *result;
     // lumpinfo_t *lump;
 
@@ -568,7 +593,7 @@ void *W_CacheLumpNum(lumpindex_t lumpnum, int tag)
         }
     }
     */
-    result = W_LumpDataPointer(lumpnum);
+    // X_HEEP COMMENT: result = W_LumpDataPointer(lumpnum);
     // N_ldbg("W_CacheLumpNum: %.8s\n", lump->name);
 
     /* NRFD-EXCLUDE:
@@ -594,7 +619,7 @@ void *W_CacheLumpNum(lumpindex_t lumpnum, int tag)
     }
     */
 
-    return result;
+    // X_HEEP Comment: return result;
 }
 
 
