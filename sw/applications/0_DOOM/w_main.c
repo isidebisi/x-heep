@@ -29,6 +29,7 @@
 // Returns true if at least one file was added.
 boolean W_ParseCommandLine(void)
 {
+    /* X-HEEP COMMENT
     boolean modifiedgame = false;
     int p;
 
@@ -190,6 +191,8 @@ boolean W_ParseCommandLine(void)
 //    W_PrintDirectory();
 
     return modifiedgame;
+
+    END X-HEEP COMMENT */
 }
 
 // Lump names that are unique to particular game types. This lets us check

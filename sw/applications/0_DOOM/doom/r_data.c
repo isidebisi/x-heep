@@ -41,7 +41,7 @@
 
 #include "r_data.h"
 
-#include "n_qspi.h"
+//#include "n_qspi.h"
 
 #include "x_buttons.h"
 

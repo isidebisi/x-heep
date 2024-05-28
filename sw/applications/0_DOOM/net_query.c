@@ -540,8 +540,10 @@ static void NET_Query_QueryLoop(net_query_callback_t callback, void *user_data)
     }
 }
 
+
 void NET_Query_Init(void)
 {
+    /* X-HEEP COMMENT
     if (query_context == NULL)
     {
         query_context = NET_NewContext();
@@ -554,6 +556,7 @@ void NET_Query_Init(void)
     num_targets = 0;
 
     printed_header = false;
+    X-HEEP END COMMENT */
 }
 
 // Callback that exits the query loop when the first server is found.
@@ -866,7 +869,7 @@ static net_packet_t *BlockForPacket(net_addr_t *addr, unsigned int packet_type,
 }
 
 // Query master server for secure demo start seed value.
-
+/*X-HEEP COMMENT
 boolean NET_StartSecureDemo(prng_seed_t seed)
 {
     net_packet_t *request, *response;
@@ -911,7 +914,7 @@ boolean NET_StartSecureDemo(prng_seed_t seed)
 
     return result;
 }
-
+X-HEEP END COMMENT */
 // Query master server for secure demo end signature.
 
 char *NET_EndSecureDemo(sha1_digest_t demo_hash)

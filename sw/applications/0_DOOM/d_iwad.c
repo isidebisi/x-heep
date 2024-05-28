@@ -34,8 +34,8 @@
 #include "w_wad.h"
 #include "z_zone.h"
 
-#include "n_mem.h"
-#include "n_fs.h"
+//#include "n_mem.h"
+//#include "n_fs.h"
 
 static const iwad_t iwads[] =
 {

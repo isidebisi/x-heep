@@ -22,7 +22,7 @@
 #include "w_file.h"
 #include "z_zone.h"
 
-#include "ff.h"
+//#include "ff.h"
 
 typedef struct
 {

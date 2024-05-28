@@ -79,7 +79,7 @@
 
 #include "d_main.h"
 
-#include "n_fs.h"
+//#include "n_fs.h"
 #include "n_rjoy.h"
 
 //#include "nrf.h"
@@ -1768,10 +1768,11 @@ void D_DoomMain (void)
     PRINTF("I_GetTime T0: %d T1: %d Delta: %d\n", t_tick, t1_tick, t1_tick-t_tick);
     */
     
-
+/* X-HEEP COMMENT
     I_InitJoystick();
     I_InitSound(true);
     I_InitMusic();
+ X-HEEP COMMENT END*/
 
 /* NRFD-TODO:
     PRINTF ("NET_Init: Init network subsystem.\n");

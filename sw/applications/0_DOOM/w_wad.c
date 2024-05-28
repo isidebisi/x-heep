@@ -59,9 +59,9 @@ typedef PACKED_STRUCT (
 }) filelump_t;
 
 
-#include "n_fs.h"
-#include "n_qspi.h"
-#include "n_mem.h"
+//#include "n_fs.h"
+//#include "n_qspi.h"
+//#include "n_mem.h"
 
 
 extern int no_sdcard; //NRFD-NOTE: from main.c
@@ -81,7 +81,7 @@ filelump_t *filelumps;
 // Hash table for fast lookups
 static lumpindex_t *lumphash = NULL;
 
-N_FILE wad_file;
+//X-HEEP COMMENT: N_FILE wad_file;
 int first_lump_pos;
 
 /*
@@ -132,6 +132,12 @@ unsigned int W_LumpNameHash(const char *s)
 
 wad_file_t *W_AddFile (char *filename)
 {
+    wad_file_t *wad_file_data;
+    wad_file_data->path = "doom.wad";
+    wad_file_data->length = 4196366*2;
+    return wad_file_data;
+
+    /* X_HEEP COMMENT
     wadinfo_t header;
     lumpindex_t i;
     // wad_file_t *wad_file;
@@ -172,6 +178,7 @@ wad_file_t *W_AddFile (char *filename)
         ++filename;
     }
     */
+   /*X_HEEP COMMENT
 
     if (numlumps != 0) {
         I_Error("Only one wad file supported\n");
@@ -211,6 +218,7 @@ wad_file_t *W_AddFile (char *filename)
         M_ExtractFileBase (filename, fileinfo->name);
         numfilelumps = 1;
         */
+       /*X-HEEP COMMENT
     }
     else
     {
@@ -249,6 +257,7 @@ wad_file_t *W_AddFile (char *filename)
                 block_loc = block_next;
             }
             */
+           /*X-HEEP COMMENT
             
             if (data_mismatch) {
                 PRINTF("Uploading WAD data to QSPI flash memory..");
@@ -357,7 +366,7 @@ wad_file_t *W_AddFile (char *filename)
             numlumps += 1;
         }
         */
-
+/* X-HEEP COMMENT
         wad_file_data->path = filename;
         wad_file_data->length = file_size;
     }
@@ -384,7 +393,8 @@ wad_file_t *W_AddFile (char *filename)
 
 void *W_LumpDataPointer(lumpindex_t lump)
 {
-    return N_qspi_data_pointer(LONG(filelumps[lump].filepos));
+    //return N_qspi_data_pointer(LONG(filelumps[lump].filepos));
+    return WAD_START_ADDRESS + filelumps[lump].filepos;
 }
 
 //
@@ -544,25 +554,7 @@ void W_ReadLump(lumpindex_t lump, void *dest)
 
 void *W_CacheLumpNum(lumpindex_t lumpnum, int tag)
 {
-    byte *ptr;
 
-    if ((unsigned)lump >= numlumps)
-        I_Error("W_CacheLumpNum: %i >= numlumps", lump);
-
-    if (!lumpcache[lump])
-    {
-        // read the lump in
-        ptr = Z_Malloc(W_LumpLength(lump), tag, &lumpcache[lump]);
-        X_spi_read(WAD_START_ADDRESS + lumpinfo[lump].filepos, ptr, lumpinfo[lump].size);
-    }
-    else
-    {
-        Z_ChangeTag(lumpcache[lump], tag);
-    }
-
-    return lumpcache[lump];
-
-    /* X-HEEP Comment
     byte *result;
     // lumpinfo_t *lump;
 
@@ -593,7 +585,7 @@ void *W_CacheLumpNum(lumpindex_t lumpnum, int tag)
         }
     }
     */
-    // X_HEEP COMMENT: result = W_LumpDataPointer(lumpnum);
+    result = W_LumpDataPointer(lumpnum);
     // N_ldbg("W_CacheLumpNum: %.8s\n", lump->name);
 
     /* NRFD-EXCLUDE:
@@ -618,8 +610,8 @@ void *W_CacheLumpNum(lumpindex_t lumpnum, int tag)
         result = lump->cache;
     }
     */
-
-    // X_HEEP Comment: return result;
+   
+    return result;
 }
 
 

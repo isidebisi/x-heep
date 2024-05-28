@@ -46,6 +46,7 @@ static char *not_dedicated_options[] =
 
 static void CheckForClientOptions(void)
 {
+    /* X-HEEP Comment
     int i;
 
     for (i=0; not_dedicated_options[i] != NULL; ++i)
@@ -59,10 +60,12 @@ static void CheckForClientOptions(void)
                     not_dedicated_options[i]);
         }
     }
+    X-HEEP COMMENT END */
 }
 
 void NET_DedicatedServer(void)
 {
+    /* X-HEEP Comment
     CheckForClientOptions();
 
     NET_SV_Init();
@@ -74,5 +77,6 @@ void NET_DedicatedServer(void)
         NET_SV_Run();
         I_Sleep(10);
     }
+    X-HEEP COMMENT END */
 }
 

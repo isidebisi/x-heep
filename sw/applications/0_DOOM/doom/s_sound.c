@@ -591,6 +591,7 @@ void S_ResumeSound(void)
 
 void S_UpdateSounds(mobj_t *listener)
 {
+    /* X-HEEP COMMENT
     int                audible;
     int                cnum;
     int                volume;
@@ -656,7 +657,7 @@ void S_UpdateSounds(mobj_t *listener)
             }
         }
     }
-
+X-HEEP COMMENT END */
 }
 
 void S_SetMusicVolume(int volume)

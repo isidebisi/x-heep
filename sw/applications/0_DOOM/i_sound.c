@@ -115,6 +115,7 @@ static music_module_t *music_modules[] =
 static boolean SndDeviceInList(snddevice_t device, snddevice_t *list,
                                int len)
 {
+    /* X-HEEP COMMENT
     int i;
 
     for (i=0; i<len; ++i)
@@ -124,7 +125,7 @@ static boolean SndDeviceInList(snddevice_t device, snddevice_t *list,
             return true;
         }
     }
-
+X-HEEP COMMENT END */
     return false;
 }
 
@@ -133,6 +134,8 @@ static boolean SndDeviceInList(snddevice_t device, snddevice_t *list,
 
 static void InitSfxModule(boolean use_sfx_prefix)
 {
+    return;
+    /* X-HEEP COMMENT
     int i;
 
     sound_module = NULL;
@@ -148,7 +151,7 @@ static void InitSfxModule(boolean use_sfx_prefix)
                             sound_modules[i]->num_sound_devices))
         {
             // Initialize the module
-    */
+    *//*X-HEEP COMMENT
         if (1) { // NRFD-TODO: Setting?
             i = 0;
             if (sound_modules[i]->Init(use_sfx_prefix))
@@ -167,6 +170,8 @@ static void InitSfxModule(boolean use_sfx_prefix)
 
 static void InitMusicModule(void)
 {
+    return;
+    /* X-HEEP COMMENT
     int i;
 
     music_module = NULL;
@@ -188,7 +193,7 @@ static void InitMusicModule(void)
                 return;
             }
         }
-    }
+    } X-HEEP COMMENT END */
 }
 
 //
@@ -199,6 +204,7 @@ static void InitMusicModule(void)
 
 void I_InitSound(boolean use_sfx_prefix)
 {  
+    /* X-HEEP COMMENT
     boolean nosound, nosfx, nomusic;
 
     //!
@@ -252,11 +258,13 @@ void I_InitSound(boolean use_sfx_prefix)
             InitMusicModule();
         }
     // }
+    X-HEEP COMMENT END */
 
 }
 
 void I_ShutdownSound(void)
 {
+    /* X-HEEP COMMENT
     if (sound_module != NULL)
     {
         sound_module->Shutdown();
@@ -266,10 +274,13 @@ void I_ShutdownSound(void)
     {
         music_module->Shutdown();
     }
+    X-HEEP COMMENT END */
+
 }
 
 int I_GetSfxLumpNum(sfxinfo_t *sfxinfo)
 {
+    /* X-HEEP COMMENT
     if (sound_module != NULL) 
     {
         return sound_module->GetSfxLumpNum(sfxinfo);
@@ -278,10 +289,13 @@ int I_GetSfxLumpNum(sfxinfo_t *sfxinfo)
     {
         return 0;
     }
+    X-HEEP COMMENT END */
+    return 0;
 }
 
 void I_UpdateSound(void)
 {
+    /* X-HEEP COMMENT
     if (sound_module != NULL)
     {
         sound_module->Update();
@@ -291,10 +305,12 @@ void I_UpdateSound(void)
     {
         music_module->Poll();
     }
+    X-HEEP COMMENT END */
 }
 
 static void CheckVolumeSeparation(int *vol, int *sep)
 {
+    /* X-HEEP COMMENT
     if (*sep < 0)
     {
         *sep = 0;
@@ -312,19 +328,23 @@ static void CheckVolumeSeparation(int *vol, int *sep)
     {
         *vol = 127;
     }
+    X-HEEP COMMENT END */
 }
 
 void I_UpdateSoundParams(int channel, int vol, int sep)
 {
+    /* X-HEEP COMMENT
     if (sound_module != NULL)
     {
         CheckVolumeSeparation(&vol, &sep);
         sound_module->UpdateSoundParams(channel, vol, sep);
     }
+    X-HEEP COMMENT END */
 }
 
 int I_StartSound(sfxinfo_t *sfxinfo, int channel, int vol, int sep, int pitch)
 {
+    /* X-HEEP COMMENT
     if (sound_module != NULL)
     {
         CheckVolumeSeparation(&vol, &sep);
@@ -334,18 +354,23 @@ int I_StartSound(sfxinfo_t *sfxinfo, int channel, int vol, int sep, int pitch)
     {
         return 0;
     }
+    X-HEEP COMMENT END */
+    return 0;
 }
 
 void I_StopSound(int channel)
 {
+    /* X-HEEP COMMENT
     if (sound_module != NULL)
     {
         sound_module->StopSound(channel);
     }
+    X-HEEP COMMENT END */
 }
 
 boolean I_SoundIsPlaying(int channel)
 {
+    /* X-HEEP COMMENT
     if (sound_module != NULL)
     {
         return sound_module->SoundIsPlaying(channel);
@@ -354,14 +379,18 @@ boolean I_SoundIsPlaying(int channel)
     {
         return false;
     }
+    X-HEEP COMMENT END */
+    return false;
 }
 
 void I_PrecacheSounds(sfxinfo_t *sounds, int num_sounds)
 {
+    /* X-HEEP COMMENT
     if (sound_module != NULL && sound_module->CacheSounds != NULL)
     {
         sound_module->CacheSounds(sounds, num_sounds);
     }
+    X-HEEP COMMENT END */
 }
 
 void I_InitMusic(void)
@@ -375,30 +404,37 @@ void I_ShutdownMusic(void)
 
 void I_SetMusicVolume(int volume)
 {
+    /* X-HEEP COMMENT
     if (music_module != NULL)
     {
         music_module->SetMusicVolume(volume);
     }
+    X-HEEP COMMENT END */
 }
 
 void I_PauseSong(void)
 {
+    /* X-HEEP COMMENT
     if (music_module != NULL)
     {
         music_module->PauseMusic();
     }
+    X-HEEP COMMENT END */
 }
 
 void I_ResumeSong(void)
 {
+    /* X-HEEP COMMENT
     if (music_module != NULL)
     {
         music_module->ResumeMusic();
     }
+    X-HEEP COMMENT END */
 }
 
 void *I_RegisterSong(void *data, int len)
 {
+    /* X-HEEP COMMENT
     if (music_module != NULL)
     {
         return music_module->RegisterSong(data, len);
@@ -407,34 +443,42 @@ void *I_RegisterSong(void *data, int len)
     {
         return NULL;
     }
+    X-HEEP COMMENT END */
 }
 
 void I_UnRegisterSong(void *handle)
 {
+    /* X-HEEP COMMENT
     if (music_module != NULL)
     {
         music_module->UnRegisterSong(handle);
     }
+    X-HEEP COMMENT END */
 }
 
 void I_PlaySong(void *handle, boolean looping)
 {
+    /* X-HEEP COMMENT
     if (music_module != NULL)
     {
         music_module->PlaySong(handle, looping);
     }
+    X-HEEP COMMENT END */
 }
 
 void I_StopSong(void)
 {
+    /* X-HEEP COMMENT
     if (music_module != NULL)
     {
         music_module->StopSong();
     }
+    X-HEEP COMMENT END */
 }
 
 boolean I_MusicIsPlaying(void)
 {
+    /* X-HEEP COMMENT
     if (music_module != NULL)
     {
         return music_module->MusicIsPlaying();
@@ -443,6 +487,8 @@ boolean I_MusicIsPlaying(void)
     {
         return false;
     }
+    X-HEEP COMMENT END */
+    return false
 }
 
 void I_BindSoundVariables(void)

@@ -23,7 +23,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <errno.h>
-#include <assert.h>
+//#include <assert.h>
 
 #include "doom_config.h"
 
@@ -2091,7 +2091,7 @@ void M_BindIntVariable(char *name, int *location)
     default_t *variable;
 
     variable = GetDefaultForName(name);
-    assert(variable->type == DEFAULT_INT
+    CHECK(variable->type == DEFAULT_INT
         || variable->type == DEFAULT_INT_HEX
         || variable->type == DEFAULT_KEY);
 
@@ -2104,7 +2104,7 @@ void M_BindFloatVariable(char *name, float *location)
     default_t *variable;
 
     variable = GetDefaultForName(name);
-    assert(variable->type == DEFAULT_FLOAT);
+    CHECK(variable->type == DEFAULT_FLOAT);
 
     variable->location.f = location;
     variable->bound = true;
@@ -2115,7 +2115,7 @@ void M_BindStringVariable(char *name, char **location)
     default_t *variable;
 
     variable = GetDefaultForName(name);
-    assert(variable->type == DEFAULT_STRING);
+    CHECK(variable->type == DEFAULT_STRING);
 
     variable->location.s = location;
     variable->bound = true;

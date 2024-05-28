@@ -181,6 +181,7 @@ static boolean ValidSpriteLumpName(char *name)
 
 static sprite_frame_t *FindSpriteFrame(char *name, int frame)
 {
+
     sprite_frame_t *result;
     int i;
 
@@ -554,6 +555,7 @@ static void DoMerge(void)
 
 void W_PrintDirectory(void)
 {
+    /* X-HEEP COMMENT 
     unsigned int i, n;
 
     // debug
@@ -563,6 +565,7 @@ void W_PrintDirectory(void)
             putchar(lumpinfo[i]->name[n]);
         putchar('\n');
     }
+    X-HEEP COMMENT END*/
 }
 
 // Merge in a file by name

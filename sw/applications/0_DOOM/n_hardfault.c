@@ -30,8 +30,8 @@
  */
 
 
-#include <nrf.h>
-#include <nrf_delay.h>
+//#include <nrf.h>
+//#include <nrf_delay.h>
 
 #include "hardfault.h"
 

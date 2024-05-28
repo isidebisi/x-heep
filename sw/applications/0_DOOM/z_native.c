@@ -27,7 +27,7 @@
 #include "i_system.h"
 #include "doomtype.h"
 
-#include "n_mem.h"
+//#include "n_mem.h"
 
 #define ZONEID	0x1d4a11
 

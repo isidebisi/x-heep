@@ -40,7 +40,7 @@
 
 //#include "sdk_common.h"
 #include <stdint.h>
-#include "compiler_abstraction.h"
+//#include "compiler_abstraction.h"
 
 extern void HardFault_c_handler(uint32_t *);
 
@@ -49,7 +49,7 @@ void HardFault_Handler(void) __attribute__(( naked ));
 void HardFault_Handler(void)
 {
     
-    __ASM volatile(
+    asm volatile(
     "   tst lr, #4                              \n"
 
     /* PSP is quite simple and does not require additional handler */

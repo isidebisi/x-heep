@@ -51,7 +51,7 @@ void P_InitThinkers (void)
 
 
 
-#include "compiler_abstraction.h"
+//#include "compiler_abstraction.h"
 
 //
 // P_AddThinker
@@ -60,11 +60,11 @@ void P_InitThinkers (void)
 void P_AddThinker (thinker_t* thinker)
 {
     thinkercap.prev->next = thinker;
-    __ASM volatile("": : :"memory");
+    asm volatile("": : :"memory");
     thinker->next = &thinkercap;
-    __ASM volatile("": : :"memory");
+    asm volatile("": : :"memory");
     thinker->prev = thinkercap.prev;
-    __ASM volatile("": : :"memory");
+    asm volatile("": : :"memory");
     thinkercap.prev = thinker;
 }
 

@@ -40,11 +40,13 @@
 #include "z_zone.h"
 
 #include "x_buttons.h"
-#include "n_display.h"
+#include "x_display.h"
 //#include "n_uart.h"
 #include "n_rjoy.h"
 
-#include "FT810.h"
+//#include "FT810.h"
+
+#define DISPLAY_PALETTE_SIZE (256*4)
 
 static uint32_t pixel_format;
 
@@ -215,7 +217,7 @@ void I_GenerateEvents(void)
     if (joywait < I_GetTime())
     {
         joywait = 0;
-        N_rjoy_read();
+        //X-HEEP Comment:N_rjoy_read();
         // I_UpdateJoystick();
     }
 
@@ -252,6 +254,9 @@ void I_UpdateNoBlit (void)
 
 void I_WriteDisplayList(uint32_t pal_loc, uint32_t display_loc)
 {
+
+    X_Display_Draw_ScreenBuffer();
+    /* X-HEEP COMMENT
     dl_start();
 
     dl(FT810_CLEAR_COLOR_RGB(0x00, 0x00, 0x00));
@@ -300,6 +305,7 @@ void I_WriteDisplayList(uint32_t pal_loc, uint32_t display_loc)
     dl_end();
 
     N_display_dlswap_frame();
+    X-HEEP COMMENT END */
 }
 
 //
@@ -325,6 +331,8 @@ void I_FinishUpdate (void)
             I_VideoBuffer[ (SCREENHEIGHT-1)*SCREENWIDTH + i] = 0x0;
     }
 
+    X_Display_Draw_ScreenBuffer();
+/* X-HEEP COMMENT
     // Draw disk icon before blit, if necessary.
     // NRFD_TODO: V_DrawDiskIcon();
 
@@ -345,6 +353,8 @@ void I_FinishUpdate (void)
 
     // Restore background and undo the disk indicator, if it was drawn.
     // NRFD-TODO: V_RestoreDiskBackground();
+    X-HEEP COMMENT END */
+
 }
 
 
