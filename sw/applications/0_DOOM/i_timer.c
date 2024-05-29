@@ -88,7 +88,7 @@ void I_Sleep(int ms)
 
 void I_SleepUS(int us)
 {
-    void X_micro_delay(us)
+    X_micro_delay(us);
     //nrf_delay_us(us);
 }
 

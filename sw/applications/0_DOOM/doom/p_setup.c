@@ -1086,6 +1086,7 @@ P_SetupLevel
     W_Reload ();
 
     // find map name
+    /* X-HEEP COMMENT
     if ( gamemode == commercial)
     {
         if (map<10)
@@ -1101,6 +1102,7 @@ P_SetupLevel
         lumpname[3] = '0' + map;
         lumpname[4] = 0;
     }
+    X-HEEP COMMENT END */
 
     lumpnum = W_GetNumForName (lumpname);
         

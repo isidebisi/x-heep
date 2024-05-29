@@ -34,14 +34,13 @@
 // WADFILE I/O related stuff.
 //
 
-typedef struct lumpinfo_s lumpinfo_t;
 typedef int lumpindex_t;
 
 struct __attribute__((packed)) lumpinfo_s
 {
     char        name[8];
     // wad_file_t *wad_file; // NRFD
-    // int         position;
+    int         position;
     int         size;
     void       *cache;
 
@@ -49,6 +48,7 @@ struct __attribute__((packed)) lumpinfo_s
     // lumpindex_t next;
 };
 
+typedef struct lumpinfo_s lumpinfo_t;
 
 extern lumpinfo_t lumpinfo[];
 extern unsigned short numlumps;

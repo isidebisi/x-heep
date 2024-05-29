@@ -488,7 +488,7 @@ boolean I_MusicIsPlaying(void)
         return false;
     }
     X-HEEP COMMENT END */
-    return false
+    return false;
 }
 
 void I_BindSoundVariables(void)

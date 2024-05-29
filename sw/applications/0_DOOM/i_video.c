@@ -42,7 +42,7 @@
 #include "x_buttons.h"
 #include "x_display.h"
 //#include "n_uart.h"
-#include "n_rjoy.h"
+//#include "n_rjoy.h"
 
 //#include "FT810.h"
 

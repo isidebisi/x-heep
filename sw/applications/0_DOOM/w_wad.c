@@ -73,7 +73,7 @@ extern int no_sdcard; //NRFD-NOTE: from main.c
 
 // Location of each lump on disk.
 #define MAX_NUMLUMPS 1300
-// lumpinfo_t lumpinfo[MAX_NUMLUMPS];
+lumpinfo_t lumpinfo[MAX_NUMLUMPS];
 unsigned short numlumps = 0;
 
 filelump_t *filelumps;
@@ -507,7 +507,7 @@ void W_ReadLump(lumpindex_t lump, void *dest)
         I_Error ("W_ReadLump: %i >= numlumps", lump);
     }
 
-    read_flash(WAD_START_ADDRESS + lumpinfo[lump].filepos, dest, lumpinfo[lump].size);
+    read_flash(WAD_START_ADDRESS + lumpinfo[lump].position, dest, lumpinfo[lump].size);
 
 
     // lumpinfo_t *l;

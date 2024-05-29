@@ -26,9 +26,13 @@
 #include "doomtype.h"
 #include "i_system.h"
 #include "m_misc.h"
-#include "w_merge.h"
+
+
 #include "w_wad.h"
+
 #include "z_zone.h"
+
+#include "w_merge.h"
 
 typedef enum 
 { 
@@ -386,6 +390,7 @@ static void GenerateSpriteList(void)
 
 static void DoMerge(void)
 {
+    /* X-HEEP COMMENT
     section_t current_section;
     lumpinfo_t **newlumps;
     int num_newlumps;
@@ -551,6 +556,8 @@ static void DoMerge(void)
     free(lumpinfo);
     lumpinfo = newlumps;
     numlumps = num_newlumps;
+
+    X-HEEP COMMENT END */
 }
 
 void W_PrintDirectory(void)

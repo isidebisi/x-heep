@@ -38,6 +38,7 @@ int __putchar(int ch, FILE * p_file)
 }
 #endif
 
+/* X-HEEP COMMENT
 int _write(int file, const char * p_char, int len)
 {
     int i;
@@ -49,10 +50,12 @@ int _write(int file, const char * p_char, int len)
     }
     return len;
 }
+X-HEEP COMMENT END */
 
+/* X-HEEP COMMENT
 int _read(int file, char * p_char, int len)
 {
     // UNUSED_PARAMETER(file);
     // TODO?
     return 1;
-}
+} X-HEEP COMMENT END */

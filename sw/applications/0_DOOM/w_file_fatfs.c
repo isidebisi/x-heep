@@ -24,11 +24,14 @@
 
 //#include "ff.h"
 
+/* X-HEEP COMMENT
 typedef struct
 {
     wad_file_t wad;
     FIL fstream;
 } fatfs_wad_file_t;
+X-HEEP COMMENT END */
+
 
 extern wad_file_class_t fatfs_wad_file;
 

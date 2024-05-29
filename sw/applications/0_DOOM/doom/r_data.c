@@ -348,15 +348,16 @@ void R_GenerateInit(int texture_storage_size)
     generate_to_flash = X_ButtonState(1);
 
     generate_buffer = (byte*)I_VideoBuffers;
-    store_loc = N_qspi_alloc_block();
+    //store_loc = N_qspi_alloc_block();
     PRINTF("R_GenerateInit: %d %d\n", store_loc, generate_to_flash);
 
+    /* X-HEEP COMMENT
     for (int ofs=0; ofs<texture_storage_size; ofs+=N_QSPI_BLOCK_SIZE) {
         if (generate_to_flash) {
             N_qspi_erase_block(store_loc+ofs);
         }
         N_qspi_alloc_block();
-    } 
+    } X-HEEP COMMENT END */
 }
 
 
