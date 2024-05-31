@@ -77,10 +77,11 @@ else
 	FLASHRWITE_BYTES = $(shell echo $(MAX_HEX_ADDRESS_DEC) + $(BYTES_AFTER_MAX_HEX_ADDRESS)*16 | bc)
 endif
 
+FLASHWIRTE_BYTES_DOOM_WAD = 0x800000
 
 #binary to store in flash memory
 FLASHWRITE_FILE = $(mkfile_path)/sw/build/main.hex
-FLASHDOOM_WAD_FILE = $(mkfile_path)/sw/applications/0_DOOM/doom.wad
+FLASHDOOM_WAD_FILE = $(mkfile_path)/sw/applications/0_DOOM/doomWad.hex
 
 # Export variables to sub-makefiles
 export
@@ -264,7 +265,8 @@ flash-prog:
 	./iceprog -a $(FLASHRWITE_BYTES) -d i:0x0403:0x6011 -I B $(FLASHWRITE_FILE);
 	
 flash-prog-doom: flash-prog
-	./iceprog -a $(FLASHRWITE_BYTES) -d i:0x0403:0x6011 -o 1024*1024 -I B $(FLASHDOOM_WAD_FILE);
+	cd sw/vendor/yosyshq_icestorm/iceprog; \
+	./iceprog -a $(FLASHWIRTE_BYTES_DOOM_WAD) -d i:0x0403:0x6011 -o 1M -I B $(FLASHDOOM_WAD_FILE);
 	
 
 ## Read the EPFL_Programmer flash
