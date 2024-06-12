@@ -29,7 +29,7 @@
 #include "m_random.h"
 #include "w_wad.h"
 
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "deh_misc.h"
 #include "doomdef.h"
 #include "doomkeys.h"

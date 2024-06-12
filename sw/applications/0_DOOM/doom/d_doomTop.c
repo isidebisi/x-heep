@@ -29,7 +29,7 @@
 #endif
 
 #include "doom_config.h"
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "doomdef.h"
 #include "doomstat.h"
 
@@ -39,7 +39,7 @@
 #include "d_iwad.h"
 
 #include "z_zone.h"
-#include "w_main.h"
+#include "w_doomTop.h"
 #include "w_wad.h"
 #include "s_sound.h"
 #include "v_diskicon.h"

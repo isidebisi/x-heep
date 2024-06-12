@@ -25,7 +25,7 @@
 #include "doomkeys.h"
 #include "doomstat.h"
 
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "deh_misc.h"
 
 #include "z_zone.h"
@@ -44,7 +44,7 @@
 #include "p_saveg.h"
 #include "p_tick.h"
 
-#include "d_main.h"
+#include "d_doomTop.h"
 
 #include "wi_stuff.h"
 #include "hu_stuff.h"

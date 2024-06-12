@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "doomdef.h"
 
 #include "z_zone.h"

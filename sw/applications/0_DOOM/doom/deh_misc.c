@@ -22,7 +22,7 @@
 #include "doomtype.h"
 #include "deh_defs.h"
 #include "deh_io.h"
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "deh_misc.h"
 
 // Dehacked: "Initial Health" 

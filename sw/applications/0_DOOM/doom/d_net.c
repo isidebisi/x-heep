@@ -19,7 +19,7 @@
 
 #include <stdlib.h>
 
-#include "d_main.h"
+#include "d_doomTop.h"
 #include "m_argv.h"
 #include "m_menu.h"
 #include "m_misc.h"
@@ -32,7 +32,7 @@
 #include "w_checksum.h"
 #include "w_wad.h"
 
-#include "deh_main.h"
+#include "deh_doomTop.h"
 
 #include "d_loop.h"
 

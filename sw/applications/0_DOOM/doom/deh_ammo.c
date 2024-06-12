@@ -23,7 +23,7 @@
 #include "doomtype.h"
 #include "deh_defs.h"
 #include "deh_io.h"
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "p_local.h"
 
 static void *DEH_AmmoStart(deh_context_t *context, char *line)

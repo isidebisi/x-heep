@@ -21,7 +21,7 @@
 #include <ctype.h>
 
 // Functions.
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "i_system.h"
 #include "i_swap.h"
 #include "z_zone.h"
@@ -30,7 +30,7 @@
 #include "s_sound.h"
 
 // Data.
-#include "d_main.h"
+#include "d_doomTop.h"
 #include "dstrings.h"
 #include "sounds.h"
 

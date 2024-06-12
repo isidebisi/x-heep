@@ -21,7 +21,7 @@
 #include "doomtype.h"
 
 #include "deh_defs.h"
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "deh_mapping.h"
 
 #include "info.h"

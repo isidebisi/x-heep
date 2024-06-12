@@ -24,7 +24,7 @@
 
 #include "deh_defs.h"
 #include "deh_io.h"
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "deh_mapping.h"
 
 DEH_BEGIN_MAPPING(state_mapping, state_t)

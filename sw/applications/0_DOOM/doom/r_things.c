@@ -26,7 +26,7 @@
 #include <strings.h>
 #endif
 
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "doomdef.h"
 
 #include "i_swap.h"

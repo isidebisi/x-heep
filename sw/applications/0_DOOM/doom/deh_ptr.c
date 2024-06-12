@@ -24,7 +24,7 @@
 
 #include "deh_defs.h"
 #include "deh_io.h"
-#include "deh_main.h"
+#include "deh_doomTop.h"
 
 static actionf_t codeptrs[NUMSTATES];
 

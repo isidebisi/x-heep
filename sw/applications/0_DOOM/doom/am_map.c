@@ -19,7 +19,7 @@
 
 #include <stdio.h>
 
-#include "deh_main.h"
+#include "deh_doomTop.h"
 
 #include "z_zone.h"
 #include "doomkeys.h"

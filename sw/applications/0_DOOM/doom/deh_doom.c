@@ -17,7 +17,7 @@
 
 #include <stdlib.h>
 #include "deh_defs.h"
-#include "deh_main.h"
+#include "deh_doomTop.h"
 
 char *deh_signatures[] =
 {
