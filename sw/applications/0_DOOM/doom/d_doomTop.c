@@ -77,10 +77,10 @@
 #include "statdump.h"
 
 
-#include "d_main.h"
+#include "d_doomTop.h"
 
 //#include "n_fs.h"
-#include "n_rjoy.h"
+//#include "n_rjoy.h"
 
 //#include "nrf.h"
 //#include "nrf_cache.h"
@@ -495,7 +495,7 @@ void D_DoomLoop (void)
     // nrf_cache_profiling_set(NRF_CACHE_S, 1);
     while (1)
     {
-        nrf_cache_profiling_counters_clear(NRF_CACHE_S);
+        //nrf_cache_profiling_counters_clear(NRF_CACHE_S);
         int frame_time = I_GetTimeRaw();
         frame_time_fps = I_RawTimeToFps(frame_time-frame_time_prev);
 

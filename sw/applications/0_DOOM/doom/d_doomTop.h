@@ -33,6 +33,8 @@ void D_ProcessEvents (void);
 //
 // BASE LEVEL
 //
+void D_DoomMain (void);
+
 void D_PageTicker (void);
 void D_PageDrawer (void);
 void D_AdvanceDemo (void);
