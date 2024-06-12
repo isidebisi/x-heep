@@ -19,7 +19,7 @@
 
 #include "z_zone.h"
 #include "doomdef.h"
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "p_local.h"
 #include "i_system.h"
 

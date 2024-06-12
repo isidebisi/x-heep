@@ -45,8 +45,7 @@
 #include "gpio.h"
 #include "x-heep.h"
 
-#include "x_buttons.h"
-#include "d_doomTop.h"
+
 /*
 #include "nrf.h"
 
@@ -56,7 +55,7 @@
 #include "n_uart.h"
 #include "n_qspi.h"
 #include "n_fs.h"
-
+#include "x_buttons.h"
 #include "n_rjoy.h"
 #include "n_i2s.h"
 
@@ -157,7 +156,7 @@ int main(int argc, char *argv[])
 
     //NRF_CACHE_S->ENABLE = 1;
 
-    //boot_net();
+    boot_net();
 
     //N_qspi_init();
 
@@ -171,7 +170,7 @@ int main(int argc, char *argv[])
 
     //M_ArgvInit();
 
-    //D_DoomMain();
+    D_DoomMain();
 
     while (1)
     {

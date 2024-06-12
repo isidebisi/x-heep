@@ -35,7 +35,7 @@ void NET_CL_Run(void)
     // This is here because the server code sometimes runs this 
     // to let the client do some processing if it needs to.
     // In a standalone dedicated server, we don't have a client.
-} X-HEEP COMMENT END */
+} X-HEEP COMMENT END 
 
 void D_DoomMain(void)
 {
@@ -44,5 +44,5 @@ void D_DoomMain(void)
     Z_Init();
 
     NET_DedicatedServer();
-}
+}*/
 

@@ -125,8 +125,8 @@ const int usemouse = 1;
 // The screen buffer; this is modified to draw things to the screen
 
 pixel_t *I_VideoBuffer; //[320*200];
-pixel_t *I_VideoBackBuffer; //[320*200];
-pixel_t I_VideoBuffers[2][320*200];
+//pixel_t *I_VideoBackBuffer; //[320*200];
+pixel_t I_VideoBuffers[320*200];
 
 uint8_t  display_pal[DISPLAY_PALETTE_SIZE];
 
@@ -331,6 +331,7 @@ void I_FinishUpdate (void)
             I_VideoBuffer[ (SCREENHEIGHT-1)*SCREENWIDTH + i] = 0x0;
     }
 
+    PRINTF("UPDATE SCREEN");
     X_Display_Draw_ScreenBuffer();
 /* X-HEEP COMMENT
     // Draw disk icon before blit, if necessary.
@@ -501,8 +502,8 @@ void I_InitGraphics(void)
     // I_WriteDisplayList(display_palette_locs[0], display_vbuffer_locs[0]);
     // I_WriteDisplayList(display_palette_locs[1], display_vbuffer_locs[1]);
 
-    I_VideoBuffer = I_VideoBuffers[1];
-    I_VideoBackBuffer = I_VideoBuffers[0];
+    I_VideoBuffer = I_VideoBuffers;
+    //I_VideoBackBuffer = I_VideoBuffers[0];
     initialized = true;
 }
 
@@ -536,6 +537,7 @@ void I_ClearVideoBuffer(void)
 {
     // N_display_spi_transfer_finish();
 
+/* X_HEEP COMMENT
     // Swap buffers
     if (I_VideoBuffer == I_VideoBuffers[0]) {
         I_VideoBuffer = I_VideoBuffers[1];
@@ -549,5 +551,6 @@ void I_ClearVideoBuffer(void)
 
     // for (int i=0; i<SCREENHEIGHT*SCREENWIDTH; i++) {
     //     I_VideoBuffer[i] = 251; // pink
-    // }
+    // 
+X-HEEP COMMENT END */
 }

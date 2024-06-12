@@ -32,8 +32,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern const uint32_t __HeapLimit;
-const uint32_t heapLimit = (uint32_t)&__HeapLimit;
+//extern const uint32_t __HeapLimit;
+
+//X-HEEP HARDCODED VALUE TODO: FIX
+#define X_HEEP_HEAP_LIMIT 128000
+const uint32_t heapLimit = (uint32_t)X_HEEP_HEAP_LIMIT;//&__HeapLimit;
 
 void *N_malloc(size_t size)
 {

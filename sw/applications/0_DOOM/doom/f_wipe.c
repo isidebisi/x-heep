@@ -53,7 +53,8 @@ wipe_shittyColMajorXform
     dpixel_t*	dest;
 
     // Use the back buffer temporarily for transform
-    dest = (dpixel_t*)I_VideoBackBuffer;//(dpixel_t*) Z_Malloc(width*height*sizeof(*dest), PU_STATIC, 0);
+    // ??? TODO: X-HEEP BELOW WAS VIDEOBACKBUFFER BEFORE
+    dest = (dpixel_t*)I_VideoBuffer;//(dpixel_t*) Z_Malloc(width*height*sizeof(*dest), PU_STATIC, 0);
 
     for(y=0;y<height;y++)
 	for(x=0;x<width;x++)

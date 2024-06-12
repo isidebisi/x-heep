@@ -23,7 +23,7 @@
 #include <strings.h>
 #endif
 
-#include "deh_main.h"
+#include "deh_doomTop.h"
 #include "i_swap.h"
 #include "i_system.h"
 #include "z_zone.h"
@@ -44,6 +44,7 @@
 //#include "n_qspi.h"
 
 #include "x_buttons.h"
+#include "x_spi.h"
 
 // NRFD-TODO: Check values for all supported games
 #define MAX_TEXTURES 125
@@ -379,7 +380,7 @@ void R_GenerateComposite_N (int num, texture_t *texture, char *patch_names)
     size_t texture_loc = store_loc;
     store_loc += texture_size;
 
-    texture->composite = N_qspi_data_pointer(texture_loc);
+    texture->composite = WAD_START_ADDRESS + texture_loc;//N_qspi_data_pointer(texture_loc);
 
     for (int i=0; i<texture_size; i++) {
         // NRFD-TODO: Verify that textures don't have 251 in them
