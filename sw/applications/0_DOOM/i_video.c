@@ -136,8 +136,8 @@ palette_pixel_t display_palette[256];
 static int current_dl;
 
 // Memory references for display driver memory
-static uint32_t display_vbuffer_locs[3]; // Frame buffer
-static uint32_t display_palette_locs[3]; // Pallette
+//static uint32_t display_vbuffer_locs[3]; // Frame buffer
+//static uint32_t display_palette_locs[3]; // Pallette
 
 // If true, game is running as a screensaver
 
@@ -490,12 +490,15 @@ void I_InitGraphics(void)
 {
     PRINTF("I_InitGraphics\n");
     N_display_init();
+    
+/* X-HEEP COMMENT
     display_palette_locs[0] = N_display_ram_alloc(DISPLAY_PALETTE_SIZE);
     display_palette_locs[1] = N_display_ram_alloc(DISPLAY_PALETTE_SIZE);
     display_palette_locs[2] = N_display_ram_alloc(DISPLAY_PALETTE_SIZE);
     display_vbuffer_locs[0] = N_display_ram_alloc(SCREENWIDTH*SCREENHEIGHT);
     display_vbuffer_locs[1] = N_display_ram_alloc(SCREENWIDTH*SCREENHEIGHT);
     display_vbuffer_locs[2] = N_display_ram_alloc(SCREENWIDTH*SCREENHEIGHT);
+X-HEEP COMMENT END */
 
     current_dl = 1;
 

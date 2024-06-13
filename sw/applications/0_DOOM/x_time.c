@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "csr_registers.h"
+#include "csr.h"
 #include "x_time.h"
 
 static uint32_t start_time_val, stop_time_val;

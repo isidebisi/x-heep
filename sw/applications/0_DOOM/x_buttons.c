@@ -79,6 +79,13 @@ int initGPIO(uint32_t gpio_tb)
 
 int X_ButtonStateRaw(int id)
 {
+    bool state;
+    gpio_read(gpio_tb[id], &state);
+    return !state; //inverse logic ! ! !
+}
+
+void X_ReadButtons(void)
+{
     static event_t event;
 
     for(uint8_t iter=0; iter<6; iter++)

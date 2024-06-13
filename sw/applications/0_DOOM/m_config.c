@@ -2091,10 +2091,14 @@ void M_BindIntVariable(char *name, int *location)
     default_t *variable;
 
     variable = GetDefaultForName(name);
-    CHECK(variable->type == DEFAULT_INT
-        || variable->type == DEFAULT_INT_HEX
-        || variable->type == DEFAULT_KEY);
-
+    //X-HEEP Change from assert to if else
+if (!(variable->type == DEFAULT_INT
+    || variable->type == DEFAULT_INT_HEX
+    || variable->type == DEFAULT_KEY)) {
+    // Handle the error here. This could be returning from the function,
+    // printing an error message, or anything else appropriate for your program.
+    return;
+}
     variable->location.i = location;
     variable->bound = true;
 }
