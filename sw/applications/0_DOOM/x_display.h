@@ -3,8 +3,8 @@
 
 
 void X_Display_init(void);
-void X_Display_Draw_ScreenBuffer(void);
-
+//void X_Display_Draw_ScreenBuffer(void);
+void X_Display_Draw_Screen_200x200(void);
 
 
 

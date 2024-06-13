@@ -507,7 +507,7 @@ void W_ReadLump(lumpindex_t lump, void *dest)
         I_Error ("W_ReadLump: %i >= numlumps", lump);
     }
 
-    read_flash(WAD_START_ADDRESS + lumpinfo[lump].position, dest, lumpinfo[lump].size);
+    X_spi_read(WAD_START_ADDRESS + lumpinfo[lump].position, dest, lumpinfo[lump].size);
 
 
     // lumpinfo_t *l;

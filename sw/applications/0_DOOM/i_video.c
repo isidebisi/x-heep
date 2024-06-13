@@ -255,7 +255,7 @@ void I_UpdateNoBlit (void)
 void I_WriteDisplayList(uint32_t pal_loc, uint32_t display_loc)
 {
 
-    X_Display_Draw_ScreenBuffer();
+    X_Display_Draw_Screen_200x200();
     /* X-HEEP COMMENT
     dl_start();
 
@@ -332,7 +332,7 @@ void I_FinishUpdate (void)
     }
 
     PRINTF("UPDATE SCREEN");
-    X_Display_Draw_ScreenBuffer();
+    X_Display_Draw_Screen_200x200();
 /* X-HEEP COMMENT
     // Draw disk icon before blit, if necessary.
     // NRFD_TODO: V_DrawDiskIcon();
@@ -489,7 +489,8 @@ void I_GraphicsCheckCommandLine(void)
 void I_InitGraphics(void)
 {
     PRINTF("I_InitGraphics\n");
-    N_display_init();
+    X_Display_init();
+    //N_display_init();
     
 /* X-HEEP COMMENT
     display_palette_locs[0] = N_display_ram_alloc(DISPLAY_PALETTE_SIZE);

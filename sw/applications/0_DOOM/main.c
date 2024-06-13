@@ -165,8 +165,9 @@ int main(int argc, char *argv[])
         //N_fs_init();
     }
 
-    //X_ButtonsInit();
-
+    X_ButtonsInit();
+    X_init_spi();
+    
     //N_I2S_init();
 
     //M_ArgvInit();

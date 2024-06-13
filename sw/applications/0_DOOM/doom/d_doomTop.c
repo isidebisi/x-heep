@@ -2006,9 +2006,10 @@ void D_DoomMain (void)
 
     // All data should've been copied, we can shut down file system to release memory
     // NRFD-TODO: Remove if save game is implemented
-    N_fs_shutdown();
+    //N_fs_shutdown();
 
-    N_rjoy_init(); 
+    //N_rjoy_init(); 
+    
 
     D_DoomLoop ();  // never returns
 }
