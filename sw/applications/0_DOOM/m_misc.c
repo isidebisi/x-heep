@@ -55,11 +55,13 @@ void M_MakeDirectory(char *path)
 
 boolean M_FileExists(char *filename)
 {
+    /* X-HEEP COMMENT : WE ARE NOT USING FILE SYSTEM
     if (N_fs_file_exists(filename)) {
         return true;
     } else {
         return false;
-    }
+    } X-HEEP COMMENT END */
+    return true;
 }
 
 // Check if a file exists by probing for common case variation of its filename.
