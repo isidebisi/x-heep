@@ -456,7 +456,10 @@ void R_GenerateComposite_N (int num, texture_t *texture, char *patch_names)
     }
 
     if (generate_to_flash) {
+        /* X-HEEP COMMENT
+         * X-HEEP TODO: SPI WRITE
         N_qspi_write(texture_loc, generate_buffer, texture_size);
+        */
     }
 }
 

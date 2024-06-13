@@ -454,6 +454,7 @@ static int Clamp(int x)
 void S_StartSound(void *origin_p, int sfx_id)
 {
 
+/* X-HEEP COMMENT
     sfxinfo_t *sfx;
     mobj_t *origin;
     int rc;
@@ -555,6 +556,7 @@ void S_StartSound(void *origin_p, int sfx_id)
     channels[cnum].pitch = pitch;
     channels[cnum].handle = I_StartSound(sfx, cnum, volume, sep, channels[cnum].pitch);
 
+X-HEEP COMMENT END */
 }
 
 //

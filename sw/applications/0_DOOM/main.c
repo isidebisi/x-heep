@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
 
     //M_ArgvInit();
 
-    //D_DoomMain();
+    D_DoomMain();
 
     while (1)
     {
