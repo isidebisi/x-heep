@@ -22,14 +22,14 @@
 #include "doomdef.h"
 #include "p_local.h"
 
-#include "s_sound.h"
+//#include "s_sound.h"
 
 // State.
 #include "doomstat.h"
 #include "r_state.h"
 #include "r_data.h"
 // Data.
-#include "sounds.h"
+//#include "sounds.h"
 
 
 //
@@ -209,8 +209,8 @@ void T_MoveFloor(floormove_t* floor)
 		      floor->floordestheight,
 		      floor->crush,0,floor->direction);
     
-    if (!(leveltime&7))
-	S_StartSound(SectorSoundOrg(floor->sector), sfx_stnmov);
+    //if (!(leveltime&7))
+	//S_StartSound(SectorSoundOrg(floor->sector), sfx_stnmov);
     
     if (res == pastdest)
     {
@@ -240,7 +240,7 @@ void T_MoveFloor(floormove_t* floor)
 	}
 	P_RemoveThinker(&floor->thinker);
 
-	S_StartSound(SectorSoundOrg(floor->sector), sfx_pstop);
+	//S_StartSound(SectorSoundOrg(floor->sector), sfx_pstop);
     }
 
 }

@@ -39,13 +39,13 @@
 
 #include "g_game.h"
 
-#include "s_sound.h"
+//#include "s_sound.h"
 
 // State.
 #include "r_state.h"
 
 // Data.
-#include "sounds.h"
+//#include "sounds.h"
 
 // NRFD-NOTE: ints changed to short in structs below
 
@@ -1170,7 +1170,7 @@ void P_UpdateSpecials (void)
                     side->bottomtexture = buttonlist[i].btexture;
                     break;
                 }
-                S_StartSound(&buttonlist[i].soundorg,sfx_swtchn);
+                //S_StartSound(&buttonlist[i].soundorg,sfx_swtchn);
                 memset(&buttonlist[i],0,sizeof(button_t));
             }
         }

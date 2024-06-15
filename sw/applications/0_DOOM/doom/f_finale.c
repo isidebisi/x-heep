@@ -27,12 +27,12 @@
 #include "z_zone.h"
 #include "v_video.h"
 #include "w_wad.h"
-#include "s_sound.h"
+//#include "s_sound.h"
 
 // Data.
 #include "d_doomTop.h"
 #include "dstrings.h"
-#include "sounds.h"
+//#include "sounds.h"
 
 #include "doomstat.h"
 #include "r_state.h"
@@ -113,15 +113,17 @@ void F_StartFinale (void)
     gamestate = GS_FINALE;
     viewactive = false;
     automapactive = false;
-
+/* X-HEEP COMMENT
     if (logical_gamemission == doom)
     {
         S_ChangeMusic(mus_victor, true);
     }
     else
     {
+        
         S_ChangeMusic(mus_read_m, true);
     }
+X-HEEP COMMENT END */
 
     // Find the right screen and set the text and background
 
@@ -210,8 +212,10 @@ void F_Ticker (void)
         finalecount = 0;
         finalestage = F_STAGE_ARTSCREEN;
         wipegamestate = -1;             // force a wipe
+/*X-HEEP COMMENT        
         if (gameepisode == 3)
             S_StartMusic (mus_bunny);
+X-HEEP COMMENT END */    
     }
 }
 
@@ -352,7 +356,7 @@ void F_StartCast (void)
     castframes = 0;
     castonmelee = 0;
     castattacking = false;
-    S_ChangeMusic(mus_evil, true);
+    //S_ChangeMusic(mus_evil, true);
 }
 
 
@@ -374,8 +378,10 @@ void F_CastTicker (void)
         castdeath = false;
         if (castorder[castnum].name == NULL)
             castnum = 0;
+/* X-HEEP COMMENT
         if (mobjinfo[castorder[castnum].type].seesound)
             S_StartSound (NULL, mobjinfo[castorder[castnum].type].seesound);
+X-HEEP COMMENT END */
         caststate = &states[mobjinfo[castorder[castnum].type].seestate];
         castframes = 0;
     }
@@ -389,6 +395,7 @@ void F_CastTicker (void)
         castframes++;
         
         // sound hacks....
+/* X-HEEP COMMENT
         switch (st)
         {
           case S_PLAY_ATK1:     sfx = sfx_dshtgn; break;
@@ -418,10 +425,10 @@ void F_CastTicker (void)
           case S_CYBER_ATK6:    sfx = sfx_rlaunc; break;
           case S_PAIN_ATK3:     sfx = sfx_sklatk; break;
           default: sfx = 0; break;
-        }
-                
+        }          
         if (sfx)
             S_StartSound (NULL, sfx);
+X-HEEP COMMENT END */    
     }
         
     if (castframes == 12)
@@ -480,9 +487,10 @@ boolean F_CastResponder (event_t* ev)
     casttics = caststate->tics;
     castframes = 0;
     castattacking = false;
-    if (mobjinfo[castorder[castnum].type].deathsound)
+/* X-HEEP COMMENT
+    objinfo[castorder[castnum].type].deathsound)
         S_StartSound (NULL, mobjinfo[castorder[castnum].type].deathsound);
-        
+X-HEEP COMMENT END */        
     return true;
 }
 
@@ -654,7 +662,7 @@ void F_BunnyScroll (void)
         stage = 6;
     if (stage > laststage)
     {
-        S_StartSound (NULL, sfx_pistol);
+        //S_StartSound (NULL, sfx_pistol);
         laststage = stage;
     }
         

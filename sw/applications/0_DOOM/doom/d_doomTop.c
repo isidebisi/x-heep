@@ -34,14 +34,14 @@
 #include "doomstat.h"
 
 #include "dstrings.h"
-//NRFD-TODO: //#include "sounds.h"
+//NRFD-TODO: ////#include "sounds.h"
 
 #include "d_iwad.h"
 
 #include "z_zone.h"
 #include "w_doomTop.h"
 #include "w_wad.h"
-#include "s_sound.h"
+//#include "s_sound.h"
 #include "v_diskicon.h"
 #include "v_video.h"
 
@@ -344,7 +344,7 @@ void D_Display (void)
         {
             nowtime = I_GetTime ();
             tics = nowtime - wipestart;
-            I_UpdateSound(); // NRFD-NOTE: Reduce sound glitches during wipes
+            //I_UpdateSound(); // NRFD-NOTE: Reduce sound glitches during wipes
             I_Sleep(1);
         } while (tics <= 0);
         wipestart = nowtime;
@@ -353,7 +353,7 @@ void D_Display (void)
         I_UpdateNoBlit ();
         M_Drawer ();                            // menu is drawn even on top of wipes
         I_FinishUpdate ();                      // page flip or blit buffe
-        I_UpdateSound(); // NRFD-NOTE: Reduce sound glitches during wipes
+        //I_UpdateSound(); // NRFD-NOTE: Reduce sound glitches during wipes
 
     } while (!done);
 }
@@ -384,7 +384,7 @@ void D_BindVariables(void)
     I_BindInputVariables();
     I_BindVideoVariables();
     I_BindJoystickVariables();
-    I_BindSoundVariables();
+    //I_BindSoundVariables();
 
     M_BindBaseControls();
     M_BindWeaponControls();
@@ -403,8 +403,8 @@ void D_BindVariables(void)
 
     // NRFD-TODO: mouse
     // M_BindIntVariable("mouse_sensitivity",      &mouseSensitivity);
-    M_BindIntVariable("sfx_volume",             &sfxVolume);
-    M_BindIntVariable("music_volume",           &musicVolume);
+    //M_BindIntVariable("sfx_volume",             &sfxVolume);
+    //M_BindIntVariable("music_volume",           &musicVolume);
     // M_BindIntVariable("show_messages",          &showMessages);
     // M_BindIntVariable("screenblocks",           &screenblocks);
     // M_BindIntVariable("detaillevel",            &detailLevel);
@@ -614,10 +614,12 @@ void D_DoAdvanceDemo (void)
             pagetic = 170;
         gamestate = GS_DEMOSCREEN;
         pagename = DEH_String("TITLEPIC");
+/* X-HEEP COMMENT
         if ( gamemode == commercial )
-          S_StartMusic(mus_dm2ttl);
+          //S_StartMusic(mus_dm2ttl);
         else
-          S_StartMusic (mus_intro);
+          //S_StartMusic (mus_intro);
+X-HEEP COMMENT END */
         break;
       case 1:
         G_DeferedPlayDemo(DEH_String("demo1"));
@@ -636,7 +638,7 @@ void D_DoAdvanceDemo (void)
         {
             pagetic = TICRATE * 11;
             pagename = DEH_String("TITLEPIC");
-            S_StartMusic(mus_dm2ttl);
+            //S_StartMusic(mus_dm2ttl);
         }
         else
         {
@@ -1928,7 +1930,7 @@ void D_DoomMain (void)
     P_Init ();
 
     DEH_printf("S_Init: Setting up sound.\n");
-    S_Init (sfxVolume * 8, musicVolume * 8);
+    //S_Init (sfxVolume * 8, musicVolume * 8);
 
     DEH_printf("D_CheckNetGame: Checking network game status.\n");
     D_CheckNetGame ();

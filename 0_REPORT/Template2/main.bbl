@@ -1,0 +1,38 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{adafruitwebsite}{online}{}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{title}{Adafruit}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://learn.adafruit.com/adafruit-1-3-color-tft-bonnet-for-raspberry-pi
+      \endverb
+      \verb{url}
+      \verb https://learn.adafruit.com/adafruit-1-3-color-tft-bonnet-for-raspberry-pi
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

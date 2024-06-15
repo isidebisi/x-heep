@@ -46,7 +46,7 @@
 #include "am_map.h"
 #include "m_cheat.h"
 
-#include "s_sound.h"
+//#include "s_sound.h"
 
 // Needs access to LFB.
 #include "v_video.h"
@@ -56,7 +56,7 @@
 
 // Data.
 #include "dstrings.h"
-#include "sounds.h"
+//#include "sounds.h"
 
 //
 // STATUS BAR DATA
@@ -538,7 +538,7 @@ ST_Responder (event_t* ev)
        && gameversion >= exe_doom_1_8)
             plyr->message = DEH_String(STSTR_NOMUS);
           else
-            S_ChangeMusic(musnum, 1);
+            //S_ChangeMusic(musnum, 1);
         }
         else
         {
@@ -547,7 +547,7 @@ ST_Responder (event_t* ev)
           if (((buf[0]-'1')*9 + buf[1]-'1') > 31)
             plyr->message = DEH_String(STSTR_NOMUS);
           else
-            S_ChangeMusic(musnum, 1);
+            //S_ChangeMusic(musnum, 1);
         }
       }
       else if ( (logical_gamemission == doom 

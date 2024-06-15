@@ -59,11 +59,11 @@
 
 #include "p_local.h"
 
-#include "s_sound.h"
+//#include "s_sound.h"
 
 // Data.
 #include "dstrings.h"
-#include "sounds.h"
+//#include "sounds.h"
 
 // SKY handling - still the wrong place.
 #include "r_data.h"
@@ -1045,10 +1045,12 @@ void G_Ticker (void)
                 {
                   case BTS_PAUSE:
                     paused ^= 1;
+/* X-HEEP COMMENT                    
                     if (paused)
                         S_PauseSound ();
                     else
                         S_ResumeSound ();
+X-HEEP COMMENT END */
                     break;
                   // NRFD-TODO: save game
                     /*
@@ -1287,9 +1289,10 @@ G_CheckSpot
                          ss->sector->floorheight, MT_TFOG);
     }
 
+/* X-HEEP COMMENT    
     if (players[consoleplayer].viewz != 1)
         S_StartSound (mo, sfx_telept);  // don't start sound on first frame
-
+X-HEEP COMMENT END */
     return true;
 }
 
@@ -1819,7 +1822,7 @@ G_InitNew
     if (paused)
     {
         paused = false;
-        S_ResumeSound ();
+        //S_ResumeSound ();
     }
 
 
