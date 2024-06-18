@@ -1,5 +1,5 @@
 
-\documentclass[12pt,twoside]{report}
+\documentclass[11pt,twoside]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
 \usepackage{graphicx}
@@ -18,10 +18,13 @@
 \usetikzlibrary{positioning}
 \usepackage{xcolor}
 \usepackage[newfloat]{minted}
+\usepackage{fancyvrb}
 \usepackage{listings}
 \usepackage{subcaption}
 \usepackage{fancyhdr}
 %\pagestyle{fancy}
+
+\setcounter{secnumdepth}{2}
 
 \definecolor{mGreen}{rgb}{0,0.6,0}
 \definecolor{mGray}{rgb}{0.5,0.5,0.5}
@@ -67,16 +70,14 @@
 \chapter{Introduction}
 \input{chapters/Introduction}
 
-\chapter{X-HEEP and HEEPocrates}
-\input{chapters/x_heep}
+\chapter{Background and Research}
+\input{chapters/Background}
 
-\chapter{DOOM on embedded systems}
-\input{chapters/doomOnESD}
 
-\chapter{Display and Joystick}
+\chapter{Peripheral Implementation}
 \input{chapters/Display} 
 
-\chapter{Porting DOOM on X-HEEP}
+\chapter{Porting DOOM to X-HEEP}
 \input{chapters/PortingDOOM}
 
 \chapter{Future Work}

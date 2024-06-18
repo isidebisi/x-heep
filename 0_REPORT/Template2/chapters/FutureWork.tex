@@ -1,0 +1,9 @@
+As DOOM is not yet working neither on FPGA emulation, nor HEEPocrates, the project is not yet complete. There are still a few things ahead. \\
+
+1. Solve the errors mentioned in the end of the last chapter. \\
+2. Debug all arising problems on FPGA and then test performance on FPGA.
+3. Research if ST7789 supports paletted mode. If yes implement it. Then the spi transfer could be handled by the DMA for the whole image at once as no paletted color to RGB565 conversion is needed.
+4. Optimize RAM usage further to make it available on HEEPocrates. If flash\_load mode is too big and flash\_exec doesn't work with data and code on the same flash: try adding a separate flash with the data stored if 3 SPI devices are supported.
+5. Once DOOM works on HEEPocrates, enjoy a nice round of the demo level.
+6. Create an internet meme of you running DOOM on a device that was not made for it initially.
+7. Create a testbench to test code performance.

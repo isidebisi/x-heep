@@ -90,22 +90,71 @@ The second optimization was to delete the ST7789 screenbuffer and do the convers
 This reduced the RAM usage of screenbuffers by 141 kB to 63 kB.
 
 
-\paragraph{Augment RAM on FPGA:} The first step was to unblock all the available memory banks available on the FPGA. There are 16 memory banks with 32kB each, which result to 512kB of total available memory, divided in \texttt{ram0} for code and \texttt{ram1} for data. After that it was a question of finding the right divider between the two memories. This can be done in \texttt{configs/general.hjson} on line 17 and 21. The final value on those lines is \texttt{0x000053000}.
+\paragraph{Augment RAM on FPGA:} The first step was to unblock all the available memory banks available on the FPGA. There are 16 memory banks with 32kB each, which result to 512kB of total available memory, divided in \texttt{ram0} for code and \texttt{ram1} for data. After that it was a question of finding the right divider between the two memories. This can be done in \texttt{configs/general.hjson} on line 17 and 21. The final value, that made it compile is: \texttt{0x000053000}. The first 332kB are allocated to \texttt{ram0} and the other 180kB to \texttt{ram1}.
+
+\newpage
+
+\section{Where the project stands at the writing of the report}
+
+On June 17, 2024 the program ran for the first time. The display didn't work but there were at least some console outputs. There are still several problems that haven't been solved as of today, \today.
+
+\begin{figure}[!h]
+{\fontsize{9}{11}\selectfont
+\begin{Verbatim}[frame=single]
+----------------------------------
+UART Initialized
+---------------------------------
+X_SPI: init flash complete
+                            NRF Doom 0.1.0
+Z_Init: Init zone memory allocation daemon. 
+zone memory: Using native C allocator.
+V_Init: allocate screens.
+M_LoadDefaults: Load system defaults.
+NRFD-TODO: I_BindInputVariables
+NRFD-TODO: I_BindJoystickVariables
+NRFD-TODO: M_BindStrifeControls
+NRFD-TODO: M_BindWeaponControls
+NRFD-TODO: M_BindMapControls
+NRFD-TODO: M_BindMenuControls
+NRFD-TODO: M_BindChatControls
+NRFD-TODO: NET_BindVariables
+NRFD-TODO: LoadDefaultCollection
+NRFD-TODO: LoadDefaultCollection
+WAD File: doom.wad
+W_Init: Init WADfiles.
+ adding doom.wad
+W_CheckCorrectIWAD
+D_IdentifyVersion
+InitGameVersion
+NRFD-TODO: game detect
+Game version: 
+Emulating the behavior of the 'Doom 1.9' executable.
+NRDF-TODO? W_GenerateHashTable
+D_SetGameDescription
+NRFD-TODO: M_GetSaveGameDir
+===========================================================================
+                            DOOM Shareware
+===========================================================================
+ NRF Doom is free software, covered by the GNU General Public
+ License.  There is NO warranty; not even for MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. You are welcome to change and distribute
+ copies under certain conditions. See the source for more information.
+===========================================================================
+I_Init: Setting up machine state.
+M_Init: Init miscellaneous info.
+R_Init: Init DOOM refresh daemon
+R_InitTextures
+W_GetNumForName: PNAMES not found!
+\end{Verbatim}
+}
+\caption{Output when DOOM is run on X-HEEP emulated on FPGA in mode \texttt{flash\_exec}}
+\label{fig:cutecomOutput}
+\end{figure}
+
+\paragraph{Flash\_load instead of Flash\_exec:} The program compiles for both linker options \texttt{flash\_load} and \texttt{flash\_exec}. Only the latter linker option, however, gives some output when launched. The \texttt{flash\_load} option shows no sign of life. \\
+
+\paragraph{SPI Flash Interface:} The interface to get level data from the flash doesn't seem to work. An example program has been created under \texttt{x-heep/sw/applications/0\_DOOM\_TEST} to further investigate this issue. One reason for that is that DOOM only reacts on \texttt{flash\_exec}, but the \texttt{example\_spi\_read} program explicitely states, that the read function doesn't work in this mode. This means that either the previous problem needs to be fixed or a workaround has to be found to make it work. \\
 
 
 
-
-
-
-\textbf{TODO:} 
-
-Explaining the whole process of porting doom. \\
-
-mostly talking about:\\
-
-1. Talking about clock speed limitations and RAM limitations. \\
-2. Keeping WAD file in flash instead of loading it into the RAM. \\
-3. All of the interface files adaptations. \\
-4. Memory optimizations. \\
-5. Encountert errors, where I'm at. \\
 
