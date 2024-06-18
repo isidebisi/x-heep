@@ -1,0 +1,16 @@
+# Ignore build files and formats for LaTeX compilation
+*.aux
+*.log
+*.synctex.gz
+*.pdf
+*.dvi
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.bbl
+*.blg
+*.lot
+*.lof
+*.gz
+*.bbl-SAVE-ERROR
