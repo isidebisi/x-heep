@@ -21,11 +21,7 @@ void X_Display_init(void)
     ST7789_spi_init();
     ST7789_display_init();
 
-    uint16_t x = 0;
-    uint16_t y = 0;
-    uint16_t color = 0xA000;
-
-    ST7789_test_fill_screen(0x8000);
+    ST7789_test_fill_screen(0xFFFF);
 }
 
 /* X-HEEP COMMENT to reduce size

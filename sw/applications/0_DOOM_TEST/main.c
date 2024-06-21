@@ -78,103 +78,54 @@
     #define PRINTF(...)
 #endif
 
+#define WAD_START_ADDRESS 1024*1024
 
-int no_sdcard = 1;
 
-//void D_DoomMain (void);
-//void M_ArgvInit(void);
+#include "x-heep.h"
+#include "w25q128jw.h"
 
-/*
-void MWU_IRQHandler(void)
+spi_host_t spi_flash;
+
+
+//public function definitions
+void X_init_spi()
 {
-    PRINTF("!!!!!!Stack or Heap Overflow!!!!!!: %d %d %d %d\n", 
-            (int)NRF_MWU->EVENTS_REGION[0].WA, 
-            (int)NRF_MWU->EVENTS_REGION[0].RA, 
-            (int)NRF_MWU->EVENTS_REGION[1].WA, 
-            (int)NRF_MWU->EVENTS_REGION[1].RA);
-    NRF_MWU->EVENTS_REGION[0].WA = 0;
-    NRF_MWU->EVENTS_REGION[0].RA = 0;
-    NRF_MWU->EVENTS_REGION[1].WA = 0;
-    NRF_MWU->EVENTS_REGION[1].RA = 0;
-}
+    int error = 0;
+    soc_ctrl_t soc_ctrl;
+    soc_ctrl.base_addr = mmio_region_from_addr((uintptr_t)SOC_CTRL_START_ADDRESS);
 
-*/
-
-void mwu_init()
-{
-    /*
-    NRF_MWU->REGION[0].START = 0x2003f000;
-    NRF_MWU->REGION[0].END   = 0x2003f100;
-    NRF_MWU->REGIONENSET = (1 << MWU_REGIONENSET_RGN0RA_Pos) | (1 << MWU_REGIONENSET_RGN0WA_Pos);
-    NRF_MWU->INTENSET = (1<<0) | (1<<1);
-    // NRF_MWU->NMIENSET = (1<<0) | (1<<1);
-
-    NRF_MWU->REGION[1].START = 0x2003f100;
-    NRF_MWU->REGION[1].END   = 0x2003f200;
-    NRF_MWU->REGIONENSET = (1 << MWU_REGIONENSET_RGN1RA_Pos) | (1 << MWU_REGIONENSET_RGN1WA_Pos);
-    NRF_MWU->INTENSET = (1<<2) | (1<<3);
-
-    NRFX_IRQ_ENABLE(nrfx_get_irq_number(NRF_MWU));
-    */
-}
-
-
-
-
-
-void boot_net()
-{
-    /*
-    PRINTF("Booting NetMCU\n");
-
-    // Network owns 30/31 (LED3/4)
-    nrf_gpio_pin_mcu_select(LED_PIN_3, NRF_GPIO_PIN_MCUSEL_NETWORK);
-    nrf_gpio_pin_mcu_select(LED_PIN_4, NRF_GPIO_PIN_MCUSEL_NETWORK);
-
-    // Hand over UART GPIOs to NetMcu
-    nrf_gpio_pin_mcu_select(LED_PIN_3, NRF_GPIO_PIN_MCUSEL_NETWORK);
-    nrf_gpio_pin_mcu_select(LED_PIN_4, NRF_GPIO_PIN_MCUSEL_NETWORK);
-
-    // Set NetMcu as secure
-    NRF_SPU_S->EXTDOMAIN[0].PERM = 2 | (1<<4);
-
-    // Wake up NetMcu
-    NRF_RESET_S->NETWORK.FORCEOFF = 0;
-*/
-}
-
-int main(int argc, char *argv[])
-{
-    //clock_initialization();
-
-    //N_uart_init();
-
-    PRINTF("\n\n");
-    PRINTF("----------------------------------\n");
-    PRINTF("UART Initialized\n");
-    PRINTF("---------------------------------\n");
-
-    //NRF_CACHE_S->ENABLE = 1;
-
-    boot_net();
-
-    //N_qspi_init();
-
-    if (!no_sdcard) {
-        //N_fs_init();
+        if ( get_spi_flash_mode(&soc_ctrl) == SOC_CTRL_SPI_FLASH_MODE_SPIMEMIO ) {
+        PRINTF("This application cannot work with the memory mapped SPI FLASH"
+            "module - do not use the FLASH_EXEC linker script for this application\n");
+        return EXIT_SUCCESS;
     }
 
-    //X_ButtonsInit();
-
-    //N_I2S_init();
-
-    //M_ArgvInit();
-
-    D_DoomMain();
-
-    while (1)
-    {
-        //__WFE();
-    }
+    
+    PRINTF("init1\n");
+    spi_flash.base_addr = mmio_region_from_addr((uintptr_t)SPI_HOST_START_ADDRESS);
+    PRINTF("init2\n");
+    error = w25q128jw_init(spi_flash);
+    PRINTF("init3 w25q128jw_init = %d\n", error);
+    X_test_read();
 }
 
+void X_spi_read(uint32_t address, uint32_t *data, uint32_t len)
+{
+    w25q128jw_read_standard(address, data, len);
+}
+
+//private function definitions
+void X_test_read()
+{
+    uint32_t data[4];
+    PRINTF("Reading data from WAD start address\n");
+    X_spi_read(WAD_START_ADDRESS, data, 4);
+    PRINTF("Data at WAD start address: %x %x %x %x\n", data[0], data[1], data[2], data[3]);
+}
+
+int main()
+{
+    PRINTF("Hello from DOOM!\n");
+    X_init_spi();
+    return 0;
+}

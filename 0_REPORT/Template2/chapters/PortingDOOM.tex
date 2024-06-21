@@ -1,7 +1,7 @@
-This chapter will go over the process of porting DOOM over to the X-HEEP platform. It describes the creation of interface files for peripherals, strategies for RAM optiization, encountered obstacles on the way and where the project is at on the day of writing the report. 
+This chapter will go over the process of porting DOOM over to the X-HEEP platform. It describes the creation of interface files for peripherals, strategies for RAM optimization, encountered obstacles on the way and the project's current status at the time of writing. 
 
-\section{X-HEEP's Limitations}
-There are two main metrics that can limit the gameplay of DOOM on X-HEEP (either for emulation on FPGA or for running on HEEPocrates).
+\section{DOOM Requirements}
+There are two main metrics that can limit the gameplay of DOOM on X-HEEP (either for emulation on FPGA or for running on HEEPocrates): The CPU clock speed and the RAM size.
 
 \begin{table}[ht]
     \centering
@@ -18,12 +18,13 @@ There are two main metrics that can limit the gameplay of DOOM on X-HEEP (either
     \label{table:systemPerformance}
 \end{table}
 
-Wheras the original game was playable on slower hardware, it became only fluid at a clock speed of 66 MHz and 8MB of RAM. It was recommended to be played on an Intel 486, Pentium, or Athlon processor. \cite{doomSystemRequirements}  \\
-The hardware used on X-HEEP is strongly lacking RAM. HEEPocrates, however, has a very high clock speed compared to the original requirements. It was expected that doom would run very slowly on the FPGA. That is not a problem, as it is only used to test the progress and the real benchmark should be performed on HEEPocrates.
+While the original game was playable on slower hardware, it became fluid only at a clock speed of 66 MHz and 8MB of RAM. It was recommended to be played on an Intel 486, Pentium, or Athlon processor \cite{doomSystemRequirements}. The hardware used on X-HEEP is significantly lacking in RAM. However, HEEPocrates has a very high clock speed compared to the original requirements. It was expected that DOOM would run very slowly on the FPGA. This is not a problem, as the FPGA is only used to test progress, and the real benchmark should be performed on HEEPocrates.
+
 
 \section{Interfacing Peripherals}
 
-This part of the project consisted of modifying Interface files for the following peripherals: \\
+This part of the project involved modifying interface files for the following peripherals: \\
+
 \begin{itemize}
    \item SPI Display
    \item GPIO buttons
@@ -32,20 +33,22 @@ This part of the project consisted of modifying Interface files for the followin
    \item Sound
 \end{itemize}
 
-All the interface files of the Nordic Doom project were named \texttt{n\_<name\_of\_interface>}. The project was already storing the \texttt{.wad} file on a flash and used an SPI display (but a different model). As no sound output was planned for this project, all the files and mentions to sound were deleted or commented from the code. \\
+All the interface files of the Nordic DOOM project were named \texttt{n\_<name\_of\_interface>}. The Nordic project was already storing the \texttt{.wad} file on flash instead of loading it all on the RAM, which worked to this project's advantage.
 
-\paragraph{Display:} A driver for the ST7789 SPI display has already been created in the steps before. This made the interfacing straight forward. The display needs to be initialized once and then fill the screen from a screenbuffer with RGB565 colors in every display update. The current screenbuffers hold paletted color values. Therefore a ST7789 screenbuffer was created that was filled with converted RGB565 values and then sent to the display. \\
+\paragraph{Display:} A driver for the ST7789 SPI display had already been created in previous steps. This made the interfacing straightforward. The display needs to be initialized once and then filled from a screen buffer with RGB565 colors in every display update. The current screen buffers hold paletted color values. Therefore, an ST7789 screen buffer was created, filled with converted RGB565 values, and then sent to the display.
 
-\paragraph{Buttons:} For this module, the Nordic interface (\texttt{n\_buttons.c}) was taken as a template and the GPIO initialization and read functions were replaced by X-HEEP functions. \\
+\paragraph{Buttons:} For this module, the Nordic interface (\texttt{n\_buttons.c}) was used as a template. The GPIO initialization and read functions were replaced by X-HEEP functions created in previous steps.
 
-\paragraph{Time:} The system time was a function that needed to get the current number of clock cyles performed. This has already been implemented for performance benchmarks in other example projects and has been copied to the interface file. There are no timer interrupts in DOOM.
-
-
-\paragraph{SPI Flash:} The SPI flash interface was inspired by the \texttt{example\_spi\_read} program in the X-HEEP repository \cite{xHeepRepo}. The programm is stored at the address 0 whereas the \texttt{.wad} file is stored at an offset of 1MB. The offset is added to all adresses of data read calls to the flash storage. A new Makefile command has been created to load the \texttt{.wad} file as a \texttt{.hex} file in the flash at an offset of 1MB: \\
+\paragraph{SPI Flash:} The SPI flash interface was inspired by the \texttt{example\_spi\_read} program in the X-HEEP repository \cite{xHeepRepo}. The program is stored at address 0, whereas the \texttt{.wad} file is stored at an offset of 1MB. The offset is added to all addresses of data read calls to the flash storage. A new Makefile command was created to load the \texttt{.wad} file as a \texttt{.hex} file in the flash at an offset of 1MB:
 \texttt{make flash-prog-doom} \\
 
+\paragraph{Time:} The system time function needed to get the current number of clock cycles performed. This had already been implemented for performance benchmarks in other example projects and was copied to the interface file. There are no timer interrupts in DOOM.
 
-To follow a coherent naming scheme, all the interface files of X-HEEP are called \texttt{x\_<name\_of\_interface>}: \\
+
+\paragraph{Sound:} Since no sound output was planned for this project, all the files and mentions to sound were deleted or commented out from the code.
+
+
+To maintain a coherent naming scheme, all the interface files for X-HEEP are called \texttt{x\_<name\_of\_interface>}:
 \begin{table}[ht]
 \centering
 \begin{tabular}{|c|c|c|}
@@ -70,91 +73,24 @@ To follow a coherent naming scheme, all the interface files of X-HEEP are called
 
 \section{Problems, Solutions, and Optimization}
 
-The first objective was to get the program to compile for the FPGA, even if it used too much RAM for HEEPocrates. From there on, the code can still be optimized further.
+The initial objective was to get the program to compile for the FPGA, even if it used too much RAM for HEEPocrates. From there, the code can still be optimized further.
 
 \subsection{RAM Usage}
 
-Even with the reduced RAM usage of loading the level data to the flash, the FPGA's RAM size was still too small (see figure \ref{fig:ramOverflowError}). \\
+Even with reduced RAM usage by loading the level data to flash, the FPGA's RAM size was still too small (see Figure \ref{fig:ramOverflowError}).
 
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{images/ramOverflowError.png}
-    \caption{Error message before the RAM usage was optimized}
+    \caption{Error message of RAM overflow before it was optimized}
     \label{fig:ramOverflowError}
 \end{figure}
 
-\paragraph{Screen Buffers:} The X-HEEP adapted system had 3 screenbuffers. Two of them were the videobuffer and backbuffer from the original DOOM at 320x200 pixels and paletted 8 bits per pixel. The third buffer was the one for the ST7789 with a size of 200x200 pixels but 16 bits per pixel for an RGB565 color format. These three screen buffers alone used 203 kB of RAM storage space. \\
-The first reduction was to delete the backbuffer. On the current version of the X-HEEP implementation the SPI transfer to the display is a blocking operation. The CPU sends pixel per pixel. This means that there is no need for a backbuffer as no new image can be drawn into a buffer while another image is drawn on the display. \\
-The second optimization was to delete the ST7789 screenbuffer and do the conversion from paletted colors to RGB565 colors on the fly. \\
-This reduced the RAM usage of screenbuffers by 141 kB to 63 kB.
+
+\paragraph{Screen Buffers:} The first iteration of DOOM adapted for X-HEEP had three screen buffers. Two of them were the video buffer and back buffer from the original DOOM, each 320x200 pixels and paletted 8 bits per pixel. While the video buffer is written on the display, the back buffer is filled with the next frame. When both operations are finished, the two buffers switch role. The third buffer was for the ST7789 with a size of 200x200 pixels but 16 bits per pixel for an RGB565 color format. These three screen buffers alone used 203 kB of RAM. The first optimization was to delete the back buffer. In the current version of the X-HEEP implementation, the SPI transfer to the display is a blocking operation, meaning the CPU sends pixels one by one. Hence, there is no need for a back buffer, as no new image can be drawn into a buffer while another image is being drawn on the display. The second optimization was to delete the ST7789 screen buffer and convert paletted colors to RGB565 colors on the fly. As the CPU is already blocked anyway, it can also do the conversion before sending a pixel. This reduced the RAM usage of screen buffers by 141 kB, leaving 63 kB.
 
 
-\paragraph{Augment RAM on FPGA:} The first step was to unblock all the available memory banks available on the FPGA. There are 16 memory banks with 32kB each, which result to 512kB of total available memory, divided in \texttt{ram0} for code and \texttt{ram1} for data. After that it was a question of finding the right divider between the two memories. This can be done in \texttt{configs/general.hjson} on line 17 and 21. The final value, that made it compile is: \texttt{0x000053000}. The first 332kB are allocated to \texttt{ram0} and the other 180kB to \texttt{ram1}.
-
-\newpage
-
-\section{Where the project stands at the writing of the report}
-
-On June 17, 2024 the program ran for the first time. The display didn't work but there were at least some console outputs. There are still several problems that haven't been solved as of today, \today.
-
-\begin{figure}[!h]
-{\fontsize{9}{11}\selectfont
-\begin{Verbatim}[frame=single]
-----------------------------------
-UART Initialized
----------------------------------
-X_SPI: init flash complete
-                            NRF Doom 0.1.0
-Z_Init: Init zone memory allocation daemon. 
-zone memory: Using native C allocator.
-V_Init: allocate screens.
-M_LoadDefaults: Load system defaults.
-NRFD-TODO: I_BindInputVariables
-NRFD-TODO: I_BindJoystickVariables
-NRFD-TODO: M_BindStrifeControls
-NRFD-TODO: M_BindWeaponControls
-NRFD-TODO: M_BindMapControls
-NRFD-TODO: M_BindMenuControls
-NRFD-TODO: M_BindChatControls
-NRFD-TODO: NET_BindVariables
-NRFD-TODO: LoadDefaultCollection
-NRFD-TODO: LoadDefaultCollection
-WAD File: doom.wad
-W_Init: Init WADfiles.
- adding doom.wad
-W_CheckCorrectIWAD
-D_IdentifyVersion
-InitGameVersion
-NRFD-TODO: game detect
-Game version: 
-Emulating the behavior of the 'Doom 1.9' executable.
-NRDF-TODO? W_GenerateHashTable
-D_SetGameDescription
-NRFD-TODO: M_GetSaveGameDir
-===========================================================================
-                            DOOM Shareware
-===========================================================================
- NRF Doom is free software, covered by the GNU General Public
- License.  There is NO warranty; not even for MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE. You are welcome to change and distribute
- copies under certain conditions. See the source for more information.
-===========================================================================
-I_Init: Setting up machine state.
-M_Init: Init miscellaneous info.
-R_Init: Init DOOM refresh daemon
-R_InitTextures
-W_GetNumForName: PNAMES not found!
-\end{Verbatim}
-}
-\caption{Output when DOOM is run on X-HEEP emulated on FPGA in mode \texttt{flash\_exec}}
-\label{fig:cutecomOutput}
-\end{figure}
-
-\paragraph{Flash\_load instead of Flash\_exec:} The program compiles for both linker options \texttt{flash\_load} and \texttt{flash\_exec}. Only the latter linker option, however, gives some output when launched. The \texttt{flash\_load} option shows no sign of life. \\
-
-\paragraph{SPI Flash Interface:} The interface to get level data from the flash doesn't seem to work. An example program has been created under \texttt{x-heep/sw/applications/0\_DOOM\_TEST} to further investigate this issue. One reason for that is that DOOM only reacts on \texttt{flash\_exec}, but the \texttt{example\_spi\_read} program explicitely states, that the read function doesn't work in this mode. This means that either the previous problem needs to be fixed or a workaround has to be found to make it work. \\
-
-
+\paragraph{Augment RAM on FPGA:} The next step was to unblock all available memory banks on the FPGA. There are 16 memory banks with 32 kB each, totaling 512 kB of available memory. By default only two memory banks are activated for a total of 64kB. The available memory is divided into \texttt{ram0} for code and \texttt{ram1} for data. Activating all 16 memory banks on the FPGA gave acess to the whole 512kB of memory. The correct division between the two memories was found by adjusting settings in \texttt{configs/general.hjson} on lines 17 and 21. The final value that made it compile is \texttt{0x000053000}. This divides the available space into two parts of 332 kB for \texttt{ram0}, and 180 kB for \texttt{ram1}.
 
 

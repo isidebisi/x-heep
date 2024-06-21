@@ -1,9 +1,14 @@
-As DOOM is not yet working neither on FPGA emulation, nor HEEPocrates, the project is not yet complete. There are still a few things ahead. \\
+As DOOM is not yet fully functional on either FPGA emulation or HEEPocrates, the project remains incomplete. The following is a step-by-step plan outlining the next phases of the project:
 
-1. Solve the errors mentioned in the end of the last chapter. \\
-2. Debug all arising problems on FPGA and then test performance on FPGA.
-3. Research if ST7789 supports paletted mode. If yes implement it. Then the spi transfer could be handled by the DMA for the whole image at once as no paletted color to RGB565 conversion is needed.
-4. Optimize RAM usage further to make it available on HEEPocrates. If flash\_load mode is too big and flash\_exec doesn't work with data and code on the same flash: try adding a separate flash with the data stored if 3 SPI devices are supported.
-5. Once DOOM works on HEEPocrates, enjoy a nice round of the demo level.
-6. Create an internet meme of you running DOOM on a device that was not made for it initially.
-7. Create a testbench to test code performance.
+
+\begin{enumerate}
+    \item \textbf{Resolve Current Errors:} Address and fix the errors mentioned at the end of the previous chapter (\ref{chapter:presentProjectState}).
+    \item \textbf{Debug New Issues on FPGA:} Identify and troubleshoot any new problems that arise during the FPGA testing phase.
+    \item \textbf{Test Performance on FPGA:} Once operational, evaluate the performance of DOOM on the FPGA. Due to the low clock frequency and the CPU-driven pixel-by-pixel screen update, performance is expected to be suboptimal.
+    \item \textbf{Optimize RAM Usage:} Further optimize RAM usage to ensure compatibility with HEEPocrates. If the problem with \texttt{flash\_load} mode hasn't been solved, explore the \texttt{flash\_exec} mode. If \texttt{flash\_exec} mode encounters issues with data and code residing on the same flash, consider adding a separate flash memory for data storage, provided that HEEPocrates supports three SPI devices.
+    \item \textbf{Validate DOOM on HEEPocrates:} Once DOOM is operational on HEEPocrates, conduct thorough testing and enjoy a playthrough of the demo level.
+    \item \textbf{Develop a Testbench:} Create a testbench to evaluate code performance. Identify bottlenecks and explore potential optimizations. It is likely that DOOM will still not run at its maximal framerate at this stage, as the CPU is responsible for transferring each pixel individually to the display.
+    \item \textbf{Optimize for \texttt{flash\_load} Mode:} If not previously achieved, implement \texttt{flash\_load} mode instead of \texttt{flash\_exec}. This transition is expected to significantly enhance performance, as HEEPocrates will no longer need to load each instruction from flash memory.
+    \item \textbf{Explore Paletted Mode on ST7789:} Investigate whether the ST7789 display supports a paletted mode. If available, this could improve performance by eliminating the need for on-the-fly conversion from 8-bit paletted colors to RGB565. This would also enable the use of DMA for screen transfers, freeing up valuable CPU cycles. However, this change would necessitate reintroducing the back buffer, increasing RAM usage.
+    \item \textbf{Contribute to Pop Culture:} Create an internet meme showcasing DOOM running natively on an unexpected device. This contributes to the ongoing pop culture trend of running DOOM on unconventional hardware and positions ESL and EPFL as leaders, inspiring other researchers and enthusiasts to accept similar challenges.
+\end{enumerate}

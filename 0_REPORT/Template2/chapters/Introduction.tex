@@ -1,9 +1,13 @@
-During the developement of HEEPocrates, the first ASIC implementation of the X-HEEP platform, some questions arose: What will the performance of HEEPocrates be? Does it run well? And most importantly: \textbf{Does it run DOOM ?} \\
-This project aims to answer these questions. There are several parts to the project: \\
+During the development of HEEPocrates, several critical questions emerged: What will the performance of HEEPocrates be? How well will it run various applications? And most compellingly: \textbf{Does it run DOOM?} \\
+
+This project aims to port DOOM to the X-HEEP platform, an energy-efficient RISC-V microcontroller. Originally released in 1993, DOOM has been adapted for many hardware platforms due to its iconic status and technical demands. The latest implementation of X-HEEP, the HEEPocrates ASIC, presents a modern and intruiging platform for this challenge. \\
+
+To achieve this, the project involves several key components: \\
+
 \begin{enumerate}
-\item Create a display driver to be able to output from a screenbuffer in X-HEEP.
-\item Port DOOM into the X-HEEP platform on FPGA by changing Interface files (video, sound, timers, SPI, etc.) and optimizing RAM usage.
-\item Optimize RAM usage even more to be able to run it on HEEPocrates itself.
+    \item Developing a display driver to enable output from a screen buffer in X-HEEP.
+    \item Porting DOOM to the X-HEEP platform on FPGA, involving modifications to interface files (video, sound, timers, SPI, etc.) and RAM optimization.
+    \item Further optimizing RAM usage to facilitate running DOOM on the HEEPocrates ASIC itself.
 \end{enumerate}
 
-
+This report details the progress made, the challenges encountered, and the future work necessary to fully realize DOOM on the X-HEEP platform.

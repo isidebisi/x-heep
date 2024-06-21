@@ -1,20 +1,28 @@
-This chapter will provide information about all background and research needed for the rest of the report concerning x-heep, HEEPocrates, PYNQ-Z2 FPGA and DOOM on Embedded Systems.
+This chapter provides essential background information for understanding the subsequent sections of the report, focusing on X-HEEP, HEEPocrates, PYNQ-Z2 FPGA, and the porting of DOOM to embedded systems.
 
 \section{X-HEEP and HEEPocrates}
 
-X-HEEP is a fully open-source RISC-V microcontroller. It stands for eXtendible Heterogeneous Energy Efficient Platform. The platform offers great configurability for lots of different hardware implementations. It can be fully simulated in software, virtualized in hardware using FPGAs and since 2024 it is implemented as ASIC under the HEEPocrates nametag. \cite{xHeepWebsite}
+X-HEEP is an open-source RISC-V microcontroller known as the eXtendible Heterogeneous Energy Efficient Platform. It offers extensive configurability for various hardware implementations. X-HEEP can be fully simulated in software, emulated using FPGAs, and since 2024, implemented as an ASIC known as HEEPocrates \cite{xHeepWebsite}.
 
-HEEPocrates is a 65nm ASIC implementtion of X-HEEP on silicon equipped with Ibex core, 256kB of SRAM and a few peripherals. is built with power efficiency in mind and was created for applications in the field of biomedical wearables. It can theoretically run at a clock speed of upto 470MHz. \cite{heepocratesWebsite}
+HEEPocrates is a 65nm ASIC implementation of X-HEEP equipped with an Ibex core, 256kB of SRAM, and several peripherals. Designed for power efficiency, it is particularly suitable for biomedical wearables due to its compact size (see Figure \ref{fig:HeepocratesMonnaie}) and low power consumption. The ASIC can operate at clock speeds of up to 470MHz \cite{heepocratesWebsite}.
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.48\textwidth]{images/HEEPocrates_monnaie.png}
+  \caption{HEEPocrates chip next to a 2 CHF coin}
+  \label{fig:HeepocratesMonnaie}
+\end{figure}
 
 \section{PYNQ-Z2 FPGA}
 
-X-HEEP is can be fully implemented on FPGA on the PYNQ-Z2 board. X-HEEP runs at 15MHz with upto 512 kB of RAM. This means that it has only around 1/30 of HEEPocrates' clock speed but twice the RAM.
+X-HEEP can be fully implemented on the PYNQ-Z2 FPGA board. The current prototyping of X-HEEP into this FPGA is running at 15MHz with up to 512 kB of RAM. Despite its lower clock speed compared to HEEPocrates, it offers twice the RAM capacity.
 
 \section{DOOM on Embedded Systems}
 
-The classic game DOOM was released in 1993 and rose quickly in popularity. It is famous for being one of first FPS (First Person Sooter)games and achieved big milestones with its DOOM Engine, capable of rendering 3D-Graphics of walls and floors that don't need to be aligned at 90-degree angles. 
-The source code was made open source together with a demo level. To unlock more levels you could buy the full game which comes with all the level files. The game works by separating the code from the game data. All the levels are stored in \texttt{.wad} files, which include sounds, textures, weapons, enemies, et cetera. When starting the game, it loads the level data into the RAM and lets the player play the selected level. The image is stored in a screenbuffer with backbuffer at a fixed resolution of 320x200 pixels. The original code of DOOM is for 32-bit CPUs, featuring no floating point variables and operations. This is good for this project, as X-HEEP runs on a 32-bit architecture with no support for floating point arithmetic.
+DOOM, released in 1993, revolutionized gaming as one of the first FPS (First Person Shooter) games. It introduced the DOOM Engine, capable of rendering 3D graphics with non-orthogonal walls and floors. The game's source code and a demo level were released as open source, allowing enthusiasts to modify and create new levels and port the game to various platforms. DOOM separates code from game data, with all levels stored in \texttt{.wad} files containing textures, sounds, and other game assets. During gameplay, level data is loaded into RAM, and graphics are rendered in a screen buffer with a fixed resolution of 320x200 pixels. The original DOOM code is optimized for 32-bit CPUs without floating-point operations, aligning well with X-HEEP's architecture.
 
-Since its renaissance with the trend of "Does it run DOOM?" it has been ported to many different platforms. There have been some ports to embedded devices, such as a version for the Nordic Semiconductor nRF5340 \cite{nordicDOOM} and embeddedDOOM \cite{embeddedDOOM}, a stripped down version for low RAM devices, which compiles and runs on Linux. EmbeddedDOOM would still use more RAM than available on the X-HEEP platform.
-For this project, the Nordic DOOM variant has been used as a template to port DOOM to X-HEEP. It already an implemented storing the WAD file on a flash memory and only loading data from it, when it was needed. This worked greatly in this project's favor, as it reduced RAM usage greatly. The level data is huge compared to the rest of the game size. The demo level, which is public, is the smallest level available and even that already has a size of  4.2MB.
+DOOM has become a cultural touchstone with the meme "Does it run DOOM?" inspiring communities to find new devices capable of running the game \cite{canItRunDOOM, redditDOOMCommunity}. \\
+
+Two notable ports include versions for the Nordic Semiconductor nRF5340 \cite{nordicDOOM} and EmbeddedDOOM \cite{embeddedDOOM}, a lightweight version optimized for low-RAM devices and running on Linux. The theoretical absolute minimum RAM requirement of EmbeddedDOOM is still 384kB, not counting the \texttt{.wad} file, which is still too much by a factor of 1.5 for HEEPocrates.
+
+For this project, the Nordic DOOM variant served as the foundation for porting DOOM to X-HEEP. Leveraging features like storing WAD files in flash memory and loading data on demand, significant reductions in RAM usage were achieved. Notably, even the smallest public demo level occupies 4.2MB of space.
